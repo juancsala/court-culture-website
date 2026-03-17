@@ -1,4 +1,4 @@
-import { LOGOS, LINKS } from '../assets'
+import { LINKS } from '../assets'
 
 const socialLinks = [
   {
@@ -36,17 +36,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-10">
-          {/* Logo */}
-          <div>
-            <img
-              src={LOGOS.mainWhite}
-              alt="Court Culture"
-              className="h-24 w-auto object-contain opacity-80"
-            />
-            <p className="text-white/30 font-sans font-light text-xs mt-3 tracking-widest uppercase">
-              Monterrey, México
-            </p>
-          </div>
+          <p className="text-white/30 font-sans font-light text-xs tracking-widest uppercase">
+            Monterrey, México
+          </p>
 
           {/* Social links */}
           <div className="flex items-center gap-6">
