@@ -36,7 +36,7 @@ export default function Community() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-cc-muted font-sans font-light text-sm leading-relaxed max-w-xs"
           >
-            Cada sesión termina igual: personas que llegaron sin conocerse y se van con ganas de volver.
+            Cada sesión termina igual: personas que llegaron sin conocerse y se van como amigos.
           </motion.p>
         </div>
 
