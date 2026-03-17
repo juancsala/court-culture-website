@@ -40,7 +40,7 @@ export default function Footer() {
             Monterrey, México
           </p>
 
-          {/* Social links */}
+          {/* Social links + email */}
           <div className="flex items-center gap-6">
             {socialLinks.map((link) => (
               <a
@@ -54,6 +54,15 @@ export default function Footer() {
                 {link.icon}
               </a>
             ))}
+            <a
+              href="mailto:courtculture.mx@gmail.com"
+              aria-label="Email"
+              className="text-white/40 hover:text-white transition-colors duration-200"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </a>
           </div>
         </div>
 
