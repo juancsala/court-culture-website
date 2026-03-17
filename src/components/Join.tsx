@@ -87,7 +87,7 @@ export default function Join() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-white/50 font-sans font-light text-base mt-6 max-w-md mx-auto leading-relaxed"
           >
-            Llega al evento, juega, quédate a convivir. La cancha es el pretexto — lo demás pasa solo.
+            Llega al evento, juega, quédate a convivir. La cancha es el pretexto, lo demás pasa solo.
           </motion.p>
         </div>
 

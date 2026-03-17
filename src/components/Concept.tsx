@@ -18,7 +18,7 @@ const pillarItems = [
   },
   {
     label: 'La convivencia es parte del plan.',
-    desc: 'Después de cada partido viene lo mejor — el after, las conversaciones y los momentos que se quedan.',
+    desc: 'Después de cada partido viene lo mejor: el after, las conversaciones y los momentos que se quedan.',
   },
 ]
 
@@ -88,7 +88,7 @@ export default function Concept() {
                 aria-hidden="true"
               />
               <p className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-8">
-                Esto es —
+                Esto es
               </p>
               <div className="space-y-6">
                 {[

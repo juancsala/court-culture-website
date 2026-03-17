@@ -14,7 +14,7 @@ const steps = [
   {
     number: '03',
     title: 'Juega, convive y quédate.',
-    description: 'Llega, conoce gente, disfruta el partido — y quédate a la convivencia después.',
+    description: 'Llega, conoce gente, disfruta el partido y quédate a la convivencia después.',
   },
 ]
 
