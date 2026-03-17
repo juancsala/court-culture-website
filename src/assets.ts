@@ -2,10 +2,10 @@
 // Update paths here if you rename or add files.
 
 export const LOGOS = {
-  main: '/Main%20Logo%20Png.png',
-  mainWhite: '/Main%20Logo%20Blanco%20Png.png',
-  emblem: '/Logo%20Corto%20Png.png',
-  emblemWhite: '/Logo%20Corto%20Blanco%20Png.png',
+  main: '/logo-main.png',
+  mainWhite: '/logo-main-white.png',
+  emblem: '/logo-emblem.png',
+  emblemWhite: '/logo-emblem-white.png',
 }
 
 export const PHOTOS = [
