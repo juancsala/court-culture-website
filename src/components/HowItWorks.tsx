@@ -3,18 +3,18 @@ import { motion } from 'framer-motion'
 const steps = [
   {
     number: '01',
-    title: 'Show up.',
-    description: 'No experience needed. No partner required. Just come as you are.',
+    title: 'Entérate del evento.',
+    description: 'Anunciamos cada sesión en redes. Síguenos para no perderte ninguna.',
   },
   {
     number: '02',
-    title: 'Play & connect.',
-    description: 'Hit balls, meet people, feel the energy. The court does the rest.',
+    title: 'Reserva tu cupo.',
+    description: 'Los lugares son limitados. Aparta el tuyo a tiempo y confirma tu asistencia.',
   },
   {
     number: '03',
-    title: 'Stay for more.',
-    description: 'After the match comes the real thing — conversations, laughs, and new friends.',
+    title: 'Juega, convive y quédate.',
+    description: 'Llega, conoce gente, disfruta el partido — y quédate a la convivencia después.',
   },
 ]
 
@@ -31,15 +31,15 @@ export default function HowItWorks() {
           className="mb-20"
         >
           <p className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-4">
-            How it works
+            Cómo funciona
           </p>
           <h2
             className="font-display text-cc-text leading-tight"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 300, fontStyle: 'italic' }}
           >
-            Three steps.
+            Tres pasos.
             <br />
-            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>That's all.</span>
+            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>Nada más.</span>
           </h2>
         </motion.div>
 

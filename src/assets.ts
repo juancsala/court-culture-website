@@ -9,14 +9,14 @@ export const LOGOS = {
 }
 
 export const PHOTOS = [
-  '/DSC04152.JPG',
-  '/DSC04191.JPG',
-  '/DSC04288.JPG',
-  '/DSC04422.JPG',
-  '/DSC04425.JPG',
-  '/DSC04496.JPG',
-  '/DSC04515.JPG',
-  '/DSC04525.JPG',
+  '/web/DSC04152.jpg',
+  '/web/DSC04191.jpg',
+  '/web/DSC04288.jpg',
+  '/web/DSC04422.jpg',
+  '/web/DSC04425.jpg',
+  '/web/DSC04496.jpg',
+  '/web/DSC04515.jpg',
+  '/web/DSC04525.jpg',
 ]
 
 // Assign specific photos to specific roles

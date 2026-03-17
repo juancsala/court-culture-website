@@ -7,10 +7,19 @@ const fadeUp = {
   viewport: { once: true, margin: '-100px' },
 }
 
-const notItems = [
-  { label: 'Not a club.', desc: 'No memberships, no exclusivity, no gatekeeping.' },
-  { label: 'Not a class.', desc: 'No coaching, no drills, no performance pressure.' },
-  { label: 'Not a tournament.', desc: 'No rankings, no competition, no ego.' },
+const pillarItems = [
+  {
+    label: 'Una comunidad abierta.',
+    desc: 'Para todos los niveles, de principiantes a avanzados. No importa tu nivel, importa tu actitud.',
+  },
+  {
+    label: 'Eventos y torneos recreativos.',
+    desc: 'Competencia sin presión. El objetivo es pasarla bien, conocer gente y disfrutar el juego.',
+  },
+  {
+    label: 'La convivencia es parte del plan.',
+    desc: 'Después de cada partido viene lo mejor — el after, las conversaciones y los momentos que se quedan.',
+  },
 ]
 
 export default function Concept() {
@@ -25,7 +34,7 @@ export default function Concept() {
             transition={{ duration: 0.8 }}
             className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-8"
           >
-            The concept
+            El concepto
           </motion.p>
           <motion.h2
             {...fadeUp}
@@ -33,18 +42,18 @@ export default function Concept() {
             className="font-display leading-tight text-balance"
             style={{ fontSize: 'clamp(2.8rem, 6vw, 5.5rem)', fontStyle: 'italic', fontWeight: 300 }}
           >
-            "Tennis is the excuse.
+            "El tennis es la excusa.
             <br />
-            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>Community is the reason."</span>
+            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>La comunidad es la razón."</span>
           </motion.h2>
         </div>
 
-        {/* NOT / THIS IS grid */}
+        {/* PILLARS / THIS IS grid */}
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
 
-          {/* Left: NOT column */}
+          {/* Left: pillars */}
           <div className="space-y-10">
-            {notItems.map((item, i) => (
+            {pillarItems.map((item, i) => (
               <motion.div
                 key={item.label}
                 {...fadeUp}
@@ -79,14 +88,14 @@ export default function Concept() {
                 aria-hidden="true"
               />
               <p className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-8">
-                This is —
+                Esto es —
               </p>
               <div className="space-y-6">
                 {[
-                  { num: '01', text: 'A place to show up.' },
-                  { num: '02', text: 'A court to play on.' },
-                  { num: '03', text: 'A reason to stay after.' },
-                  { num: '04', text: 'A community to belong to.' },
+                  { num: '01', text: 'Un lugar al que llegar.' },
+                  { num: '02', text: 'Una cancha para jugar.' },
+                  { num: '03', text: 'Una razón para quedarse.' },
+                  { num: '04', text: 'Una comunidad a la que pertenecer.' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.num}

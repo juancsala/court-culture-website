@@ -4,10 +4,10 @@ import { LOGOS, LINKS } from '../assets'
 const channels = [
   {
     id: 'whatsapp',
-    label: 'Join the community',
+    label: 'Únete a la comunidad',
     platform: 'WhatsApp',
-    description: 'Get invites to sessions, meet the crew, and stay in the loop.',
-    cta: 'Join WhatsApp Group',
+    description: 'Recibe invitaciones a sesiones, conoce al equipo y mantente al tanto.',
+    cta: 'Unirse al grupo',
     href: LINKS.whatsapp,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -17,10 +17,10 @@ const channels = [
   },
   {
     id: 'instagram',
-    label: 'Follow the lifestyle',
+    label: 'Sigue el estilo de vida',
     platform: 'Instagram',
-    description: 'Behind the scenes, session highlights, and the daily culture.',
-    cta: 'Follow on Instagram',
+    description: 'Detrás de cámaras, highlights de sesiones y la cultura del día a día.',
+    cta: 'Seguir en Instagram',
     href: LINKS.instagram,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -30,10 +30,10 @@ const channels = [
   },
   {
     id: 'tiktok',
-    label: 'Watch the culture',
+    label: 'Mira la cultura',
     platform: 'TikTok',
-    description: 'Short form content from the courts. Real moments, real people.',
-    cta: 'Follow on TikTok',
+    description: 'Contenido corto desde las canchas. Momentos reales, personas reales.',
+    cta: 'Seguir en TikTok',
     href: LINKS.tiktok,
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -66,7 +66,7 @@ export default function Join() {
             transition={{ duration: 0.8 }}
             className="text-white/40 text-xs tracking-widest uppercase font-sans mb-6"
           >
-            Join the community
+            Únete a la comunidad
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -76,9 +76,9 @@ export default function Join() {
             className="font-display text-white leading-tight"
             style={{ fontSize: 'clamp(3rem, 7vw, 6.5rem)', fontStyle: 'italic', fontWeight: 300 }}
           >
-            Become part
+            Sé parte
             <br />
-            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>of it.</span>
+            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>de esto.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -87,7 +87,7 @@ export default function Join() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-white/50 font-sans font-light text-base mt-6 max-w-md mx-auto leading-relaxed"
           >
-            Court Culture is a feeling you can't describe until you're in it. Come find out.
+            Llega al evento, juega, quédate a convivir. La cancha es el pretexto — lo demás pasa solo.
           </motion.p>
         </div>
 
@@ -110,23 +110,15 @@ export default function Join() {
               <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative z-10">
-                <div className="flex items-start justify-between mb-8">
-                  <div className="text-white/60 group-hover:text-white transition-colors duration-300">
-                    {channel.icon}
-                  </div>
-                  <span className="text-white/30 text-xs tracking-widest uppercase font-sans">
-                    {channel.label}
-                  </span>
+                <div className="mb-8 text-white/60 group-hover:text-white transition-colors duration-300">
+                  {channel.icon}
                 </div>
 
                 <p
-                  className="font-display text-white mb-3"
+                  className="font-display text-white mb-8"
                   style={{ fontSize: 'clamp(1.5rem, 2vw, 2rem)', fontWeight: 400 }}
                 >
                   {channel.platform}
-                </p>
-                <p className="text-white/50 font-sans font-light text-sm leading-relaxed mb-8">
-                  {channel.description}
                 </p>
 
                 <span className="inline-flex items-center gap-2 text-white/60 group-hover:text-white text-xs tracking-widest uppercase font-sans transition-colors duration-300">

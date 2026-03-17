@@ -15,17 +15,17 @@ export default function Community() {
             transition={{ duration: 0.8 }}
           >
             <p className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-4">
-              The culture
+              La cultura
             </p>
             <h2
               className="font-display text-cc-text leading-tight"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 300, fontStyle: 'italic' }}
             >
-              People.
+              Personas.
               <br />
-              <span style={{ fontStyle: 'normal', fontWeight: 500 }}>Connection.</span>
+              <span style={{ fontStyle: 'normal', fontWeight: 500 }}>Conexión.</span>
               <br />
-              <em>Atmosphere.</em>
+              <em>Ambiente.</em>
             </h2>
           </motion.div>
 
@@ -36,47 +36,31 @@ export default function Community() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-cc-muted font-sans font-light text-sm leading-relaxed max-w-xs"
           >
-            Every session ends the same way — with people who came as strangers and leave as something more.
+            Cada sesión termina igual — con personas que llegaron como extraños y se van como algo más.
           </motion.p>
         </div>
 
-        {/* Image grid */}
+        {/* Image grid — clean 3-column */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {/* Row 1: two tall + one short */}
-          {COMMUNITY_IMAGES.slice(0, 3).map((src, i) => (
+          {COMMUNITY_IMAGES.map((src, i) => (
             <motion.div
               key={src}
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, clipPath: 'inset(100% 0% 0% 0%)' }}
+              whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.9, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className={`overflow-hidden bg-cc-light ${i === 1 ? 'row-span-2' : ''}`}
-              style={{ aspectRatio: i === 1 ? 'auto' : '3/4' }}
-            >
-              <img
-                src={src}
-                alt="Court Culture community"
-                className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
-                style={{ minHeight: i === 1 ? '100%' : 'auto' }}
-              />
-            </motion.div>
-          ))}
-
-          {/* Row 2: remaining images */}
-          {COMMUNITY_IMAGES.slice(3, 6).map((src, i) => (
-            <motion.div
-              key={src}
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.9, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden bg-cc-light"
               style={{ aspectRatio: '3/4' }}
             >
-              <img
+              <motion.img
                 src={src}
-                alt="Court Culture community"
-                className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                alt="Court Culture comunidad"
+                className="w-full h-full object-cover object-center"
+                initial={{ scale: 1.1 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.1, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 1.05 }}
               />
             </motion.div>
           ))}
@@ -102,9 +86,9 @@ export default function Community() {
               className="font-display text-white max-w-xl"
               style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)', fontStyle: 'italic', fontWeight: 300 }}
             >
-              "The best part of the game
+              "Lo mejor del juego
               <br />
-              <span style={{ fontStyle: 'normal', fontWeight: 500 }}>happens off the court."</span>
+              <span style={{ fontStyle: 'normal', fontWeight: 500 }}>pasa fuera de la cancha."</span>
             </blockquote>
           </div>
         </motion.div>

@@ -41,7 +41,7 @@ export default function Footer() {
             <img
               src={LOGOS.mainWhite}
               alt="Court Culture"
-              className="h-10 w-auto object-contain opacity-80"
+              className="h-24 w-auto object-contain opacity-80"
             />
             <p className="text-white/30 font-sans font-light text-xs mt-3 tracking-widest uppercase">
               Monterrey, México
@@ -68,10 +68,10 @@ export default function Footer() {
         {/* Bottom line */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-white/20 font-sans font-light text-xs">
-            © {new Date().getFullYear()} Court Culture. All rights reserved.
+            © {new Date().getFullYear()} Court Culture. Todos los derechos reservados.
           </p>
           <p className="text-white/20 font-sans font-light text-xs tracking-widest uppercase">
-            Tennis is the excuse.
+            More than a sport. A way to connect.
           </p>
         </div>
 
