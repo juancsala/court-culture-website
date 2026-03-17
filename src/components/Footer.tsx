@@ -54,20 +54,23 @@ export default function Footer() {
                 {link.icon}
               </a>
             ))}
-            <a
-              href="mailto:courtculture.mx@gmail.com"
-              aria-label="Email"
-              className="text-white/40 hover:text-white transition-colors duration-200"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-            </a>
           </div>
         </div>
 
+        {/* Contact */}
+        <div className="mt-12 pt-10 border-t border-white/5 mb-8">
+          <p className="text-white/30 text-xs tracking-widest uppercase font-sans mb-2">Contáctanos</p>
+          <a
+            href="mailto:courtculture.mx@gmail.com"
+            className="text-white/70 hover:text-white font-sans font-light text-sm transition-colors duration-200"
+          >
+            courtculture.mx@gmail.com
+          </a>
+          <p className="text-white/25 font-sans font-light text-xs mt-1">Patrocinios, colaboraciones y más.</p>
+        </div>
+
         {/* Bottom line */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-white/20 font-sans font-light text-xs">
             © {new Date().getFullYear()} Court Culture. Todos los derechos reservados.
           </p>
