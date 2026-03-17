@@ -66,7 +66,6 @@ export default function Footer() {
           >
             courtculture.mx@gmail.com
           </a>
-          <p className="text-white/25 font-sans font-light text-xs mt-1">Patrocinios, colaboraciones y más.</p>
         </div>
 
         {/* Bottom line */}
