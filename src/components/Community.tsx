@@ -15,7 +15,7 @@ export default function Community() {
             transition={{ duration: 0.8 }}
           >
             <p className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-4">
-              La cultura
+              La comunidad
             </p>
             <h2
               className="font-display text-cc-text leading-tight"
