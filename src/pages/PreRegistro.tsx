@@ -46,6 +46,7 @@ export default function PreRegistro() {
     zona: '',
     nivel: '',
     como_se_entero: '',
+    instagram: '',
     tiene_raqueta: false,
     acepto_terminos: false,
   })
@@ -89,7 +90,7 @@ export default function PreRegistro() {
       <div className="relative z-10 min-h-screen flex flex-col">
 
         {/* Header */}
-        <header className="px-6 md:px-12 pt-6 pb-6 flex justify-between items-center">
+        <header className="pl-6 pr-8 md:pl-12 md:pr-14 pt-6 pb-6 flex justify-between items-center">
           <img src={LOGOS.mainWhite} alt="Court Culture" className="w-40 md:w-52 h-auto opacity-90" />
           <span className="text-xs tracking-[0.2em] uppercase font-sans text-white/20 pt-1">
             Vol. I · 2026
@@ -193,7 +194,7 @@ export default function PreRegistro() {
                         value={form.fecha_nacimiento}
                         onChange={e => set('fecha_nacimiento', e.target.value)}
                         className={inputClass}
-                        style={{ colorScheme: 'dark' }}
+                        style={{ colorScheme: 'dark', minHeight: '50px' }}
                       />
                     </div>
 
@@ -269,6 +270,20 @@ export default function PreRegistro() {
                           <option key={r.value} value={r.value}>{r.label}</option>
                         ))}
                       </select>
+                    </div>
+
+                    {/* Instagram (opcional) */}
+                    <div>
+                      <label className={labelClass}>
+                        Instagram <span className="normal-case tracking-normal text-white/20">(opcional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="@tu_usuario"
+                        value={form.instagram}
+                        onChange={e => set('instagram', e.target.value)}
+                        className={inputClass}
+                      />
                     </div>
 
                     {/* Raqueta */}
