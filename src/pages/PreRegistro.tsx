@@ -186,15 +186,15 @@ export default function PreRegistro() {
                     </div>
 
                     {/* Fecha de nacimiento */}
-                    <div className="overflow-hidden">
+                    <div style={{ minWidth: 0 }}>
                       <label className={labelClass}>Fecha de nacimiento</label>
                       <input
                         type="date"
                         required
                         value={form.fecha_nacimiento}
                         onChange={e => set('fecha_nacimiento', e.target.value)}
-                        className={inputClass + ' max-w-full'}
-                        style={{ colorScheme: 'dark', minHeight: '50px', display: 'block', width: '100%' }}
+                        className={inputClass}
+                        style={{ colorScheme: 'dark', minHeight: '50px', width: '100%', minWidth: 0 }}
                       />
                     </div>
 
