@@ -88,7 +88,7 @@ export default function PreRegistro() {
       <div className="relative z-10 min-h-screen flex flex-col">
 
         {/* Header */}
-        <header className="px-6 md:px-12 pt-6 pb-6 flex justify-between items-start">
+        <header className="px-6 md:px-12 pt-6 pb-6 flex justify-between items-center">
           <img src={LOGOS.mainWhite} alt="Court Culture" className="w-40 md:w-52 h-auto opacity-90" />
           <span className="text-xs tracking-[0.2em] uppercase font-sans text-white/20 pt-1">
             Vol. I · 2026
