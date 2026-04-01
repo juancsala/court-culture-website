@@ -31,7 +31,7 @@ const REFERIDOS = [
 ]
 
 const inputClass =
-  'w-full border border-white/10 bg-white/5 px-4 py-3.5 font-sans text-white text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20'
+  'w-full max-w-full box-border border border-white/10 bg-white/5 px-4 py-3.5 font-sans text-white text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20'
 const selectClass =
   'w-full border border-white/10 bg-cc-dark px-4 py-3.5 font-sans text-white text-sm focus:outline-none focus:border-white/30 transition-colors appearance-none'
 const labelClass = 'block text-xs tracking-[0.18em] uppercase font-sans text-white/35 mb-2'
@@ -186,7 +186,7 @@ export default function PreRegistro() {
                     </div>
 
                     {/* Fecha de nacimiento */}
-                    <div style={{ minWidth: 0 }}>
+                    <div>
                       <label className={labelClass}>Fecha de nacimiento</label>
                       <input
                         type="date"
@@ -194,7 +194,7 @@ export default function PreRegistro() {
                         value={form.fecha_nacimiento}
                         onChange={e => set('fecha_nacimiento', e.target.value)}
                         className={inputClass}
-                        style={{ colorScheme: 'dark', minHeight: '50px', width: '100%', minWidth: 0 }}
+                        style={{ colorScheme: 'dark' }}
                       />
                     </div>
 
