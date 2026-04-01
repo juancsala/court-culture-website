@@ -187,15 +187,14 @@ export default function PreRegistro() {
 
                     {/* Fecha de nacimiento */}
                     <div>
-                      <label className={labelClass}>Fecha de nacimiento (AAAA-MM-DD)</label>
+                      <label className={labelClass}>Fecha de nacimiento</label>
                       <input
-                        type="text"
+                        type="date"
                         required
-                        placeholder="1998-04-25"
-                        pattern="\d{4}-\d{2}-\d{2}"
                         value={form.fecha_nacimiento}
                         onChange={e => set('fecha_nacimiento', e.target.value)}
                         className={inputClass}
+                        style={{ colorScheme: 'dark', WebkitAppearance: 'none', appearance: 'none' }}
                       />
                     </div>
 
