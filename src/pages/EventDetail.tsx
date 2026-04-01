@@ -94,7 +94,7 @@ export default function EventDetail() {
 
   const isEarlyBird = event.precio_actual < parseFloat(event.precio_regular)
   const sold = event.cupos_disponibles === 0
-  const capacityPct = ((event.capacidad - event.cupos_disponibles) / event.capacidad) * 100
+  const capacityPct = ((event.capacidad_publica - event.cupos_disponibles) / event.capacidad_publica) * 100
   const refundDate = event.refund_deadline
     ? new Date(event.refund_deadline).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' })
     : null
@@ -203,7 +203,7 @@ export default function EventDetail() {
             {[
               { label: 'Hora de inicio', value: formatTime(event.hora) },
               { label: 'Ubicación', value: event.lugar },
-              { label: 'Capacidad total', value: `${event.capacidad} personas` },
+              { label: 'Capacidad total', value: `${event.capacidad_publica} personas` },
               { label: 'Cupos disponibles', value: sold ? 'Agotado' : `${event.cupos_disponibles} cupos` },
             ].map((item, i) => (
               <div key={i} className="p-6 border-b border-r border-cc-text/8">

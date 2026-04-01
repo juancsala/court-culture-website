@@ -7,7 +7,7 @@ export interface Event {
   fecha: string
   hora: string
   lugar: string
-  capacidad: number
+  capacidad_publica: number
   cupos_disponibles: number
   imagen: string | null
   precio_early_bird: string
