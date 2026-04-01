@@ -188,14 +188,16 @@ export default function PreRegistro() {
                     {/* Fecha de nacimiento */}
                     <div>
                       <label className={labelClass}>Fecha de nacimiento</label>
-                      <input
-                        type="date"
-                        required
-                        value={form.fecha_nacimiento}
-                        onChange={e => set('fecha_nacimiento', e.target.value)}
-                        className={inputClass}
-                        style={{ colorScheme: 'dark', WebkitAppearance: 'none', appearance: 'none' }}
-                      />
+                      <div className="border border-white/10 bg-white/5 overflow-hidden">
+                        <input
+                          type="date"
+                          required
+                          value={form.fecha_nacimiento}
+                          onChange={e => set('fecha_nacimiento', e.target.value)}
+                          className="w-full bg-transparent px-4 py-3.5 font-sans text-white text-sm focus:outline-none border-none"
+                          style={{ colorScheme: 'dark', minWidth: 0 }}
+                        />
+                      </div>
                     </div>
 
                     {/* Email */}
