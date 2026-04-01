@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import EventsPage from './pages/EventsPage'
 import EventDetail from './pages/EventDetail'
 import Confirmacion from './pages/Confirmacion'
+import PreRegistro from './pages/PreRegistro'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/eventos" element={<EventsPage />} />
         <Route path="/eventos/:id" element={<EventDetail />} />
         <Route path="/confirmacion" element={<Confirmacion />} />
+        <Route path="/preregistro" element={<PreRegistro />} />
       </Routes>
     </BrowserRouter>
   )
