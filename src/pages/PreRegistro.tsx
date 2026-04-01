@@ -47,6 +47,7 @@ export default function PreRegistro() {
     nivel: '',
     como_se_entero: '',
     tiene_raqueta: false,
+    acepto_terminos: false,
   })
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
@@ -291,13 +292,32 @@ export default function PreRegistro() {
                       </div>
                     </div>
 
+                    {/* Consentimiento LFPDPPP */}
+                    <div
+                      className="flex items-start gap-3 border border-white/10 px-4 py-4 cursor-pointer select-none"
+                      onClick={() => set('acepto_terminos', !form.acepto_terminos)}
+                    >
+                      <div className={`mt-0.5 w-4 h-4 flex-shrink-0 border transition-colors duration-200 flex items-center justify-center ${form.acepto_terminos ? 'bg-white border-white' : 'border-white/30 bg-transparent'}`}>
+                        {form.acepto_terminos && (
+                          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                            <path d="M1 4L3.5 6.5L9 1" stroke="#0D1A0D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        )}
+                      </div>
+                      <p className="text-xs font-sans text-white/40 leading-relaxed">
+                        He leído y acepto el tratamiento de mis datos personales conforme a la{' '}
+                        <span className="text-white/60">Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</span>.
+                        {' '}Mis datos serán utilizados exclusivamente para contactarme sobre eventos de Court Culture y no serán compartidos con terceros.
+                      </p>
+                    </div>
+
                     {error && (
                       <p className="text-red-400/80 text-xs font-sans">{error}</p>
                     )}
 
                     <button
                       type="submit"
-                      disabled={submitting}
+                      disabled={submitting || !form.acepto_terminos}
                       className="mt-2 bg-white text-cc-dark px-8 py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-base transition-colors duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       {submitting ? 'Enviando...' : 'Quiero mi lugar →'}
