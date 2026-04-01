@@ -194,7 +194,7 @@ export default function PreRegistro() {
                         value={form.fecha_nacimiento}
                         onChange={e => set('fecha_nacimiento', e.target.value)}
                         className={inputClass}
-                        style={{ colorScheme: 'dark', minHeight: '50px' }}
+                        style={{ colorScheme: 'dark', minHeight: '50px', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
                       />
                     </div>
 
@@ -220,6 +220,20 @@ export default function PreRegistro() {
                         placeholder="+52 81 1234 5678"
                         value={form.telefono}
                         onChange={e => set('telefono', e.target.value)}
+                        className={inputClass}
+                      />
+                    </div>
+
+                    {/* Instagram (opcional) */}
+                    <div>
+                      <label className={labelClass}>
+                        Instagram <span className="normal-case tracking-normal text-white/20">(opcional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="@tu_usuario"
+                        value={form.instagram}
+                        onChange={e => set('instagram', e.target.value)}
                         className={inputClass}
                       />
                     </div>
@@ -270,20 +284,6 @@ export default function PreRegistro() {
                           <option key={r.value} value={r.value}>{r.label}</option>
                         ))}
                       </select>
-                    </div>
-
-                    {/* Instagram (opcional) */}
-                    <div>
-                      <label className={labelClass}>
-                        Instagram <span className="normal-case tracking-normal text-white/20">(opcional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="@tu_usuario"
-                        value={form.instagram}
-                        onChange={e => set('instagram', e.target.value)}
-                        className={inputClass}
-                      />
                     </div>
 
                     {/* Raqueta */}
