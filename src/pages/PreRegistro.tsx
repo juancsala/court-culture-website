@@ -147,11 +147,16 @@ export default function PreRegistro() {
                       className="font-display text-white leading-none mb-4"
                       style={{ fontSize: 'clamp(2.8rem, 7vw, 4.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                     >
-                      Pre-registro
+                      Únete a la<br />comunidad
                     </h1>
                     <p className="font-sans text-white/35 text-sm leading-relaxed">
-                      Cupo limitado. Regístrate para recibir acceso prioritario al primer evento presencial de Court Culture en Monterrey.
+                      Forma parte de la comunidad de tenis en Monterrey. Regístrate para tener acceso a:
                     </p>
+                    <ul className="mt-3 font-sans text-white/30 text-sm space-y-1">
+                      <li>— Acceso anticipado a los eventos</li>
+                      <li>— Precio preferencial en tickets</li>
+                      <li>— Beneficios exclusivos para miembros</li>
+                    </ul>
                   </div>
 
                   {/* Divider */}
