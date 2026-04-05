@@ -122,14 +122,22 @@ export default function PreRegistro() {
                   <p className="font-sans text-white/40 text-sm leading-relaxed mb-12 max-w-sm mx-auto">
                     Te avisaremos por correo cuando los cupos estén disponibles. Los pre-registrados tienen acceso prioritario.
                   </p>
-                  <a
-                    href={LINKS.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block border border-white/20 text-white/60 hover:text-white hover:border-white/40 px-8 py-3.5 text-xs tracking-[0.2em] uppercase font-sans transition-colors duration-300"
-                  >
-                    Unirse a la comunidad →
-                  </a>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a
+                      href={LINKS.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block border border-white/20 text-white/60 hover:text-white hover:border-white/40 px-8 py-3.5 text-xs tracking-[0.2em] uppercase font-sans transition-colors duration-300"
+                    >
+                      Unirse a la comunidad →
+                    </a>
+                    <a
+                      href="https://www.courtculture.mx/eventos"
+                      className="inline-block border border-white/10 text-white/40 hover:text-white/60 hover:border-white/20 px-8 py-3.5 text-xs tracking-[0.2em] uppercase font-sans transition-colors duration-300"
+                    >
+                      Ver eventos →
+                    </a>
+                  </div>
                 </motion.div>
               ) : (
                 <motion.div
