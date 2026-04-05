@@ -93,7 +93,7 @@ export default function PreRegistro() {
         <header className="pl-6 pr-8 md:pl-12 md:pr-14 pt-6 pb-6 flex justify-between items-center">
           <img src={LOGOS.mainWhite} alt="Court Culture" className="w-40 md:w-52 h-auto opacity-90" />
           <span className="text-xs tracking-[0.2em] uppercase font-sans text-white/20 pt-1">
-            Vol. I · 2026
+            Monterrey · 2026
           </span>
         </header>
 
@@ -141,7 +141,7 @@ export default function PreRegistro() {
                   {/* Heading */}
                   <div className="mb-10">
                     <p className="text-xs tracking-[0.25em] uppercase font-sans text-white/25 mb-5">
-                      Court Culture · Vol. I
+                      Court Culture · Monterrey
                     </p>
                     <h1
                       className="font-display text-white leading-none mb-4"
@@ -342,7 +342,7 @@ export default function PreRegistro() {
                       disabled={submitting || !form.acepto_terminos}
                       className="mt-2 bg-white text-cc-dark px-8 py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-base transition-colors duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
-                      {submitting ? 'Enviando...' : 'Quiero mi lugar →'}
+                      {submitting ? 'Enviando...' : 'Registrarme →'}
                     </button>
 
                     <p className="text-xs font-sans text-white/18 text-center leading-relaxed">
