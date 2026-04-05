@@ -111,7 +111,7 @@ export default function PreRegistro() {
                   className="text-center py-16"
                 >
                   <p className="text-xs tracking-[0.25em] uppercase font-sans text-white/30 mb-8">
-                    Pre-registro recibido
+                    Registro recibido
                   </p>
                   <h1
                     className="font-display text-white mb-6 leading-none"
@@ -120,7 +120,7 @@ export default function PreRegistro() {
                     Nos vemos<br />en la cancha.
                   </h1>
                   <p className="font-sans text-white/40 text-sm leading-relaxed mb-12 max-w-sm mx-auto">
-                    Te avisaremos por correo cuando los cupos estén disponibles. Los pre-registrados tienen acceso prioritario.
+                    Ya eres parte de la comunidad. Te avisaremos de próximos eventos con acceso y precios exclusivos para miembros.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <a
