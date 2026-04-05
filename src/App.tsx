@@ -13,7 +13,7 @@ export default function App() {
         <Route path="/eventos" element={<EventsPage />} />
         <Route path="/eventos/:id" element={<EventDetail />} />
         <Route path="/confirmacion" element={<Confirmacion />} />
-        <Route path="/preregistro" element={<PreRegistro />} />
+        <Route path="/comunidad" element={<PreRegistro />} />
       </Routes>
     </BrowserRouter>
   )

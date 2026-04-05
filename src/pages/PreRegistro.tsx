@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { createPreRegistro } from '../api'
+import { createMiembro } from '../api'
 import { LOGOS, PHOTOS } from '../assets'
 import { LINKS } from '../assets'
 
@@ -62,7 +62,7 @@ export default function PreRegistro() {
     setSubmitting(true)
     setError('')
     try {
-      await createPreRegistro(form)
+      await createMiembro(form)
       setDone(true)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err: any) {
@@ -111,7 +111,7 @@ export default function PreRegistro() {
                   className="text-center py-16"
                 >
                   <p className="text-xs tracking-[0.25em] uppercase font-sans text-white/30 mb-8">
-                    Pre-registro recibido
+                    Registro recibido
                   </p>
                   <h1
                     className="font-display text-white mb-6 leading-none"
@@ -120,7 +120,7 @@ export default function PreRegistro() {
                     Nos vemos<br />en la cancha.
                   </h1>
                   <p className="font-sans text-white/40 text-sm leading-relaxed mb-12 max-w-sm mx-auto">
-                    Te avisaremos por correo cuando los cupos estén disponibles. Los pre-registrados tienen acceso prioritario.
+                    Ya eres parte de la comunidad. Te avisaremos por correo de próximos eventos con acceso y precios exclusivos para miembros.
                   </p>
                   <a
                     href={LINKS.whatsapp}
@@ -147,10 +147,10 @@ export default function PreRegistro() {
                       className="font-display text-white leading-none mb-4"
                       style={{ fontSize: 'clamp(2.8rem, 7vw, 4.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                     >
-                      Pre-registro
+                      Forma parte de<br />la comunidad
                     </h1>
                     <p className="font-sans text-white/35 text-sm leading-relaxed">
-                      Cupo limitado. Regístrate para recibir acceso prioritario al primer evento presencial de Court Culture en Monterrey.
+                      Acceso prioritario a eventos · Precios exclusivos para miembros · Anuncios antes que nadie.
                     </p>
                   </div>
 
