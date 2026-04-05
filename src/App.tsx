@@ -27,7 +27,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/preregistro" element={<PreRegistro />} />
+        <Route path="/comunidad" element={<PreRegistro />} />
       </Routes>
     </BrowserRouter>
   )

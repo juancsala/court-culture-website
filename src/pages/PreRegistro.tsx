@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { createPreRegistro } from '../api'
+import { createMiembro } from '../api'
 import { LOGOS, PHOTOS } from '../assets'
 import { LINKS } from '../assets'
 
@@ -62,7 +62,7 @@ export default function PreRegistro() {
     setSubmitting(true)
     setError('')
     try {
-      await createPreRegistro(form)
+      await createMiembro(form)
       setDone(true)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err: any) {

@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'https://web-production-05964f.up.railway.app'
 
-export async function createPreRegistro(data: {
+export async function createMiembro(data: {
   nombre: string
   apellido: string
   fecha_nacimiento: string
@@ -11,7 +11,7 @@ export async function createPreRegistro(data: {
   como_se_entero: string
   tiene_raqueta: boolean
 }): Promise<{ message: string }> {
-  const res = await fetch(`${API_BASE}/api/events/preregistro/`, {
+  const res = await fetch(`${API_BASE}/api/events/miembros/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
