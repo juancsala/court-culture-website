@@ -7,6 +7,9 @@ import Community from './components/Community'
 import Join from './components/Join'
 import Footer from './components/Footer'
 import PreRegistro from './pages/PreRegistro'
+import EventsPage from './pages/EventsPage'
+import EventDetail from './pages/EventDetail'
+import Confirmacion from './pages/Confirmacion'
 
 function HomePage() {
   return (
@@ -28,6 +31,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/comunidad" element={<PreRegistro />} />
+        <Route path="/eventos" element={<EventsPage />} />
+        <Route path="/eventos/:id" element={<EventDetail />} />
+        <Route path="/confirmacion" element={<Confirmacion />} />
       </Routes>
     </BrowserRouter>
   )
