@@ -73,23 +73,23 @@ export default function EventDetail() {
     }
   }
 
-  const labelClass = 'text-xs tracking-[0.18em] uppercase font-sans text-white/30 block mb-2'
-  const inputClass = 'w-full bg-white/5 border border-white/10 text-white placeholder-white/20 px-4 py-3.5 font-sans text-sm focus:outline-none focus:border-white/30 transition-colors duration-200'
+  const labelClass = 'text-xs tracking-[0.18em] uppercase font-sans text-cc-text/35 block mb-2'
+  const inputClass = 'w-full bg-transparent border border-cc-text/15 text-cc-text placeholder-cc-text/25 px-4 py-3.5 font-sans text-sm focus:outline-none focus:border-cc-text/40 transition-colors duration-200'
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-cc-dark flex items-center justify-center">
-        <p className="text-white/20 text-xs tracking-widest uppercase font-sans">Cargando...</p>
+      <div className="min-h-screen bg-cc-base flex items-center justify-center">
+        <p className="text-cc-text/25 text-xs tracking-widest uppercase font-sans">Cargando...</p>
       </div>
     )
   }
 
   if (!evento) {
     return (
-      <div className="min-h-screen bg-cc-dark flex items-center justify-center">
+      <div className="min-h-screen bg-cc-base flex items-center justify-center">
         <div className="text-center">
-          <p className="text-white/30 text-xs tracking-widest uppercase font-sans mb-4">Evento no encontrado</p>
-          <a href="/eventos" className="text-white/40 text-sm font-sans hover:text-white transition-colors">← Volver a eventos</a>
+          <p className="text-cc-text/30 text-xs tracking-widest uppercase font-sans mb-4">Evento no encontrado</p>
+          <a href="/eventos" className="text-cc-text/40 text-sm font-sans hover:text-cc-text transition-colors">← Volver a eventos</a>
         </div>
       </div>
     )
@@ -98,14 +98,14 @@ export default function EventDetail() {
   const precio = esMiembro ? Number(evento.precio_comunidad) : Number(evento.precio_general)
 
   return (
-    <div className="min-h-screen bg-cc-dark text-white">
+    <div className="min-h-screen bg-cc-base text-cc-text">
 
       {/* Navbar */}
-      <nav className="border-b border-white/5 px-6 md:px-12 py-4 flex items-center justify-between">
+      <nav className="border-b border-cc-text/8 px-6 md:px-12 py-4 flex items-center justify-between">
         <a href="/">
-          <img src={LOGOS.mainWhite} alt="Court Culture" className="h-16 w-auto" />
+          <img src={LOGOS.main} alt="Court Culture" className="h-16 w-auto" />
         </a>
-        <a href="/eventos" className="text-xs tracking-[0.2em] uppercase font-sans text-white/30 hover:text-white transition-colors duration-200">
+        <a href="/eventos" className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/35 hover:text-cc-text transition-colors duration-200">
           ← Eventos
         </a>
       </nav>
@@ -125,16 +125,16 @@ export default function EventDetail() {
                   src={evento.imagen}
                   alt={evento.titulo}
                   className="w-full h-full object-cover"
-                  style={{ filter: 'brightness(0.9) saturate(0.9)' }}
+                  style={{ filter: 'brightness(0.95) saturate(0.9)' }}
                 />
               </div>
             )}
 
-            <p className="text-xs tracking-[0.25em] uppercase font-sans text-white/20 mb-5">
+            <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-5">
               Court Culture · Monterrey
             </p>
             <h1
-              className="font-display text-white leading-none mb-10"
+              className="font-display text-cc-text leading-none mb-10"
               style={{ fontSize: 'clamp(2.8rem, 5vw, 5rem)', fontWeight: 300, fontStyle: 'italic', whiteSpace: 'nowrap' }}
             >
               {evento.titulo}
@@ -142,29 +142,29 @@ export default function EventDetail() {
 
             <div className="space-y-5 mb-10">
               <div className="flex items-start gap-6">
-                <span className="text-white/20 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Fecha</span>
-                <span className="font-sans text-white/60 text-sm capitalize">{formatFecha(evento.fecha)}</span>
+                <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Fecha</span>
+                <span className="font-sans text-cc-text/60 text-sm capitalize">{formatFecha(evento.fecha)}</span>
               </div>
               <div className="flex items-start gap-6">
-                <span className="text-white/20 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Lugar</span>
-                <span className="font-sans text-white/60 text-sm">{evento.lugar}{evento.direccion ? ` · ${evento.direccion}` : ''}</span>
+                <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Lugar</span>
+                <span className="font-sans text-cc-text/60 text-sm">{evento.lugar}{evento.direccion ? ` · ${evento.direccion}` : ''}</span>
               </div>
               <div className="flex items-start gap-6">
-                <span className="text-white/20 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Cupos</span>
-                <span className="font-sans text-white/60 text-sm">{evento.capacidad_publica} lugares</span>
+                <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Cupos</span>
+                <span className="font-sans text-cc-text/60 text-sm">{evento.capacidad_publica} lugares</span>
               </div>
               <div className="flex items-start gap-6">
-                <span className="text-white/20 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Precio</span>
+                <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Precio</span>
                 <div>
-                  <span className="font-sans text-white/60 text-sm">Desde ${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
-                  <span className="font-sans text-white/25 text-xs ml-2">(miembros)</span>
+                  <span className="font-sans text-cc-text/60 text-sm">Desde ${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
+                  <span className="font-sans text-cc-text/30 text-xs ml-2">(miembros)</span>
                 </div>
               </div>
             </div>
 
-            <div className="h-px bg-white/5 mb-8" />
+            <div className="h-px bg-cc-text/8 mb-8" />
 
-            <p className="font-sans text-white/35 text-sm leading-relaxed">
+            <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
               {evento.descripcion}
             </p>
           </motion.div>
@@ -176,31 +176,31 @@ export default function EventDetail() {
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8"
           >
-            <div className="border border-white/8 p-8 md:p-10 bg-white/[0.02]">
+            <div className="border border-cc-text/10 p-8 md:p-10 bg-cc-text/[0.02]">
 
               {step === 'email' && (
                 <>
-                  <p className="text-xs tracking-[0.2em] uppercase font-sans text-white/25 mb-6">Registro</p>
+                  <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Registro</p>
                   <h2
-                    className="font-display text-white mb-3 leading-tight"
+                    className="font-display text-cc-text mb-3 leading-tight"
                     style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                   >
                     Reserva tu lugar
                   </h2>
-                  <p className="font-sans text-white/35 text-sm leading-relaxed mb-8">
+                  <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
                     Ingresa tu correo para verificar si tienes precio preferencial como miembro.
                   </p>
 
                   {/* Precios */}
-                  <div className="bg-white/[0.03] border border-white/5 p-5 mb-8 space-y-3">
+                  <div className="bg-cc-text/[0.03] border border-cc-text/8 p-5 mb-8 space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="font-sans text-xs tracking-widest uppercase text-white/25">Miembros</span>
-                      <span className="font-sans text-white text-sm">${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
+                      <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Miembros</span>
+                      <span className="font-sans text-cc-text text-sm">${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
                     </div>
-                    <div className="h-px bg-white/5" />
+                    <div className="h-px bg-cc-text/8" />
                     <div className="flex justify-between items-center">
-                      <span className="font-sans text-xs tracking-widest uppercase text-white/25">General</span>
-                      <span className="font-sans text-white/50 text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
+                      <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">General</span>
+                      <span className="font-sans text-cc-text/50 text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
                     </div>
                   </div>
 
@@ -216,19 +216,19 @@ export default function EventDetail() {
                         className={inputClass}
                       />
                     </div>
-                    {error && <p className="text-red-400 text-xs font-sans">{error}</p>}
+                    {error && <p className="text-red-500 text-xs font-sans">{error}</p>}
                     <button
                       type="submit"
                       disabled={checkingEmail}
-                      className="w-full bg-white text-cc-dark py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-white/90 transition-colors duration-300 disabled:opacity-40"
+                      className="w-full bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 disabled:opacity-40"
                     >
                       {checkingEmail ? 'Verificando...' : 'Continuar →'}
                     </button>
                   </form>
 
-                  <p className="font-sans text-white/20 text-xs leading-relaxed mt-6">
+                  <p className="font-sans text-cc-text/25 text-xs leading-relaxed mt-6">
                     Los miembros tienen precio preferencial y acceso anticipado.{' '}
-                    <a href="/comunidad" className="text-white/35 underline hover:text-white/55 transition-colors">
+                    <a href="/comunidad" className="text-cc-text/40 underline hover:text-cc-text/60 transition-colors">
                       Únete gratis aquí.
                     </a>
                   </p>
@@ -237,27 +237,27 @@ export default function EventDetail() {
 
               {step === 'bloqueado' && (
                 <>
-                  <p className="text-xs tracking-[0.2em] uppercase font-sans text-white/25 mb-6">Acceso</p>
+                  <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Acceso</p>
                   {soloMiembros ? (
                     <>
                       <h2
-                        className="font-display text-white mb-4 leading-tight"
+                        className="font-display text-cc-text mb-4 leading-tight"
                         style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                       >
                         Solo miembros<br />por ahora.
                       </h2>
-                      <p className="font-sans text-white/35 text-sm leading-relaxed mb-8">
+                      <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
                         La venta está abierta únicamente para miembros de la comunidad. Regístrate gratis para acceder al precio preferencial y asegurar tu lugar.
                       </p>
                       <a
                         href="/comunidad"
-                        className="block w-full text-center bg-white text-cc-dark py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-white/90 transition-colors duration-300 mb-4"
+                        className="block w-full text-center bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 mb-4"
                       >
                         Unirme a la comunidad →
                       </a>
                       <button
                         onClick={() => setStep('email')}
-                        className="w-full text-white/25 text-xs font-sans hover:text-white/40 transition-colors py-2"
+                        className="w-full text-cc-text/25 text-xs font-sans hover:text-cc-text/45 transition-colors py-2"
                       >
                         ← Volver
                       </button>
@@ -265,17 +265,17 @@ export default function EventDetail() {
                   ) : (
                     <>
                       <h2
-                        className="font-display text-white mb-4 leading-tight"
+                        className="font-display text-cc-text mb-4 leading-tight"
                         style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                       >
                         Próximamente.
                       </h2>
-                      <p className="font-sans text-white/35 text-sm leading-relaxed mb-8">
+                      <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
                         La venta aún no está disponible. Regístrate como miembro para ser el primero en saber cuándo abren los cupos.
                       </p>
                       <a
                         href="/comunidad"
-                        className="block w-full text-center border border-white/20 text-white/50 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:border-white/40 hover:text-white transition-colors duration-300"
+                        className="block w-full text-center border border-cc-text/20 text-cc-text/50 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:border-cc-text/40 hover:text-cc-text transition-colors duration-300"
                       >
                         Unirme a la comunidad →
                       </a>
@@ -287,19 +287,19 @@ export default function EventDetail() {
               {step === 'form' && (
                 <>
                   <div className="flex items-center gap-2 mb-6">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                    <p className="text-xs tracking-[0.2em] uppercase font-sans text-white/40">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cc-text/40" />
+                    <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/40">
                       {esMiembro ? 'Miembro · Precio preferencial' : 'Precio general'}
                     </p>
                   </div>
                   <div className="flex justify-between items-baseline mb-8">
                     <h2
-                      className="font-display text-white leading-tight"
+                      className="font-display text-cc-text leading-tight"
                       style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                     >
                       Tus datos
                     </h2>
-                    <span className="font-display text-white text-2xl" style={{ fontStyle: 'italic', fontWeight: 300 }}>
+                    <span className="font-display text-cc-text text-2xl" style={{ fontStyle: 'italic', fontWeight: 300 }}>
                       ${precio.toLocaleString('es-MX')}
                     </span>
                   </div>
@@ -342,8 +342,7 @@ export default function EventDetail() {
                         required
                         value={form.nivel_tenis}
                         onChange={e => setForm(f => ({ ...f, nivel_tenis: e.target.value }))}
-                        className={inputClass + ' cursor-pointer'}
-                        style={{ colorScheme: 'dark' }}
+                        className={inputClass + ' cursor-pointer bg-cc-base'}
                       >
                         <option value="">Selecciona tu nivel</option>
                         <option value="principiante">Principiante</option>
@@ -352,12 +351,12 @@ export default function EventDetail() {
                       </select>
                     </div>
 
-                    {error && <p className="text-red-400 text-xs font-sans">{error}</p>}
+                    {error && <p className="text-red-500 text-xs font-sans">{error}</p>}
 
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full bg-white text-cc-dark py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-white/90 transition-colors duration-300 disabled:opacity-40 mt-2"
+                      className="w-full bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 disabled:opacity-40 mt-2"
                     >
                       {submitting ? 'Redirigiendo...' : `Pagar $${precio.toLocaleString('es-MX')} MXN →`}
                     </button>
@@ -365,7 +364,7 @@ export default function EventDetail() {
                     <button
                       type="button"
                       onClick={() => setStep('email')}
-                      className="text-white/20 text-xs font-sans hover:text-white/35 transition-colors py-1"
+                      className="text-cc-text/25 text-xs font-sans hover:text-cc-text/45 transition-colors py-1"
                     >
                       ← Cambiar email
                     </button>
