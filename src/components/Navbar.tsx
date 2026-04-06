@@ -43,9 +43,13 @@ export default function Navbar() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.27 8.27 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/></svg>
           </a>
           <a
-            href={LINKS.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/eventos"
+            className="hidden md:block text-white/60 hover:text-white text-xs tracking-widest uppercase font-sans transition-colors duration-200"
+          >
+            Eventos
+          </a>
+          <a
+            href="/comunidad"
             className="text-cc-dark bg-cc-base/95 hover:bg-white px-5 py-2 text-xs tracking-widest uppercase font-sans font-medium transition-all duration-200"
           >
             Únete
