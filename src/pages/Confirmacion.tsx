@@ -6,9 +6,12 @@ export default function Confirmacion() {
     <div className="min-h-screen bg-cc-base flex flex-col">
 
       {/* Navbar */}
-      <nav className="border-b border-cc-text/5 px-6 h-16 flex items-center">
+      <nav className="bg-cc-dark px-6 md:px-12 py-3 flex items-center justify-between">
         <a href="/">
-          <img src={LOGOS.main} alt="Court Culture" className="h-10 w-auto" />
+          <img src={LOGOS.mainWhite} alt="Court Culture" className="h-24 w-auto object-contain" />
+        </a>
+        <a href="/eventos" className="text-xs tracking-[0.2em] uppercase font-sans text-white/50 hover:text-white transition-colors duration-200">
+          Ver eventos
         </a>
       </nav>
 
