@@ -140,6 +140,10 @@ export default function EventDetail() {
               {evento.titulo}
             </h1>
 
+            <p className="font-sans text-cc-text/45 text-sm leading-relaxed mb-10">
+              {evento.descripcion}
+            </p>
+
             <div className="space-y-5 mb-10">
               <div className="flex items-start gap-6">
                 <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Fecha</span>
@@ -163,10 +167,6 @@ export default function EventDetail() {
             </div>
 
             <div className="h-px bg-cc-text/8 mb-8" />
-
-            <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-12">
-              {evento.descripcion}
-            </p>
 
             {/* Incluye */}
             <div>
