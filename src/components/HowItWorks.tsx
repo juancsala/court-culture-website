@@ -4,7 +4,7 @@ const steps = [
   {
     number: '01',
     title: 'Entérate del evento.',
-    description: 'Consulta nuestros eventos en courtculture.mx/eventos y síguenos en redes para no perderte ninguna sesión.',
+    description: 'Consulta nuestros eventos y síguenos en redes para no perderte ninguna sesión.',
   },
   {
     number: '02',
