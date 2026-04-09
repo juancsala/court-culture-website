@@ -40,27 +40,24 @@ export default function Community() {
           </motion.p>
         </div>
 
-        {/* Image grid — clean 3-column */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {/* Image grid — 1 col mobile, 3 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
           {COMMUNITY_IMAGES.map((src, i) => (
             <motion.div
               key={src}
-              initial={{ opacity: 0, clipPath: 'inset(100% 0% 0% 0%)' }}
-              whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.9, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden bg-cc-light"
-              style={{ aspectRatio: '3/4' }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden bg-cc-light w-full"
+              style={{ aspectRatio: '4/3' }}
             >
               <motion.img
                 src={src}
                 alt="Court Culture comunidad"
                 className="w-full h-full object-cover object-center"
-                initial={{ scale: 1.1 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.1, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.4 }}
               />
             </motion.div>
           ))}
