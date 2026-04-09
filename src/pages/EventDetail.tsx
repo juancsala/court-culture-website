@@ -189,11 +189,11 @@ export default function EventDetail() {
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
-                    initial={{ opacity: 0, scale: 0.94 }}
+                    initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2, delay: 0.3 + i * 0.04, ease: [0.16, 1, 0.3, 1] }}
-                    whileHover={{ scale: 1.03, backgroundColor: 'rgba(10,10,10,0.04)' }}
-                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.12, delay: i * 0.02, ease: 'easeOut' }}
+                    whileHover={{ scale: 1.03, backgroundColor: 'rgba(10,10,10,0.04)', transition: { duration: 0.1 } }}
+                    whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}
                     className="flex items-center gap-3 border border-cc-text/8 px-4 py-3 cursor-default"
                   >
                     <span className="w-1 h-1 rounded-full bg-cc-text/20 shrink-0" />
