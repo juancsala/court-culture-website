@@ -170,7 +170,14 @@ export default function EventDetail() {
 
             {/* Incluye */}
             <div>
-              <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-6">Incluye</p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-6"
+              >
+                Incluye
+              </motion.p>
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { icon: '◈', label: 'Hidratación' },
@@ -179,11 +186,18 @@ export default function EventDetail() {
                   { icon: '◈', label: 'DJ en vivo' },
                   { icon: '◈', label: 'Convivencia' },
                   { icon: '◈', label: 'Premios' },
-                ].map(item => (
-                  <div key={item.label} className="flex items-center gap-3 border border-cc-text/8 px-4 py-3">
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
+                    whileHover={{ borderColor: 'rgba(10,10,10,0.2)', x: 2 }}
+                    className="flex items-center gap-3 border border-cc-text/8 px-4 py-3"
+                  >
                     <span className="text-cc-text/20 text-xs">{item.icon}</span>
                     <span className="font-sans text-cc-text/55 text-sm">{item.label}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
