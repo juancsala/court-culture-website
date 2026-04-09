@@ -178,7 +178,7 @@ export default function EventDetail() {
                   { icon: '◈', label: 'Cold Plunge' },
                   { icon: '◈', label: 'DJ en vivo' },
                   { icon: '◈', label: 'Convivencia' },
-                  { icon: '◈', label: 'Regalos' },
+                  { icon: '◈', label: 'Premios' },
                 ].map(item => (
                   <div key={item.label} className="flex items-center gap-3 border border-cc-text/8 px-4 py-3">
                     <span className="text-cc-text/20 text-xs">{item.icon}</span>
