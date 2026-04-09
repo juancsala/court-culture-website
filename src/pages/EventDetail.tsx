@@ -180,22 +180,23 @@ export default function EventDetail() {
               </motion.p>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: '◈', label: 'Hidratación' },
-                  { icon: '◈', label: 'Snacks' },
-                  { icon: '◈', label: 'Cold Plunge' },
-                  { icon: '◈', label: 'DJ en vivo' },
-                  { icon: '◈', label: 'Convivencia' },
-                  { icon: '◈', label: 'Premios' },
+                  { label: 'Hidratación' },
+                  { label: 'Snacks' },
+                  { label: 'Cold Plunge' },
+                  { label: 'DJ en vivo' },
+                  { label: 'Convivencia' },
+                  { label: 'Premios' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
-                    whileHover={{ borderColor: 'rgba(10,10,10,0.2)', x: 2 }}
-                    className="flex items-center gap-3 border border-cc-text/8 px-4 py-3"
+                    initial={{ opacity: 0, scale: 0.94 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2, delay: 0.3 + i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ scale: 1.03, backgroundColor: 'rgba(10,10,10,0.04)' }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center gap-3 border border-cc-text/8 px-4 py-3 cursor-default"
                   >
-                    <span className="text-cc-text/20 text-xs">{item.icon}</span>
+                    <span className="w-1 h-1 rounded-full bg-cc-text/20 shrink-0" />
                     <span className="font-sans text-cc-text/55 text-sm">{item.label}</span>
                   </motion.div>
                 ))}
