@@ -239,6 +239,7 @@ export default function EventDetail() {
                 <>
                   <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Acceso</p>
                   {soloMiembros ? (
+                    // Community open but user is not a member
                     <>
                       <h2
                         className="font-display text-cc-text mb-4 leading-tight"
@@ -246,14 +247,24 @@ export default function EventDetail() {
                       >
                         Solo miembros<br />por ahora.
                       </h2>
-                      <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
-                        La venta está abierta únicamente para miembros de la comunidad. Regístrate gratis para acceder al precio preferencial y asegurar tu lugar.
+                      <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-4">
+                        La venta está abierta únicamente para miembros de la comunidad.
                       </p>
+                      {evento.fecha_apertura_publica && (
+                        <div className="bg-cc-text/[0.04] border border-cc-text/8 px-4 py-3 mb-6">
+                          <p className="font-sans text-cc-text/35 text-xs tracking-widest uppercase mb-1">Venta general abre</p>
+                          <p className="font-sans text-cc-text/70 text-sm capitalize">
+                            {new Date(evento.fecha_apertura_publica).toLocaleDateString('es-MX', {
+                              weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                            })}
+                          </p>
+                        </div>
+                      )}
                       <a
                         href="/comunidad"
                         className="block w-full text-center bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 mb-4"
                       >
-                        Unirme a la comunidad →
+                        Registrarme como miembro →
                       </a>
                       <button
                         onClick={() => setStep('email')}
@@ -263,6 +274,7 @@ export default function EventDetail() {
                       </button>
                     </>
                   ) : (
+                    // Neither access is open yet
                     <>
                       <h2
                         className="font-display text-cc-text mb-4 leading-tight"
@@ -270,15 +282,51 @@ export default function EventDetail() {
                       >
                         Próximamente.
                       </h2>
-                      <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
-                        La venta aún no está disponible. Regístrate como miembro para ser el primero en saber cuándo abren los cupos.
+                      <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-5">
+                        {esMiembro
+                          ? 'Tu acceso como miembro estará disponible pronto.'
+                          : 'La venta aún no está disponible. Los miembros tienen acceso anticipado.'}
                       </p>
-                      <a
-                        href="/comunidad"
-                        className="block w-full text-center border border-cc-text/20 text-cc-text/50 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:border-cc-text/40 hover:text-cc-text transition-colors duration-300"
+
+                      <div className="space-y-3 mb-8">
+                        {evento.fecha_apertura_comunidad && (
+                          <div className="bg-cc-text/[0.04] border border-cc-text/8 px-4 py-3">
+                            <p className="font-sans text-cc-text/35 text-xs tracking-widest uppercase mb-1">
+                              {esMiembro ? 'Tu acceso abre' : 'Venta para miembros'}
+                            </p>
+                            <p className="font-sans text-cc-text/70 text-sm capitalize">
+                              {new Date(evento.fecha_apertura_comunidad).toLocaleDateString('es-MX', {
+                                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                              })}
+                            </p>
+                          </div>
+                        )}
+                        {evento.fecha_apertura_publica && !esMiembro && (
+                          <div className="bg-cc-text/[0.02] border border-cc-text/6 px-4 py-3">
+                            <p className="font-sans text-cc-text/25 text-xs tracking-widest uppercase mb-1">Venta general</p>
+                            <p className="font-sans text-cc-text/45 text-sm capitalize">
+                              {new Date(evento.fecha_apertura_publica).toLocaleDateString('es-MX', {
+                                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                              })}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      {!esMiembro && (
+                        <a
+                          href="/comunidad"
+                          className="block w-full text-center bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 mb-3"
+                        >
+                          Registrarme como miembro →
+                        </a>
+                      )}
+                      <button
+                        onClick={() => setStep('email')}
+                        className="w-full text-cc-text/25 text-xs font-sans hover:text-cc-text/45 transition-colors py-2"
                       >
-                        Unirme a la comunidad →
-                      </a>
+                        ← Volver
+                      </button>
                     </>
                   )}
                 </>
