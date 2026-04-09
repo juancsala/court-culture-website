@@ -50,6 +50,7 @@ export default function PreRegistro() {
     tiene_raqueta: false,
     acepto_terminos: false,
   })
+  const [zonaCustom, setZonaCustom] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
@@ -57,12 +58,16 @@ export default function PreRegistro() {
   const set = (key: string, value: string | boolean) =>
     setForm(f => ({ ...f, [key]: value }))
 
+  const sanitize = (s: string) =>
+    s.trim().toLowerCase().replace(/[^a-záéíóúüñ\s]/gi, '').replace(/\s+/g, ' ')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
     setError('')
+    const zonaFinal = form.zona === 'otro' ? sanitize(zonaCustom) || 'otro' : form.zona
     try {
-      await createMiembro(form)
+      await createMiembro({ ...form, zona: zonaFinal })
       setDone(true)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (err: any) {
@@ -270,6 +275,17 @@ export default function PreRegistro() {
                           <option key={z.value} value={z.value}>{z.label}</option>
                         ))}
                       </select>
+                      {form.zona === 'otro' && (
+                        <input
+                          type="text"
+                          required
+                          placeholder="¿De qué ciudad o estado?"
+                          value={zonaCustom}
+                          onChange={e => setZonaCustom(e.target.value)}
+                          className={inputClass + ' mt-2'}
+                          maxLength={80}
+                        />
+                      )}
                     </div>
 
                     {/* Nivel */}
