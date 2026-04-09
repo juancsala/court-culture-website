@@ -164,9 +164,29 @@ export default function EventDetail() {
 
             <div className="h-px bg-cc-text/8 mb-8" />
 
-            <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
+            <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-12">
               {evento.descripcion}
             </p>
+
+            {/* Incluye */}
+            <div>
+              <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-6">Incluye</p>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { icon: '◈', label: 'Hidratación' },
+                  { icon: '◈', label: 'Snacks' },
+                  { icon: '◈', label: 'Cold Plunge' },
+                  { icon: '◈', label: 'DJ en vivo' },
+                  { icon: '◈', label: 'Convivencia' },
+                  { icon: '◈', label: 'Regalos' },
+                ].map(item => (
+                  <div key={item.label} className="flex items-center gap-3 border border-cc-text/8 px-4 py-3">
+                    <span className="text-cc-text/20 text-xs">{item.icon}</span>
+                    <span className="font-sans text-cc-text/55 text-sm">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
 
           {/* Right — Registro */}
