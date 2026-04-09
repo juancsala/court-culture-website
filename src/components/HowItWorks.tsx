@@ -4,12 +4,12 @@ const steps = [
   {
     number: '01',
     title: 'Entérate del evento.',
-    description: 'Anunciamos cada sesión en redes. Síguenos para no perderte ninguna.',
+    description: 'Consulta la agenda en courtculture.mx/eventos o síguenos en redes para no perderte ninguna sesión.',
   },
   {
     number: '02',
     title: 'Reserva tu cupo.',
-    description: 'Los lugares son limitados. Aparta el tuyo a tiempo y confirma tu asistencia.',
+    description: 'Los lugares son limitados. Regístrate como miembro para acceder antes y a precio preferencial.',
   },
   {
     number: '03',
