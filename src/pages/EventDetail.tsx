@@ -35,7 +35,13 @@ export default function EventDetail() {
   async function handleVerificarEmail(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-    if (email.includes('@') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const hasAt = email.includes('@')
+    const hasDot = email.includes('.')
+    if (hasAt && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Ingresa un correo válido.')
+      return
+    }
+    if (!hasAt && hasDot) {
       setError('Ingresa un correo válido.')
       return
     }
