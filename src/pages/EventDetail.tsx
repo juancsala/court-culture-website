@@ -17,7 +17,6 @@ export default function EventDetail() {
   const [loading, setLoading] = useState(true)
   const [step, setStep] = useState<Step>('email')
   const [esMiembro, setEsMiembro] = useState(false)
-  const [isBypass, setIsBypass] = useState(false)
   const [soloMiembros, setSoloMiembros] = useState(false)
   const [email, setEmail] = useState('')
   const [checkingEmail, setCheckingEmail] = useState(false)
@@ -36,32 +35,13 @@ export default function EventDetail() {
   async function handleVerificarEmail(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-    const hasAt = email.includes('@')
-    const hasDot = email.includes('.')
-    if (hasAt && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Ingresa un correo válido.')
-      return
-    }
-    if (!hasAt && hasDot) {
-      setError('Ingresa un correo válido.')
-      return
-    }
     setCheckingEmail(true)
     try {
-      const { es_miembro, bypass } = await verificarMiembro(email)
+      const { es_miembro } = await verificarMiembro(email)
       setEsMiembro(es_miembro)
-      setIsBypass(!!bypass)
+      setForm(f => ({ ...f, email }))
 
       if (!evento) return
-
-      // Admin bypass: skip all date/access checks, leave email empty for admin to fill
-      if (bypass) {
-        setForm(f => ({ ...f, email: '' }))
-        setStep('form')
-        return
-      }
-
-      setForm(f => ({ ...f, email }))
 
       if (!evento.acceso_publico && !evento.acceso_comunidad) {
         setSoloMiembros(false)
@@ -263,7 +243,7 @@ export default function EventDetail() {
                     <div>
                       <label className={labelClass}>Correo electrónico</label>
                       <input
-                        type="text"
+                        type="email"
                         required
                         placeholder="tu@email.com"
                         value={email}
@@ -423,11 +403,9 @@ export default function EventDetail() {
                       <label className={labelClass}>Email</label>
                       <input
                         type="email"
-                        required
                         value={form.email}
-                        readOnly={!isBypass}
-                        onChange={isBypass ? e => setForm(f => ({ ...f, email: e.target.value })) : undefined}
-                        className={inputClass + (!isBypass ? ' opacity-40 cursor-not-allowed' : '')}
+                        readOnly
+                        className={inputClass + ' opacity-40 cursor-not-allowed'}
                       />
                     </div>
                     <div>
