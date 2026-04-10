@@ -17,6 +17,7 @@ export default function EventDetail() {
   const [loading, setLoading] = useState(true)
   const [step, setStep] = useState<Step>('email')
   const [esMiembro, setEsMiembro] = useState(false)
+  const [isBypass, setIsBypass] = useState(false)
   const [soloMiembros, setSoloMiembros] = useState(false)
   const [email, setEmail] = useState('')
   const [checkingEmail, setCheckingEmail] = useState(false)
@@ -49,15 +50,18 @@ export default function EventDetail() {
     try {
       const { es_miembro, bypass } = await verificarMiembro(email)
       setEsMiembro(es_miembro)
-      setForm(f => ({ ...f, email }))
+      setIsBypass(!!bypass)
 
       if (!evento) return
 
-      // Admin bypass: skip all date/access checks
+      // Admin bypass: skip all date/access checks, leave email empty for admin to fill
       if (bypass) {
+        setForm(f => ({ ...f, email: '' }))
         setStep('form')
         return
       }
+
+      setForm(f => ({ ...f, email }))
 
       if (!evento.acceso_publico && !evento.acceso_comunidad) {
         setSoloMiembros(false)
@@ -419,9 +423,11 @@ export default function EventDetail() {
                       <label className={labelClass}>Email</label>
                       <input
                         type="email"
+                        required
                         value={form.email}
-                        readOnly
-                        className={inputClass + ' opacity-40 cursor-not-allowed'}
+                        readOnly={!isBypass}
+                        onChange={isBypass ? e => setForm(f => ({ ...f, email: e.target.value })) : undefined}
+                        className={inputClass + (!isBypass ? ' opacity-40 cursor-not-allowed' : '')}
                       />
                     </div>
                     <div>
