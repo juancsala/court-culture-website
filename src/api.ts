@@ -33,7 +33,7 @@ export async function getEvent(id: number): Promise<Event> {
   return res.json()
 }
 
-export async function verificarMiembro(email: string): Promise<{ es_miembro: boolean }> {
+export async function verificarMiembro(email: string): Promise<{ es_miembro: boolean; bypass?: boolean }> {
   const res = await fetch(`${API_BASE}/api/events/verificar-miembro/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

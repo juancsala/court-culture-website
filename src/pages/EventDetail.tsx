@@ -34,14 +34,24 @@ export default function EventDetail() {
 
   async function handleVerificarEmail(e: React.FormEvent) {
     e.preventDefault()
-    setCheckingEmail(true)
     setError('')
+    if (email.includes('@') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Ingresa un correo válido.')
+      return
+    }
+    setCheckingEmail(true)
     try {
-      const { es_miembro } = await verificarMiembro(email)
+      const { es_miembro, bypass } = await verificarMiembro(email)
       setEsMiembro(es_miembro)
       setForm(f => ({ ...f, email }))
 
       if (!evento) return
+
+      // Admin bypass: skip all date/access checks
+      if (bypass) {
+        setStep('form')
+        return
+      }
 
       if (!evento.acceso_publico && !evento.acceso_comunidad) {
         setSoloMiembros(false)
@@ -243,7 +253,7 @@ export default function EventDetail() {
                     <div>
                       <label className={labelClass}>Correo electrónico</label>
                       <input
-                        type="email"
+                        type="text"
                         required
                         placeholder="tu@email.com"
                         value={email}
