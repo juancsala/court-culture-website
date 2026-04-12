@@ -10,6 +10,10 @@ import PreRegistro from './pages/PreRegistro'
 import EventsPage from './pages/EventsPage'
 import EventDetail from './pages/EventDetail'
 import Confirmacion from './pages/Confirmacion'
+import FinanzasLogin from './pages/finanzas/Login'
+import FinanzasDashboard from './pages/finanzas/Dashboard'
+import FinanzasNuevo from './pages/finanzas/Nuevo'
+import ProtectedRoute from './pages/finanzas/ProtectedRoute'
 
 function HomePage() {
   return (
@@ -34,6 +38,9 @@ export default function App() {
         <Route path="/eventos" element={<EventsPage />} />
         <Route path="/eventos/:id" element={<EventDetail />} />
         <Route path="/confirmacion" element={<Confirmacion />} />
+        <Route path="/finanzas/login" element={<FinanzasLogin />} />
+        <Route path="/finanzas/dashboard" element={<ProtectedRoute><FinanzasDashboard /></ProtectedRoute>} />
+        <Route path="/finanzas/nuevo" element={<ProtectedRoute><FinanzasNuevo /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   )
