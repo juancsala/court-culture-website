@@ -35,7 +35,7 @@ export default function FinanzasLogin() {
         className="w-full max-w-sm"
       >
         <div className="flex justify-center mb-12">
-          <img src={LOGOS.mainWhite} alt="Court Culture" className="h-16 w-auto opacity-80" />
+          <img src={LOGOS.mainWhite} alt="Court Culture" className="h-48 w-auto opacity-80" />
         </div>
 
         <p className="text-xs tracking-[0.25em] uppercase font-sans text-white/25 mb-3 text-center">
