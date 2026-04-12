@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { getDashboardStats, getTransacciones, eliminarTransaccion, DashboardStats, Transaccion } from '../../api/finanzas'
 import { LOGOS } from '../../assets'
 
@@ -126,15 +127,46 @@ export default function FinanzasDashboard() {
           ))}
         </div>
 
-        {/* Por mes */}
+        {/* Gráfica */}
         {stats && stats.por_mes.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="border border-cc-text/10 p-6 mb-12"
+            className="border border-cc-text/10 p-6 mb-6"
           >
             <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-6">Últimos 6 meses</p>
+            <ResponsiveContainer width="100%" height={260}>
+              <LineChart data={stats.por_mes.map(r => ({
+                mes: formatMes(r.mes),
+                Ingresos: r.ingresos || 0,
+                Gastos: r.gastos || 0,
+                Balance: (r.ingresos || 0) - (r.gastos || 0),
+              }))}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(10,10,10,0.06)" />
+                <XAxis dataKey="mes" tick={{ fontSize: 11, fontFamily: 'Arial', fill: 'rgba(10,10,10,0.35)' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fontFamily: 'Arial', fill: 'rgba(10,10,10,0.35)' }} axisLine={false} tickLine={false} tickFormatter={v => `$${v.toLocaleString('es-MX')}`} />
+                <Tooltip
+                  contentStyle={{ background: '#F9F8F5', border: '1px solid rgba(10,10,10,0.1)', borderRadius: 0, fontFamily: 'Arial', fontSize: 12 }}
+                  formatter={(value) => [`$${Number(value).toLocaleString('es-MX')}`, '']}
+                />
+                <Legend wrapperStyle={{ fontSize: 11, fontFamily: 'Arial', paddingTop: 16 }} />
+                <Line type="monotone" dataKey="Ingresos" stroke="#2c3b28" strokeWidth={1.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                <Line type="monotone" dataKey="Gastos" stroke="rgba(10,10,10,0.3)" strokeWidth={1.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                <Line type="monotone" dataKey="Balance" stroke="#7a8c6e" strokeWidth={1.5} strokeDasharray="4 3" dot={{ r: 3 }} activeDot={{ r: 5 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </motion.div>
+        )}
+
+        {/* Por mes tabla */}
+        {stats && stats.por_mes.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="border border-cc-text/10 p-6 mb-12"
+          >
             <div className="overflow-x-auto">
               <table className="w-full min-w-[400px]">
                 <thead>
