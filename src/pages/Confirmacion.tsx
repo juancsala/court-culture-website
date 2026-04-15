@@ -65,27 +65,33 @@ async function generarPDF(data: RegistroData) {
     ['CÓDIGO', data.codigo],
   ]
 
+  const labelX = 20
+  const valueX = 80
+  const maxValueWidth = 110
+
   let y = 84
   rows.forEach(([label, value], i) => {
+    const isLast = i === rows.length - 1
+
     doc.setFont('helvetica', 'normal')
     doc.setFontSize(7)
     doc.setTextColor(...muted)
     doc.setCharSpace(1.5)
-    doc.text(label, 20, y)
+    doc.text(label, labelX, y)
     doc.setCharSpace(0)
 
-    doc.setFont('helvetica', i === rows.length - 1 ? 'bold' : 'normal')
-    doc.setFontSize(i === rows.length - 1 ? 13 : 10)
+    doc.setFont('helvetica', isLast ? 'bold' : 'normal')
+    doc.setFontSize(isLast ? 13 : 10)
     doc.setTextColor(...dark)
-    const lines = doc.splitTextToSize(value, 120)
-    doc.text(lines, 70, y)
+    const lines = doc.splitTextToSize(value, maxValueWidth)
+    doc.text(lines, valueX, y)
 
-    const lineH = lines.length > 1 ? 8 + (lines.length - 1) * 5 : 8
+    const lineH = Math.max(10, lines.length * 5 + 4)
     y += lineH
 
     doc.setDrawColor(...light)
     doc.setLineWidth(0.2)
-    doc.line(20, y - 1, 190, y - 1)
+    doc.line(labelX, y - 2, 190, y - 2)
   })
 
   // QR
