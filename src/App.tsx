@@ -14,7 +14,6 @@ import FinanzasLogin from './pages/finanzas/Login'
 import FinanzasDashboard from './pages/finanzas/Dashboard'
 import FinanzasNuevo from './pages/finanzas/Nuevo'
 import ProtectedRoute from './pages/finanzas/ProtectedRoute'
-import TicketPreview from './pages/TicketPreview'
 
 function HomePage() {
   return (
@@ -42,7 +41,6 @@ export default function App() {
         <Route path="/finanzas/login" element={<FinanzasLogin />} />
         <Route path="/finanzas/dashboard" element={<ProtectedRoute><FinanzasDashboard /></ProtectedRoute>} />
         <Route path="/finanzas/nuevo" element={<ProtectedRoute><FinanzasNuevo /></ProtectedRoute>} />
-        <Route path="/ticket-preview" element={<TicketPreview />} />
       </Routes>
     </BrowserRouter>
   )
