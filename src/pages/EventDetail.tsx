@@ -213,7 +213,30 @@ export default function EventDetail() {
           >
             <div className="border border-cc-text/10 p-8 md:p-10 bg-cc-text/[0.02]">
 
-              {step === 'email' && (
+              {evento.cupos_disponibles <= 0 ? (
+                <>
+                  <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Registro</p>
+                  <h2
+                    className="font-display text-cc-text mb-4 leading-tight"
+                    style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
+                  >
+                    Sold out.
+                  </h2>
+                  <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-6">
+                    Todos los lugares han sido reservados. Síguenos en Instagram para enterarte de próximos eventos.
+                  </p>
+                  <a
+                    href="https://www.instagram.com/courtculture.mty"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full text-center border border-cc-text/20 text-cc-text/50 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:border-cc-text/40 hover:text-cc-text/70 transition-colors duration-300"
+                  >
+                    @courtculture.mty →
+                  </a>
+                </>
+              ) : null}
+
+              {evento.cupos_disponibles > 0 && step === 'email' && (
                 <>
                   <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Registro</p>
                   <h2
@@ -270,7 +293,7 @@ export default function EventDetail() {
                 </>
               )}
 
-              {step === 'bloqueado' && (
+              {evento.cupos_disponibles > 0 && step === 'bloqueado' && (
                 <>
                   <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Acceso</p>
                   {soloMiembros ? (
@@ -367,7 +390,7 @@ export default function EventDetail() {
                 </>
               )}
 
-              {step === 'form' && (
+              {evento.cupos_disponibles > 0 && step === 'form' && (
                 <>
                   <div className="flex items-center gap-2 mb-6">
                     <div className="w-1.5 h-1.5 rounded-full bg-cc-text/40" />
