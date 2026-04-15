@@ -55,8 +55,12 @@ export async function createCheckout(eventoId: number, data: {
     body: JSON.stringify(data),
   })
   if (!res.ok) {
-    const err = await res.json()
-    throw new Error(err.error || 'Error al procesar el pago')
+    try {
+      const err = await res.json()
+      throw new Error(err.error || 'Error al procesar el pago')
+    } catch {
+      throw new Error('Error al procesar el pago. Intenta de nuevo.')
+    }
   }
   return res.json()
 }
