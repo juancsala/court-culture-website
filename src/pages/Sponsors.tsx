@@ -165,7 +165,7 @@ export default function SponsorsPage() {
 
               {/* Datos de la marca */}
               <div>
-                <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/20 mb-5">Datos de la marca</p>
+                <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/50 mb-5">Datos de la marca</p>
                 <div className="flex flex-col gap-4">
                   <div>
                     <label className={labelClass}>Nombre de la marca</label>
@@ -186,7 +186,7 @@ export default function SponsorsPage() {
 
               {/* Datos de contacto */}
               <div>
-                <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/20 mb-5">Datos de contacto</p>
+                <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/50 mb-5">Datos de contacto</p>
                 <div className="flex flex-col gap-4">
                   <div>
                     <label className={labelClass}>Nombre de contacto</label>
