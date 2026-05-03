@@ -3,7 +3,7 @@ import { COMMUNITY_IMAGES, FEATURE_IMAGE } from '../assets'
 
 export default function Community() {
   return (
-    <section className="bg-cc-base py-28 md:py-40 overflow-hidden">
+    <section className="bg-cc-base pt-28 md:pt-40 pb-0 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Section header */}
