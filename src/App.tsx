@@ -5,6 +5,7 @@ import Concept from './components/Concept'
 import HowItWorks from './components/HowItWorks'
 import Community from './components/Community'
 import Join from './components/Join'
+import MerchBanner from './components/MerchBanner'
 import Footer from './components/Footer'
 import PreRegistro from './pages/PreRegistro'
 import EventsPage from './pages/EventsPage'
@@ -25,6 +26,7 @@ function HomePage() {
       <Concept />
       <HowItWorks />
       <Community />
+      <MerchBanner />
       <Join />
       <Footer />
     </div>
