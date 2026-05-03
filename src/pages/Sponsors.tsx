@@ -113,7 +113,7 @@ export default function SponsorsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <p className="font-sans text-cc-text/60 text-sm md:text-base leading-relaxed mb-4">
+          <p className="font-sans text-cc-text/60 text-sm md:text-base leading-relaxed mb-4 text-justify">
             Si tienes una marca y te gustaría sumarte a nuestros eventos, este formulario es para ti. En cada evento contamos con espacios para marcas que quieran visibilizarse, conectar con la comunidad y formar parte de una experiencia deportiva y social única.
           </p>
           <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
