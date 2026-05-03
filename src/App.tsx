@@ -16,6 +16,7 @@ import FinanzasDashboard from './pages/finanzas/Dashboard'
 import FinanzasNuevo from './pages/finanzas/Nuevo'
 import ProtectedRoute from './pages/finanzas/ProtectedRoute'
 import MerchPage from './pages/Merch'
+import SponsorsPage from './pages/Sponsors'
 import MerchConfirmacion from './pages/MerchConfirmacion'
 
 function HomePage() {
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/confirmacion" element={<Confirmacion />} />
         <Route path="/merch" element={<MerchPage />} />
         <Route path="/merch/confirmacion" element={<MerchConfirmacion />} />
+        <Route path="/sponsors" element={<SponsorsPage />} />
         <Route path="/finanzas/login" element={<FinanzasLogin />} />
         <Route path="/finanzas/dashboard" element={<ProtectedRoute><FinanzasDashboard /></ProtectedRoute>} />
         <Route path="/finanzas/nuevo" element={<ProtectedRoute><FinanzasNuevo /></ProtectedRoute>} />
