@@ -26,7 +26,7 @@ function HomePage() {
       <Concept />
       <HowItWorks />
       <Community />
-      <MerchBanner />
+      {/* <MerchBanner /> */}
       <Join />
       <Footer />
     </div>
