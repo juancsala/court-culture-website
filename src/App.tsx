@@ -14,6 +14,8 @@ import FinanzasLogin from './pages/finanzas/Login'
 import FinanzasDashboard from './pages/finanzas/Dashboard'
 import FinanzasNuevo from './pages/finanzas/Nuevo'
 import ProtectedRoute from './pages/finanzas/ProtectedRoute'
+import MerchPage from './pages/Merch'
+import MerchConfirmacion from './pages/MerchConfirmacion'
 
 function HomePage() {
   return (
@@ -38,6 +40,8 @@ export default function App() {
         <Route path="/eventos" element={<EventsPage />} />
         <Route path="/eventos/:id" element={<EventDetail />} />
         <Route path="/confirmacion" element={<Confirmacion />} />
+        <Route path="/merch" element={<MerchPage />} />
+        <Route path="/merch/confirmacion" element={<MerchConfirmacion />} />
         <Route path="/finanzas/login" element={<FinanzasLogin />} />
         <Route path="/finanzas/dashboard" element={<ProtectedRoute><FinanzasDashboard /></ProtectedRoute>} />
         <Route path="/finanzas/nuevo" element={<ProtectedRoute><FinanzasNuevo /></ProtectedRoute>} />
