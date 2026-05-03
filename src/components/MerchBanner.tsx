@@ -14,7 +14,7 @@ export default function MerchBanner() {
           className="relative overflow-hidden h-72 md:h-auto order-1"
         >
           <img
-            src="/merch/modelo1.jpg"
+            src="/img/merch/modelo1.jpg"
             alt="Court Culture Merch"
             className="w-full h-full object-cover object-top"
           />

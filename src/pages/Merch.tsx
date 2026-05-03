@@ -4,10 +4,10 @@ import { LOGOS } from '../assets'
 import { getProductos, crearOrden, Producto } from '../api/merch'
 
 const MODELO_PHOTOS = [
-  '/merch/modelo1.jpg',
-  '/merch/modelo2.jpg',
-  '/merch/modelo3.jpg',
-  '/merch/modelo4.jpg',
+  '/img/merch/modelo1.jpg',
+  '/img/merch/modelo2.jpg',
+  '/img/merch/modelo3.jpg',
+  '/img/merch/modelo4.jpg',
 ]
 
 const inputClass = 'w-full border border-cc-text/15 bg-transparent px-4 py-3.5 font-sans text-cc-text text-sm focus:outline-none focus:border-cc-text/40 transition-colors placeholder:text-cc-text/20'
@@ -60,8 +60,8 @@ export default function MerchPage() {
     }
   }
 
-  const frontImg = producto?.imagen_front_url || '/merch/front.png'
-  const backImg = producto?.imagen_back_url || '/merch/back.png'
+  const frontImg = producto?.imagen_front_url || '/img/merch/front.png'
+  const backImg = producto?.imagen_back_url || '/img/merch/back.png'
 
   return (
     <div className="min-h-screen bg-cc-base text-cc-text">
