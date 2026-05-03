@@ -14,7 +14,6 @@ const inputClass = 'w-full border border-cc-text/15 bg-transparent px-4 py-3.5 f
 const labelClass = 'block text-xs tracking-[0.18em] uppercase font-sans text-cc-text/35 mb-2'
 
 export default function MerchPage() {
-  const [productos, setProductos] = useState<Producto[]>([])
   const [producto, setProducto] = useState<Producto | null>(null)
   const [vista, setVista] = useState<'front' | 'back'>('front')
   const [genero, setGenero] = useState<'hombre' | 'mujer'>('hombre')
@@ -26,7 +25,6 @@ export default function MerchPage() {
 
   useEffect(() => {
     getProductos().then(data => {
-      setProductos(data)
       if (data.length > 0) setProducto(data[0])
     })
   }, [])
@@ -34,12 +32,6 @@ export default function MerchPage() {
   function tallasDeGenero(g: string) {
     if (!producto) return []
     return producto.tallas.filter(t => t.genero === g)
-  }
-
-  function stockDeTalla(t: string) {
-    if (!producto) return 0
-    const item = producto.tallas.find(i => i.genero === genero && i.talla === t)
-    return item?.stock ?? 0
   }
 
   const totalStock = producto?.tallas.filter(t => t.genero === genero).reduce((s, t) => s + t.stock, 0) ?? 0
@@ -152,13 +144,12 @@ export default function MerchPage() {
             <AnimatePresence mode="wait">
               {step === 'producto' && (
                 <motion.div key="producto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  <div className="flex items-baseline justify-between mb-2">
+                  <div className="flex items-baseline justify-between mb-8">
                     <h2 className="font-display text-cc-text" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 300, fontStyle: 'italic' }}>
                       Playera CC Vol. I
                     </h2>
                     <span className="font-sans text-cc-text text-lg">$500 MXN</span>
                   </div>
-                  <p className="font-sans text-cc-text/35 text-xs tracking-widest uppercase mb-8">Off-white · Algodón</p>
 
                   {/* Género */}
                   <div className="mb-6">

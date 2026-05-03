@@ -36,13 +36,10 @@ export default function MerchBanner() {
             className="font-display text-cc-text leading-none mb-5"
             style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)', fontWeight: 300, fontStyle: 'italic' }}
           >
-            Drop 01
+            Nuestra<br />colección.
           </h2>
-          <p className="font-sans text-cc-text/45 text-sm leading-relaxed mb-3 max-w-xs">
-            Playera Vol. I — diseño exclusivo de la primera Court Session. Edición limitada.
-          </p>
-          <p className="font-sans text-cc-text/25 text-xs tracking-widest uppercase mb-10">
-            $500 MXN · Tallas limitadas
+          <p className="font-sans text-cc-text/45 text-sm leading-relaxed mb-10 max-w-xs">
+            Ropa diseñada para quienes viven el tenis. Edición limitada, tallas disponibles.
           </p>
           <a
             href="/merch"
