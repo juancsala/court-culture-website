@@ -59,10 +59,14 @@ export default function SponsorsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, por_que_sumarse: razones.join(', ') }),
       })
-      if (!res.ok) throw new Error('Error al enviar')
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error || 'Error al enviar')
+      }
       setEnviado(true)
-    } catch {
-      setError('Error al enviar. Intenta de nuevo.')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (err: any) {
+      setError(err.message || 'Error al enviar. Intenta de nuevo.')
     } finally {
       setSubmitting(false)
     }
