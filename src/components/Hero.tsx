@@ -70,6 +70,12 @@ export default function Hero() {
           >
             Ver eventos
           </a>
+          <a
+            href="/sponsors"
+            className="inline-flex items-center justify-center gap-2 border border-white/20 text-white/60 px-8 py-4 text-xs tracking-widest uppercase font-sans font-light hover:bg-white/10 hover:text-white/80 transition-all duration-300"
+          >
+            Colaboremos
+          </a>
         </motion.div>
       </div>
 
