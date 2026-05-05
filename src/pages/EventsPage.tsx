@@ -81,7 +81,7 @@ export default function EventsPage() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="font-display text-cc-text leading-none"
-            style={{ fontSize: 'clamp(4rem, 10vw, 9rem)', fontWeight: 300, fontStyle: 'italic' }}
+            style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', fontWeight: 300, fontStyle: 'italic' }}
           >
             Agenda
           </motion.h1>
@@ -94,7 +94,7 @@ export default function EventsPage() {
       </div>
 
       {/* Photo strip */}
-      <div className="grid grid-cols-3 gap-1 h-36 md:h-56">
+      <div className="grid grid-cols-3 gap-1 h-48 md:h-72">
         {STRIP_PHOTOS.map((src, i) => (
           <div key={i} className="overflow-hidden">
             <img src={src} alt="" className="w-full h-full object-cover object-center" style={{ filter: 'brightness(0.88) saturate(0.85)' }} />
@@ -103,29 +103,31 @@ export default function EventsPage() {
       </div>
 
       {/* Filters */}
-      <div className="px-6 md:px-12 pt-10 pb-6 border-b border-cc-text/8">
-        {/* Tipo */}
-        <div className="flex gap-2 flex-wrap mb-5">
+      <div className="px-6 md:px-12 pt-8 pb-6 flex flex-col gap-3 border-b border-cc-text/8">
+        <div className="flex gap-2 flex-wrap">
           {([
             ['todos', 'Todos'],
             ['court_session', 'Court Sessions'],
             ['warm_up_session', 'Warm Up Sessions'],
           ] as [TipoFiltro, string][]).map(([val, label]) => (
             <button key={val} onClick={() => setTipoFiltro(val)}
-              className={`px-4 py-2 text-xs tracking-widest uppercase font-sans border transition-colors duration-200 ${
-                tipoFiltro === val ? 'bg-cc-text text-cc-base border-cc-text' : 'border-cc-text/15 text-cc-text/40 hover:text-cc-text/70'
+              className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
+                tipoFiltro === val
+                  ? 'bg-cc-text text-cc-base'
+                  : 'text-cc-text/40 hover:text-cc-text/70 border border-cc-text/12 hover:border-cc-text/25'
               }`}
             >
               {label}
             </button>
           ))}
         </div>
-        {/* Mes */}
         <div className="flex gap-2 flex-wrap">
           {mesesConEventos.map(m => (
             <button key={m} onClick={() => setMesFiltro(m)}
-              className={`px-4 py-2 text-xs tracking-widest uppercase font-sans border transition-colors duration-200 ${
-                mesFiltro === m ? 'bg-cc-text/10 border-cc-text/30 text-cc-text' : 'border-cc-text/10 text-cc-text/30 hover:text-cc-text/60'
+              className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
+                mesFiltro === m
+                  ? 'text-cc-text border-b border-cc-text'
+                  : 'text-cc-text/30 hover:text-cc-text/55'
               }`}
             >
               {MESES[m]}
