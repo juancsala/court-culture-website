@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { getEvent, verificarMiembro, createCheckout, Event } from '../api'
+import { getEvent, verificarMiembro, createCheckout, unirseWaitlist, Event } from '../api'
 import { LOGOS } from '../assets'
 
 function formatFecha(fecha: string) {
@@ -18,6 +18,9 @@ export default function EventDetail() {
   const [step, setStep] = useState<Step>('email')
   const [esMiembro, setEsMiembro] = useState(false)
   const [soloMiembros, setSoloMiembros] = useState(false)
+  const [waitlistEmail, setWaitlistEmail] = useState('')
+  const [waitlistDone, setWaitlistDone] = useState(false)
+  const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [checkingEmail, setCheckingEmail] = useState(false)
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '', nivel_tenis: '' })
@@ -216,23 +219,39 @@ export default function EventDetail() {
               {evento.cupos_disponibles <= 0 ? (
                 <>
                   <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Registro</p>
-                  <h2
-                    className="font-display text-cc-text mb-4 leading-tight"
-                    style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
-                  >
+                  <h2 className="font-display text-cc-text mb-3 leading-tight"
+                    style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}>
                     Sold out.
                   </h2>
                   <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-6">
-                    Todos los lugares han sido reservados. Síguenos en Instagram para enterarte de próximos eventos.
+                    Todos los lugares han sido reservados. Déjanos tu correo y te avisamos si se libera un lugar.
                   </p>
-                  <a
-                    href="https://www.instagram.com/courtculture.mty"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full text-center border border-cc-text/20 text-cc-text/50 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:border-cc-text/40 hover:text-cc-text/70 transition-colors duration-300"
-                  >
-                    @courtculture.mty →
-                  </a>
+                  {waitlistDone ? (
+                    <div className="border border-cc-text/10 p-4 text-center">
+                      <p className="font-sans text-cc-text/60 text-sm">✓ Te avisaremos si se libera un lugar.</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={async e => {
+                      e.preventDefault()
+                      setWaitlistLoading(true)
+                      await unirseWaitlist(evento.id, waitlistEmail)
+                      setWaitlistDone(true)
+                      setWaitlistLoading(false)
+                    }} className="flex gap-2">
+                      <input
+                        type="email"
+                        required
+                        placeholder="tu@email.com"
+                        value={waitlistEmail}
+                        onChange={e => setWaitlistEmail(e.target.value)}
+                        className="flex-1 border border-cc-text/15 bg-transparent px-4 py-3 font-sans text-cc-text text-sm focus:outline-none focus:border-cc-text/40 transition-colors placeholder:text-cc-text/20"
+                      />
+                      <button type="submit" disabled={waitlistLoading}
+                        className="bg-cc-text text-cc-base px-4 py-3 text-xs tracking-widest uppercase font-sans hover:bg-cc-text/85 transition-colors disabled:opacity-40">
+                        {waitlistLoading ? '...' : 'Avisar'}
+                      </button>
+                    </form>
+                  )}
                 </>
               ) : null}
 

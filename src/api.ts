@@ -3,6 +3,7 @@ const API_BASE = import.meta.env.VITE_API_URL || 'https://web-production-05964f.
 export interface Event {
   id: number
   titulo: string
+  tipo: 'court_session' | 'warm_up_session'
   descripcion: string
   fecha: string
   hora: string
@@ -11,6 +12,7 @@ export interface Event {
   capacidad_publica: number
   cupos_disponibles: number
   imagen: string | null
+  whatsapp_evento: string
   precio_comunidad: string
   precio_general: string
   precio_actual: number
@@ -19,6 +21,16 @@ export interface Event {
   acceso_comunidad: boolean
   acceso_publico: boolean
   refund_deadline: string | null
+}
+
+export async function unirseWaitlist(eventoId: number, email: string): Promise<{ message: string }> {
+  const res = await fetch(`${API_BASE}/api/events/${eventoId}/waitlist/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  })
+  const data = await res.json()
+  return data
 }
 
 export async function getEvents(): Promise<Event[]> {
