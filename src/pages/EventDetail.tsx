@@ -144,25 +144,31 @@ export default function EventDetail() {
             </h1>
 
             <div className="mb-10">
-              {evento.descripcion.split('\n\n').map((bloque, i) => {
-                if (bloque.startsWith('¿Qué esperar?')) {
-                  const items = bloque.split('\n').slice(1)
-                  return (
-                    <div key={i} className="mt-6">
-                      <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-3">¿Qué esperar?</p>
-                      <ul className="space-y-1.5">
-                        {items.map((item, j) => (
-                          <li key={j} className="flex items-start gap-2 font-sans text-cc-text/50 text-sm">
-                            <span className="text-cc-text/25 mt-1">—</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )
-                }
-                return <p key={i} className="font-sans text-cc-text/50 text-sm leading-relaxed mb-3">{bloque}</p>
-              })}
+              {(() => {
+                const clean = evento.descripcion.replace(/\r/g, '')
+                const lines = clean.split('\n')
+                const qIdx = lines.findIndex(l => l.startsWith('¿Qué esperar?'))
+                const parrafo = qIdx > 0 ? lines.slice(0, qIdx).filter(l => l.trim()).join(' ') : clean
+                const items = qIdx > 0 ? lines.slice(qIdx + 1).filter(l => l.trim()) : []
+                return (
+                  <>
+                    <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-6">{parrafo}</p>
+                    {items.length > 0 && (
+                      <div>
+                        <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-3">¿Qué esperar?</p>
+                        <ul className="space-y-1.5">
+                          {items.map((item, j) => (
+                            <li key={j} className="flex items-start gap-2 font-sans text-cc-text/50 text-sm">
+                              <span className="text-cc-text/25 mt-0.5">—</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                )
+              })()}
             </div>
 
             <div className="space-y-5 mb-10">
