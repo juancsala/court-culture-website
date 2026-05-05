@@ -152,13 +152,13 @@ export default function EventsPage() {
           <div className="border border-cc-text/10 p-5">
             <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Court Sessions</p>
             <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Nuestros eventos grandes. Drills, partidos, juegos, marcas invitadas, DJ en vivo, cold plunge y convivencia. Una experiencia completa de tenis y comunidad.
+              Nuestros eventos de comunidad. Partidos, juegos, dinámicas y convivencia dentro y fuera de la cancha. Cada Court Session es una experiencia única.
             </p>
           </div>
           <div className="border border-cc-text/10 p-5">
             <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Warm Up Sessions</p>
             <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Sesiones íntimas solo para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Puro tenis y conexión real.
+              Sesiones para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Puro tenis y conexión real.
             </p>
           </div>
         </div>

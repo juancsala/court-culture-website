@@ -138,7 +138,7 @@ export default function EventDetail() {
             </p>
             <h1
               className="font-display text-cc-text leading-tight mb-10"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 4rem)', fontWeight: 300, fontStyle: 'italic' }}
+              style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3.2rem)', fontWeight: 300, fontStyle: 'italic' }}
             >
               {evento.titulo}
             </h1>
