@@ -137,15 +137,33 @@ export default function EventDetail() {
               Court Culture · Monterrey
             </p>
             <h1
-              className="font-display text-cc-text leading-none mb-10"
-              style={{ fontSize: 'clamp(2.8rem, 5vw, 5rem)', fontWeight: 300, fontStyle: 'italic', whiteSpace: 'nowrap' }}
+              className="font-display text-cc-text leading-tight mb-10"
+              style={{ fontSize: 'clamp(2.2rem, 4vw, 4rem)', fontWeight: 300, fontStyle: 'italic' }}
             >
               {evento.titulo}
             </h1>
 
-            <p className="font-sans text-cc-text/45 text-sm leading-relaxed mb-10">
-              {evento.descripcion}
-            </p>
+            <div className="mb-10">
+              {evento.descripcion.split('\n\n').map((bloque, i) => {
+                if (bloque.startsWith('¿Qué esperar?')) {
+                  const items = bloque.split('\n').slice(1)
+                  return (
+                    <div key={i} className="mt-6">
+                      <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-3">¿Qué esperar?</p>
+                      <ul className="space-y-1.5">
+                        {items.map((item, j) => (
+                          <li key={j} className="flex items-start gap-2 font-sans text-cc-text/50 text-sm">
+                            <span className="text-cc-text/25 mt-1">—</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                }
+                return <p key={i} className="font-sans text-cc-text/50 text-sm leading-relaxed mb-3">{bloque}</p>
+              })}
+            </div>
 
             <div className="space-y-5 mb-10">
               <div className="flex items-start gap-6">
@@ -171,7 +189,8 @@ export default function EventDetail() {
 
             <div className="h-px bg-cc-text/8 mb-8" />
 
-            {/* Incluye */}
+            {/* Incluye — solo Court Sessions */}
+            {evento.tipo === 'court_session' && <>
             <div>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -205,6 +224,7 @@ export default function EventDetail() {
                 ))}
               </div>
             </div>
+            </>}
           </motion.div>
 
           {/* Right — Registro */}

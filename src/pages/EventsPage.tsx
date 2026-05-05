@@ -103,7 +103,7 @@ export default function EventsPage() {
       </div>
 
       {/* Filters */}
-      <div className="px-6 md:px-12 pt-8 pb-6 flex flex-col gap-3 border-b border-cc-text/8">
+      <div className="px-6 md:px-12 pt-8 pb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-cc-text/8">
         <div className="flex gap-2 flex-wrap">
           {([
             ['todos', 'Todos'],
@@ -121,23 +121,20 @@ export default function EventsPage() {
             </button>
           ))}
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <select
+          value={mesFiltro}
+          onChange={e => setMesFiltro(Number(e.target.value))}
+          className="border border-cc-text/15 bg-cc-base text-cc-text/60 text-xs tracking-[0.15em] uppercase font-sans px-4 py-2 focus:outline-none focus:border-cc-text/30 transition-colors appearance-none pr-8 cursor-pointer"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230A0A0A' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
+        >
           {mesesConEventos.map(m => (
-            <button key={m} onClick={() => setMesFiltro(m)}
-              className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
-                mesFiltro === m
-                  ? 'text-cc-text border-b border-cc-text'
-                  : 'text-cc-text/30 hover:text-cc-text/55'
-              }`}
-            >
-              {MESES[m]}
-            </button>
+            <option key={m} value={m}>{MESES[m]}</option>
           ))}
-        </div>
+        </select>
       </div>
 
       {/* Sobre Court Culture */}
-      <div className="px-6 md:px-12 py-12 md:py-16 border-b border-cc-text/8 grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="px-6 md:px-12 py-12 md:py-16 border-b border-cc-text/8 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <div>
           <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-4">Sobre nosotros</p>
           <h2 className="font-display text-cc-text mb-5 leading-tight"
@@ -151,7 +148,7 @@ export default function EventsPage() {
             Aquí no importa si juegas desde hace años o si apenas estás empezando. Court Culture es más que tenis: es comunidad, ambiente y experiencias que se quedan contigo dentro y fuera de la cancha.
           </p>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 md:mt-16">
           <div className="border border-cc-text/10 p-5">
             <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Court Sessions</p>
             <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
@@ -161,7 +158,7 @@ export default function EventsPage() {
           <div className="border border-cc-text/10 p-5">
             <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Warm Up Sessions</p>
             <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Sesiones íntimas solo para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Sin marcas, sin formatos — puro tenis y conexión real.
+              Sesiones íntimas solo para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Puro tenis y conexión real.
             </p>
           </div>
         </div>
@@ -206,26 +203,17 @@ export default function EventsPage() {
 
                       {/* Info */}
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-[10px] tracking-[0.15em] uppercase font-sans px-2 py-0.5 border ${
-                            evento.tipo === 'court_session'
-                              ? 'border-white/20 text-white/50 group-hover:border-cc-text/30'
-                              : 'border-cc-text/20 text-cc-text/40 group-hover:border-cc-text/20 group-hover:text-cc-text/45'
-                          } transition-colors`}>
-                            {evento.tipo === 'court_session' ? 'Court Session' : 'Warm Up'}
-                          </span>
-                          {soldOut && (
-                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-400/80">Sold out</span>
-                          )}
-                        </div>
-                        <h2 className="font-display text-cc-text group-hover:text-cc-textleading-tight mb-1.5 transition-colors"
+                        {soldOut && (
+                          <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-400/70 block mb-1">Sold out</span>
+                        )}
+                        <h2 className="font-display text-cc-text group-hover:text-cc-text leading-tight mb-1.5 transition-colors"
                           style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}>
                           {evento.titulo}
                         </h2>
                         <p className="font-sans text-cc-text/35 group-hover:text-cc-text/60 text-sm transition-colors">{evento.lugar} · {formatHora(evento.hora)}</p>
-                        {evento.direccion && (
+                        {(evento.maps_url || evento.direccion) && (
                           <button
-                            onClick={e => { e.preventDefault(); window.open(mapsUrl(evento.direccion), '_blank') }}
+                            onClick={e => { e.preventDefault(); window.open(evento.maps_url || mapsUrl(evento.direccion), '_blank') }}
                             className="mt-1 text-xs font-sans text-cc-text/25 group-hover:text-cc-text/40 underline transition-colors"
                           >
                             Ver en Google Maps →
@@ -256,9 +244,9 @@ export default function EventsPage() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-cc-text/8 px-6 md:px-12 py-8 flex items-center justify-between">
-        <p className="text-xs font-sans text-cc-text/20 tracking-widest uppercase">Court Culture · Monterrey</p>
-        <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" className="text-xs font-sans text-cc-text/25 hover:text-cc-text/50 transition-colors">
+      <div className="bg-cc-dark px-6 md:px-12 py-8 flex items-center justify-between">
+        <p className="text-xs font-sans text-white/40 tracking-widest uppercase">Court Culture · Monterrey</p>
+        <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" className="text-xs font-sans text-white/40 hover:text-white/70 transition-colors">
           @courtculture.mty
         </a>
       </div>

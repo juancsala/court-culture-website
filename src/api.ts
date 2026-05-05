@@ -13,6 +13,7 @@ export interface Event {
   cupos_disponibles: number
   imagen: string | null
   whatsapp_evento: string
+  maps_url: string
   precio_comunidad: string
   precio_general: string
   precio_actual: number
