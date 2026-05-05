@@ -1,7 +1,24 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { LOGOS, LINKS } from '../assets'
 
+const API_BASE = import.meta.env.VITE_API_URL || 'https://web-production-05964f.up.railway.app'
+
 export default function Confirmacion() {
+  const [whatsappUrl, setWhatsappUrl] = useState(LINKS.whatsapp)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const sessionId = params.get('session_id')
+    if (!sessionId) return
+    fetch(`${API_BASE}/api/events/registro/session/${sessionId}/`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.whatsapp_evento) setWhatsappUrl(data.whatsapp_evento)
+      })
+      .catch(() => {})
+  }, [])
+
   return (
     <div className="min-h-screen bg-cc-base flex flex-col">
 
@@ -50,7 +67,7 @@ export default function Confirmacion() {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={LINKS.whatsapp}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-cc-text text-cc-base px-8 py-4 text-xs tracking-widest uppercase font-sans font-medium hover:bg-cc-text/90 transition-colors duration-300"
