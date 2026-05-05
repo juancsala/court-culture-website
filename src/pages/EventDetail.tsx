@@ -400,6 +400,9 @@ export default function EventDetail() {
                             <p className="font-sans text-cc-text/70 text-sm capitalize">
                               {new Date(evento.fecha_apertura_comunidad).toLocaleDateString('es-MX', {
                                 weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                              })}{' '}
+                              a las {new Date(evento.fecha_apertura_comunidad).toLocaleTimeString('es-MX', {
+                                hour: '2-digit', minute: '2-digit', hour12: true
                               })}
                             </p>
                           </div>
@@ -410,6 +413,9 @@ export default function EventDetail() {
                             <p className="font-sans text-cc-text/45 text-sm capitalize">
                               {new Date(evento.fecha_apertura_publica).toLocaleDateString('es-MX', {
                                 weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                              })}{' '}
+                              a las {new Date(evento.fecha_apertura_publica).toLocaleTimeString('es-MX', {
+                                hour: '2-digit', minute: '2-digit', hour12: true
                               })}
                             </p>
                           </div>
