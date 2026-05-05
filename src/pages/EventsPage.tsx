@@ -134,6 +134,37 @@ export default function EventsPage() {
         </div>
       </div>
 
+      {/* Sobre Court Culture */}
+      <div className="px-6 md:px-12 py-12 md:py-16 border-b border-cc-text/8 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div>
+          <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-4">Sobre nosotros</p>
+          <h2 className="font-display text-cc-text mb-5 leading-tight"
+            style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 300, fontStyle: 'italic' }}>
+            Somos Court Culture.
+          </h2>
+          <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-3">
+            Court Culture nace en marzo de 2026 con una idea clara: crear un espacio donde el tenis sea el punto de encuentro para conectar personas. Lo que empezó con 50 personas hoy se ha convertido en una comunidad de más de 1,200 miembros, posicionándose como la comunidad de tenis más grande de México.
+          </p>
+          <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
+            Aquí no importa si juegas desde hace años o si apenas estás empezando. Court Culture es más que tenis: es comunidad, ambiente y experiencias que se quedan contigo dentro y fuera de la cancha.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="border border-cc-text/10 p-5">
+            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Court Sessions</p>
+            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
+              Nuestros eventos grandes. Drills, partidos, juegos, marcas invitadas, DJ en vivo, cold plunge y convivencia. Una experiencia completa de tenis y comunidad.
+            </p>
+          </div>
+          <div className="border border-cc-text/10 p-5">
+            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Warm Up Sessions</p>
+            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
+              Sesiones íntimas solo para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Sin marcas, sin formatos — puro tenis y conexión real.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Events list */}
       <div className="px-6 md:px-12 py-10 min-h-[40vh]">
         {loading ? (
@@ -160,15 +191,15 @@ export default function EventsPage() {
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: i * 0.08 }}
-                      className="group flex flex-col md:flex-row md:items-center gap-6 py-10 md:py-12 -mx-6 md:-mx-12 px-6 md:px-12 hover:bg-cc-dark transition-all duration-400"
+                      className="group flex flex-col md:flex-row md:items-center gap-6 py-10 md:py-12 -mx-6 md:-mx-12 px-6 md:px-12 hover:bg-cc-text/[0.04] transition-all duration-300"
                     >
                       {/* Fecha */}
                       <div className="md:w-36 shrink-0">
-                        <span className="font-display text-cc-text/15 group-hover:text-white/20 transition-colors leading-none block"
+                        <span className="font-display text-cc-text/15 group-hover:text-cc-text/25 transition-colors leading-none block"
                           style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 300 }}>
                           {dia}
                         </span>
-                        <p className="text-xs tracking-widest uppercase font-sans text-cc-text/30 group-hover:text-white/40 transition-colors mt-1 capitalize">{mes}</p>
+                        <p className="text-xs tracking-widest uppercase font-sans text-cc-text/30 group-hover:text-cc-text/45 transition-colors mt-1 capitalize">{mes}</p>
                       </div>
 
                       {/* Info */}
@@ -176,8 +207,8 @@ export default function EventsPage() {
                         <div className="flex items-center gap-2 mb-1">
                           <span className={`text-[10px] tracking-[0.15em] uppercase font-sans px-2 py-0.5 border ${
                             evento.tipo === 'court_session'
-                              ? 'border-white/20 text-white/50 group-hover:border-white/30'
-                              : 'border-cc-text/20 text-cc-text/40 group-hover:border-white/20 group-hover:text-white/40'
+                              ? 'border-white/20 text-white/50 group-hover:border-cc-text/30'
+                              : 'border-cc-text/20 text-cc-text/40 group-hover:border-cc-text/20 group-hover:text-cc-text/45'
                           } transition-colors`}>
                             {evento.tipo === 'court_session' ? 'Court Session' : 'Warm Up'}
                           </span>
@@ -185,15 +216,15 @@ export default function EventsPage() {
                             <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-400/80">Sold out</span>
                           )}
                         </div>
-                        <h2 className="font-display text-cc-text group-hover:text-white leading-tight mb-1.5 transition-colors"
+                        <h2 className="font-display text-cc-text group-hover:text-cc-textleading-tight mb-1.5 transition-colors"
                           style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}>
                           {evento.titulo}
                         </h2>
-                        <p className="font-sans text-cc-text/35 group-hover:text-white/50 text-sm transition-colors">{evento.lugar} · {formatHora(evento.hora)}</p>
+                        <p className="font-sans text-cc-text/35 group-hover:text-cc-text/60 text-sm transition-colors">{evento.lugar} · {formatHora(evento.hora)}</p>
                         {evento.direccion && (
                           <button
                             onClick={e => { e.preventDefault(); window.open(mapsUrl(evento.direccion), '_blank') }}
-                            className="mt-1 text-xs font-sans text-cc-text/25 group-hover:text-white/35 underline transition-colors"
+                            className="mt-1 text-xs font-sans text-cc-text/25 group-hover:text-cc-text/40 underline transition-colors"
                           >
                             Ver en Google Maps →
                           </button>
@@ -202,15 +233,15 @@ export default function EventsPage() {
 
                       {/* Precio */}
                       <div className="md:text-right shrink-0">
-                        <p className="font-sans text-cc-text group-hover:text-white text-sm mb-1 transition-colors">
+                        <p className="font-sans text-cc-text group-hover:text-cc-texttext-sm mb-1 transition-colors">
                           desde ${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN
                         </p>
-                        <p className="font-sans text-cc-text/30 group-hover:text-white/35 text-xs tracking-widest uppercase transition-colors">
+                        <p className="font-sans text-cc-text/30 group-hover:text-cc-text/40 text-xs tracking-widest uppercase transition-colors">
                           {soldOut ? 'Lista de espera' : `${evento.cupos_disponibles} cupos`}
                         </p>
                       </div>
 
-                      <div className="hidden md:block text-cc-text/20 group-hover:text-white/60 transition-colors">
+                      <div className="hidden md:block text-cc-text/20 group-hover:text-cc-text/50 transition-colors">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
                       </div>
                     </motion.a>
@@ -220,37 +251,6 @@ export default function EventsPage() {
             )}
           </AnimatePresence>
         )}
-      </div>
-
-      {/* Sobre Court Culture */}
-      <div className="border-t border-cc-text/8 px-6 md:px-12 py-16 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-          <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-5">Sobre nosotros</p>
-          <h2 className="font-display text-cc-text mb-6 leading-tight"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 300, fontStyle: 'italic' }}>
-            Somos Court Culture.
-          </h2>
-          <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-4">
-            Court Culture nace en marzo de 2026 con una idea clara: crear un espacio donde el tenis sea el punto de encuentro para conectar personas. Lo que empezó con 50 personas hoy se ha convertido en una comunidad de más de 1,200 miembros, posicionándose como la comunidad de tenis más grande de México.
-          </p>
-          <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
-            Aquí no importa si juegas desde hace años o si apenas estás empezando. Court Culture es más que tenis: es comunidad, ambiente y experiencias que se quedan contigo dentro y fuera de la cancha.
-          </p>
-        </div>
-        <div className="flex flex-col gap-6">
-          <div className="border border-cc-text/10 p-6">
-            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/25 mb-3">Court Sessions</p>
-            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Nuestros eventos grandes. Drills, partidos, juegos, marcas invitadas, DJ en vivo, cold plunge y convivencia. Una experiencia completa de tenis y comunidad.
-            </p>
-          </div>
-          <div className="border border-cc-text/10 p-6">
-            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/25 mb-3">Warm Up Sessions</p>
-            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Sesiones íntimas solo para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Sin marcas, sin formatos — puro tenis y conexión real.
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* Footer */}
