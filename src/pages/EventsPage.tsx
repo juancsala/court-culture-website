@@ -231,10 +231,10 @@ export default function EventsPage() {
             Somos Court Culture.
           </h2>
           <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-4">
-            Una comunidad de tenis fundada en Monterrey para reunir personas a través del deporte, la conexión y el buen ambiente. Lo que empezó como un grupo pequeño se está convirtiendo en algo real.
+            Court Culture nace en marzo de 2026 con una idea clara: crear un espacio donde el tenis sea el punto de encuentro para conectar personas. Lo que empezó con 50 personas hoy se ha convertido en una comunidad de más de 1,200 miembros, posicionándose como la comunidad de tenis más grande de México.
           </p>
           <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
-            Ya seas jugador de muchos años o estés agarrando una raqueta por primera vez — aquí hay lugar para ti. Dos formatos de evento, una sola comunidad.
+            Aquí no importa si juegas desde hace años o si apenas estás empezando. Court Culture es más que tenis: es comunidad, ambiente y experiencias que se quedan contigo dentro y fuera de la cancha.
           </p>
         </div>
         <div className="flex flex-col gap-6">
