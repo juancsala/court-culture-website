@@ -1,12 +1,6 @@
 import { motion } from 'framer-motion'
 import { LOGOS } from '../assets'
 
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-100px' },
-}
-
 const items = [
   { num: '01', text: 'Un lugar al que llegar.' },
   { num: '02', text: 'Una cancha para jugar.' },
@@ -16,63 +10,75 @@ const items = [
 
 export default function Concept() {
   return (
-    <section className="bg-cc-base py-28 md:py-40 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="overflow-hidden">
 
-        {/* Quote */}
-        <div className="mb-24 md:mb-36 max-w-4xl">
+      {/* Quote block — dark */}
+      <div className="bg-cc-dark relative py-28 md:py-40 overflow-hidden">
+        {/* Emblem watermark */}
+        <div className="absolute inset-0 flex items-center justify-end pr-12 pointer-events-none" aria-hidden="true">
+          <img src={LOGOS.emblemWhite} alt="" className="w-72 md:w-[480px] h-auto object-contain opacity-[0.04]" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.p
-            {...fadeUp}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-8"
+            className="text-white/25 text-xs tracking-[0.25em] uppercase font-sans mb-10"
           >
             El concepto
           </motion.p>
+
           <motion.h2
-            {...fadeUp}
-            transition={{ duration: 1, delay: 0.1 }}
-            className="font-display leading-tight"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="font-display text-white leading-tight max-w-4xl"
             style={{ fontSize: 'clamp(2.8rem, 6vw, 5.5rem)', fontStyle: 'italic', fontWeight: 300 }}
           >
-            "El tennis es la excusa.
+            "El tenis es la excusa.
             <br />
-            <span style={{ fontStyle: 'normal', fontWeight: 500 }}>La comunidad es la razón."</span>
+            <span style={{ fontStyle: 'normal', fontWeight: 500 }} className="text-white/80">
+              La comunidad es la razón."
+            </span>
           </motion.h2>
         </div>
+      </div>
 
-        {/* Esto es — full width numbered list */}
-        <div className="relative">
-          <img
-            src={LOGOS.emblem}
-            alt=""
-            className="absolute top-0 right-0 w-32 h-32 object-contain opacity-[0.04] pointer-events-none"
-            aria-hidden="true"
-          />
-
+      {/* Items grid — cream */}
+      <div className="bg-cc-base py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6">
           <motion.p
-            {...fadeUp}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-cc-muted text-xs tracking-widest uppercase font-sans mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-cc-text/25 text-xs tracking-[0.25em] uppercase font-sans mb-12"
           >
             Esto es
           </motion.p>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-px bg-cc-text/8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-0 border-t border-cc-text/10">
             {items.map((item, i) => (
               <motion.div
                 key={item.num}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 + i * 0.1 }}
-                className="bg-cc-base px-6 py-10 md:py-12"
+                transition={{ duration: 0.7, delay: 0.1 + i * 0.1 }}
+                className="pt-8 pb-10 md:pr-8 border-b md:border-b-0 md:border-r border-cc-text/10 last:border-0"
               >
-                <span className="text-cc-accent font-sans text-xs font-light tracking-widest block mb-5">
+                <span
+                  className="font-display text-cc-text/8 block leading-none mb-4 select-none"
+                  style={{ fontSize: 'clamp(4rem, 7vw, 7rem)', fontWeight: 300 }}
+                >
                   {item.num}
                 </span>
                 <p
-                  className="font-display text-cc-text leading-tight"
-                  style={{ fontSize: 'clamp(1.4rem, 2.2vw, 2rem)', fontWeight: 400 }}
+                  className="font-display text-cc-text leading-snug"
+                  style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', fontWeight: 400 }}
                 >
                   {item.text}
                 </p>
@@ -80,8 +86,8 @@ export default function Concept() {
             ))}
           </div>
         </div>
-
       </div>
+
     </section>
   )
 }
