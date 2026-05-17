@@ -62,23 +62,13 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.85 }}
-          className="flex flex-col sm:flex-row gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="flex items-center gap-3"
         >
-          <a href="/comunidad"
-            className="inline-flex items-center justify-center bg-white text-cc-dark px-8 py-4 text-xs tracking-widest uppercase font-sans font-medium hover:bg-cc-base transition-all duration-300">
-            Únete a la comunidad
-          </a>
-          <a href="/eventos"
-            className="inline-flex items-center justify-center border border-white/40 text-white px-8 py-4 text-xs tracking-widest uppercase font-sans font-light hover:bg-white/10 transition-all duration-300">
-            Ver eventos
-          </a>
-          <a href="/sponsors"
-            className="inline-flex items-center justify-center border border-white/20 text-white/55 px-8 py-4 text-xs tracking-widest uppercase font-sans font-light hover:bg-white/8 hover:text-white/75 transition-all duration-300">
-            Colaboremos
-          </a>
+          <div className="w-8 h-px bg-white/30" />
+          <span className="text-xs tracking-[0.2em] uppercase font-sans text-white/35">Monterrey, México</span>
         </motion.div>
       </div>
 
