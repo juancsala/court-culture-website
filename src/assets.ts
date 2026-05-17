@@ -20,8 +20,8 @@ export const PHOTOS = [
 ]
 
 // Assign specific photos to specific roles
-export const HERO_IMAGE = '/web/hero-action.jpg'
-export const HERO_IMAGE_2 = '/web/hero-racket.jpg'
+export const HERO_IMAGE = '/web/hero-left.jpg'
+export const HERO_IMAGE_2 = '/web/hero-right.jpg'
 export const HERO_IMAGE_GROUP = '/web/hero-group.jpg'
 export const COMMUNITY_IMAGES = PHOTOS.slice(0, 6)
 export const FEATURE_IMAGE = PHOTOS[6]
