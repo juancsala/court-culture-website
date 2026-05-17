@@ -32,11 +32,11 @@ export default function Navbar() {
           scrolled || open ? 'bg-cc-dark' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-24 md:h-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
 
           {/* Logo */}
           <a href="/" className="shrink-0">
-            <img src={LOGOS.mainWhite} alt="Court Culture" className="h-20 md:h-24 w-auto object-contain" />
+            <img src={LOGOS.mainWhite} alt="Court Culture" className="h-12 md:h-16 w-auto object-contain" />
           </a>
 
           {/* Desktop links */}
