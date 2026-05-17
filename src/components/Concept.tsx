@@ -60,7 +60,7 @@ export default function Concept() {
             Esto es
           </motion.p>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-0 border-t border-cc-text/10">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 border-t border-cc-text/10">
             {items.map((item, i) => (
               <motion.div
                 key={item.num}
@@ -68,17 +68,17 @@ export default function Concept() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.1 + i * 0.1 }}
-                className="pt-8 pb-10 md:pr-8 border-b md:border-b-0 md:border-r border-cc-text/10 last:border-0"
+                className="flex flex-col pt-8 pb-10 px-8 border-b md:border-b-0 md:border-r border-cc-text/10 last:border-r-0 first:pl-0"
               >
                 <span
-                  className="font-display text-cc-text/8 block leading-none mb-4 select-none"
-                  style={{ fontSize: 'clamp(4rem, 7vw, 7rem)', fontWeight: 300 }}
+                  className="font-display text-cc-text/8 block leading-none mb-6 select-none"
+                  style={{ fontSize: 'clamp(4rem, 6vw, 6rem)', fontWeight: 300 }}
                 >
                   {item.num}
                 </span>
                 <p
-                  className="font-display text-cc-text leading-snug"
-                  style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', fontWeight: 400 }}
+                  className="font-display text-cc-text leading-snug mt-auto"
+                  style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.6rem)', fontWeight: 400 }}
                 >
                   {item.text}
                 </p>
