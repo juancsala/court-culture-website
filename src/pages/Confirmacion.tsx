@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { LOGOS, LINKS } from '../assets'
+import { LINKS } from '../assets'
+import Navbar from '../components/Navbar'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'https://web-production-05964f.up.railway.app'
 
@@ -22,15 +23,8 @@ export default function Confirmacion() {
   return (
     <div className="min-h-screen bg-cc-base flex flex-col">
 
-      {/* Navbar */}
-      <nav className="bg-cc-dark px-6 md:px-12 py-3 flex items-center justify-between">
-        <a href="/">
-          <img src={LOGOS.mainWhite} alt="Court Culture" className="h-24 w-auto object-contain" />
-        </a>
-        <a href="/eventos" className="text-xs tracking-[0.2em] uppercase font-sans text-white/50 hover:text-white transition-colors duration-200">
-          Ver eventos
-        </a>
-      </nav>
+      <Navbar solid />
+      <div className="h-16 md:h-20" />
 
       {/* Content */}
       <div className="flex-1 flex items-center justify-center px-6 py-24">

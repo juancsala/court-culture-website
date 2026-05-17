@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createMiembro } from '../api'
-import { LOGOS, PHOTOS } from '../assets'
+import { PHOTOS } from '../assets'
 import { LINKS } from '../assets'
+import Navbar from '../components/Navbar'
 
 const ZONAS = [
   { value: 'monterrey', label: 'Monterrey' },
@@ -94,16 +95,8 @@ export default function PreRegistro() {
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
 
-        {/* Header */}
-        <header className="pl-6 pr-8 md:pl-12 md:pr-14 pt-6 pb-6 flex justify-between items-center">
-          <img src={LOGOS.mainWhite} alt="Court Culture" className="w-40 md:w-52 h-auto opacity-90" />
-          <a href="/" className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase font-sans text-white/30 hover:text-white/60 transition-colors duration-200 pt-1">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
-            </svg>
-            Inicio
-          </a>
-        </header>
+        <Navbar solid />
+        <div className="h-16 md:h-20" />
 
         {/* Main */}
         <div className="flex-1 flex items-center justify-center px-6 py-12">

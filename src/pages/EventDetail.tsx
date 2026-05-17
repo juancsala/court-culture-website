@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getEvent, verificarMiembro, createCheckout, unirseWaitlist, Event } from '../api'
-import { LOGOS } from '../assets'
+import Navbar from '../components/Navbar'
 
 function formatFecha(fecha: string) {
   const d = new Date(fecha + 'T12:00:00')
@@ -103,15 +103,8 @@ export default function EventDetail() {
   return (
     <div className="min-h-screen bg-cc-base text-cc-text">
 
-      {/* Navbar */}
-      <nav className="bg-cc-dark px-6 md:px-12 py-3 flex items-center justify-between">
-        <a href="/">
-          <img src={LOGOS.mainWhite} alt="Court Culture" className="h-24 w-auto object-contain" />
-        </a>
-        <a href="/eventos" className="text-xs tracking-[0.2em] uppercase font-sans text-white/50 hover:text-white transition-colors duration-200">
-          ← Eventos
-        </a>
-      </nav>
+      <Navbar solid />
+      <div className="h-16 md:h-20" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">

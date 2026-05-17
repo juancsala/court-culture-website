@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LOGOS } from '../assets'
+import Navbar from '../components/Navbar'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'https://web-production-05964f.up.railway.app'
 
@@ -75,11 +75,8 @@ export default function SponsorsPage() {
   return (
     <div className="min-h-screen bg-cc-base text-cc-text">
 
-      {/* Navbar */}
-      <nav className="bg-cc-dark px-6 md:px-12 py-3 flex items-center justify-between">
-        <a href="/"><img src={LOGOS.mainWhite} alt="Court Culture" className="h-16 md:h-24 w-auto object-contain" /></a>
-        <a href="/" className="text-xs tracking-[0.2em] uppercase font-sans text-white/50 hover:text-white transition-colors duration-200">← Inicio</a>
-      </nav>
+      <Navbar solid />
+      <div className="h-16 md:h-20" />
 
       {/* Hero imagen */}
       <div className="relative h-[40vh] md:h-[50vh] overflow-hidden">

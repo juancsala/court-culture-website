@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: 'Colabora', href: '/sponsors' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ solid = false }: { solid?: boolean }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -29,7 +29,7 @@ export default function Navbar() {
       {/* Main navbar */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || open ? 'bg-cc-dark' : 'bg-transparent'
+          solid || scrolled || open ? 'bg-cc-dark' : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
