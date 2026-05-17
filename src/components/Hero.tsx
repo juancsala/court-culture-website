@@ -14,7 +14,7 @@ export default function Hero() {
           <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover object-center scale-105" />
         </div>
         <div className="relative overflow-hidden hidden md:block">
-          <img src={HERO_IMAGE_2} alt="" className="w-full h-full object-cover object-top scale-105" />
+          <img src={HERO_IMAGE_2} alt="" className="w-full h-full object-cover scale-105" style={{ objectPosition: 'center 15%' }} />
         </div>
       </div>
 

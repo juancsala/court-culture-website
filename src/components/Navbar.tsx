@@ -36,7 +36,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <a href="/" className="shrink-0">
-            <img src={LOGOS.mainWhite} alt="Court Culture" className="h-10 md:h-14 w-auto object-contain" />
+            <img src={LOGOS.mainWhite} alt="Court Culture" className="h-14 md:h-20 w-auto object-contain" />
           </a>
 
           {/* Desktop links */}
