@@ -37,7 +37,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-xs tracking-[0.25em] uppercase font-sans text-white/35 mb-5"
         >
-          Court Culture · Monterrey
+          Court Culture
         </motion.p>
 
         <motion.h1
@@ -68,7 +68,7 @@ export default function Hero() {
           className="flex items-center gap-3"
         >
           <div className="w-8 h-px bg-white/30" />
-          <span className="text-xs tracking-[0.2em] uppercase font-sans text-white/35">Monterrey, México</span>
+          <span className="text-xs tracking-[0.2em] uppercase font-sans text-white/35">México</span>
         </motion.div>
       </div>
 
