@@ -11,10 +11,10 @@ export default function Hero() {
       {/* Background split — left: main action, right: racket portrait */}
       <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
         <div className="relative overflow-hidden">
-          <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover object-center scale-105" />
+          <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover scale-105" style={{ objectPosition: 'center 70%' }} />
         </div>
         <div className="relative overflow-hidden hidden md:block">
-          <img src={HERO_IMAGE_2} alt="" className="w-full h-full object-cover scale-105" style={{ objectPosition: 'center 15%' }} />
+          <img src={HERO_IMAGE_2} alt="" className="w-full h-full object-cover scale-105" style={{ objectPosition: 'center 5%' }} />
         </div>
       </div>
 
