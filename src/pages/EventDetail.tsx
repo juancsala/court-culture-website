@@ -139,7 +139,12 @@ export default function EventDetail() {
 
             <div className="mb-10">
               {(() => {
-                const clean = evento.descripcion.replace(/\r/g, '')
+                // Normalize: strip \r, ensure \n\n before known section headers
+                const clean = evento.descripcion
+                  .replace(/\r\n/g, '\n')
+                  .replace(/\r/g, '\n')
+                  .replace(/\n(¿Qué esperar\?)/g, '\n\n$1')
+                  .replace(/\n(Preguntas frecuentes)/g, '\n\n$1')
                 const blocks = clean.split('\n\n').map(b => b.trim()).filter(Boolean)
 
                 function linkify(text: string) {
