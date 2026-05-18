@@ -68,7 +68,7 @@ export default function Concept() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.1 + i * 0.1 }}
-                className="flex flex-col pt-8 pb-10 px-8 border-b md:border-b-0 md:border-r border-cc-text/10 last:border-r-0 first:pl-0"
+                className="flex flex-col pt-8 pb-10 px-8 border-b md:border-b-0 md:border-r border-cc-text/10 last:border-r-0 md:first:pl-0"
               >
                 <span
                   className="font-display text-cc-text/8 block leading-none mb-6 select-none"
