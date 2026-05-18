@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { label: 'Eventos', href: '/eventos' },
   { label: 'Únete', href: '/comunidad' },
   { label: 'Colabora', href: '/sponsors' },
+  { label: 'Contacto', href: '/contacto' },
 ]
 
 export default function Navbar({ solid = false }: { solid?: boolean }) {
