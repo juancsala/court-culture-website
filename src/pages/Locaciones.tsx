@@ -109,6 +109,19 @@ export default function LocacionesPage() {
           </motion.div>
         ))}
       </div>
+
+      {/* CTA */}
+      <div className="border-t border-cc-text/8 px-6 md:px-12 py-16 text-center">
+        <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-5">Court Culture · Monterrey</p>
+        <h2 className="font-display text-cc-text mb-8 leading-tight"
+          style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 300, fontStyle: 'italic' }}>
+          ¿Listo para jugar?
+        </h2>
+        <a href="/eventos"
+          className="inline-flex items-center gap-3 border border-cc-text/25 text-cc-text/60 px-10 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:bg-cc-text hover:text-cc-base hover:border-cc-text transition-all duration-300">
+          Ver próximos eventos →
+        </a>
+      </div>
     </div>
   )
 }
