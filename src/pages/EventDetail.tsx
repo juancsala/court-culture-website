@@ -135,13 +135,7 @@ export default function EventDetail() {
             >
               {evento.titulo}
             </h1>
-            {(() => {
-              const firstLine = evento.descripcion.replace(/\r/g, '').split('\n')[0]
-              const match = firstLine.match(/—\s*([^.]+)\./)
-              return match ? (
-                <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/35 mb-10">{match[1].trim()}</p>
-              ) : <div className="mb-10" />
-            })()}
+            <div className="mb-10" />
 
             <div className="mb-10">
               {(() => {
