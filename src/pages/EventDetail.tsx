@@ -130,11 +130,18 @@ export default function EventDetail() {
               Court Culture · Monterrey
             </p>
             <h1
-              className="font-display text-cc-text leading-tight mb-10"
+              className="font-display text-cc-text leading-tight mb-2"
               style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3.2rem)', fontWeight: 300, fontStyle: 'italic' }}
             >
               {evento.titulo}
             </h1>
+            {(() => {
+              const firstLine = evento.descripcion.replace(/\r/g, '').split('\n')[0]
+              const match = firstLine.match(/—\s*([^.]+)\./)
+              return match ? (
+                <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/35 mb-10">{match[1].trim()}</p>
+              ) : <div className="mb-10" />
+            })()}
 
             <div className="mb-10">
               {(() => {
@@ -173,9 +180,24 @@ export default function EventDetail() {
                   }
 
                   if (header === 'Preguntas frecuentes') {
+                    // May contain Q&A pairs within the same block
+                    const rest = lines.slice(1)
+                    const qaItems: { q: string; a: string }[] = []
+                    for (let i = 0; i < rest.length; i++) {
+                      if (rest[i].startsWith('¿') || rest[i].endsWith('?')) {
+                        qaItems.push({ q: rest[i], a: rest[i + 1] || '' })
+                        i++
+                      }
+                    }
                     return (
                       <div key={bi} className="mb-2">
                         <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-5">{header}</p>
+                        {qaItems.map((qa, j) => (
+                          <div key={j} className="mb-6 pb-6 border-b border-cc-text/8 last:border-0">
+                            <p className="font-sans text-cc-text/70 text-sm font-semibold mb-2">{qa.q}</p>
+                            <p className="font-sans text-cc-text/45 text-sm leading-relaxed">{linkify(qa.a)}</p>
+                          </div>
+                        ))}
                       </div>
                     )
                   }
