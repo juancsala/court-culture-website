@@ -21,6 +21,7 @@ export interface Event {
   fecha_apertura_publica: string | null
   acceso_comunidad: boolean
   acceso_publico: boolean
+  finalizado: boolean
   refund_deadline: string | null
 }
 

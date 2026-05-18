@@ -50,6 +50,9 @@ export default function EventsPage() {
     return tipoOk && mesOk
   })
 
+  // Meses disponibles incluye pasados para poder filtrar y ver historial
+
+
   function mapsUrl(direccion: string) {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`
   }
