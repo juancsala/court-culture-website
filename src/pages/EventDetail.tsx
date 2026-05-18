@@ -139,28 +139,66 @@ export default function EventDetail() {
             <div className="mb-10">
               {(() => {
                 const clean = evento.descripcion.replace(/\r/g, '')
-                const lines = clean.split('\n')
-                const qIdx = lines.findIndex(l => l.startsWith('¿Qué esperar?'))
-                const parrafo = qIdx > 0 ? lines.slice(0, qIdx).filter(l => l.trim()).join(' ') : clean
-                const items = qIdx > 0 ? lines.slice(qIdx + 1).filter(l => l.trim()) : []
-                return (
-                  <>
-                    <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-6">{parrafo}</p>
-                    {items.length > 0 && (
-                      <div>
-                        <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-3">¿Qué esperar?</p>
-                        <ul className="space-y-1.5">
-                          {items.map((item, j) => (
-                            <li key={j} className="flex items-start gap-2 font-sans text-cc-text/50 text-sm">
-                              <span className="text-cc-text/25 mt-0.5">—</span>
+                const blocks = clean.split('\n\n').map(b => b.trim()).filter(Boolean)
+
+                function linkify(text: string) {
+                  const parts = text.split(/(courtculture\.mx\/reembolso|courtculture\.mx@gmail\.com)/g)
+                  return parts.map((part, i) => {
+                    if (part === 'courtculture.mx/reembolso')
+                      return <a key={i} href="/reembolso" className="text-cc-text/70 underline hover:text-cc-text transition-colors">{part}</a>
+                    if (part === 'courtculture.mx@gmail.com')
+                      return <a key={i} href="mailto:courtculture.mx@gmail.com" className="text-cc-text/70 underline hover:text-cc-text transition-colors">{part}</a>
+                    return part
+                  })
+                }
+
+                return blocks.map((block, bi) => {
+                  const lines = block.split('\n').map(l => l.trim()).filter(Boolean)
+                  const header = lines[0]
+
+                  if (header === '¿Qué esperar?') {
+                    return (
+                      <div key={bi} className="mb-8">
+                        <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-4">{header}</p>
+                        <ul className="space-y-2">
+                          {lines.slice(1).map((item, j) => (
+                            <li key={j} className="flex items-start gap-3 font-sans text-cc-text/55 text-sm">
+                              <span className="text-cc-text/20 mt-0.5 shrink-0">—</span>
                               <span>{item}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-                    )}
-                  </>
-                )
+                    )
+                  }
+
+                  if (header === 'Preguntas frecuentes') {
+                    return (
+                      <div key={bi} className="mb-2">
+                        <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-5">{header}</p>
+                      </div>
+                    )
+                  }
+
+                  // Q&A pair: first line is question (starts with ¿), rest is answer
+                  if (header.startsWith('¿') || (lines.length >= 2 && lines[0].endsWith('?'))) {
+                    const question = lines[0]
+                    const answer = lines.slice(1).join(' ')
+                    return (
+                      <div key={bi} className="mb-6 pb-6 border-b border-cc-text/8 last:border-0 last:mb-0">
+                        <p className="font-sans text-cc-text/70 text-sm font-semibold mb-2">{question}</p>
+                        <p className="font-sans text-cc-text/45 text-sm leading-relaxed">{linkify(answer)}</p>
+                      </div>
+                    )
+                  }
+
+                  // Regular paragraph
+                  return (
+                    <p key={bi} className="font-sans text-cc-text/50 text-sm leading-relaxed mb-6">
+                      {linkify(lines.join(' '))}
+                    </p>
+                  )
+                })
               })()}
             </div>
 
