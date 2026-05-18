@@ -220,9 +220,11 @@ export default function EventsPage() {
                         <p className="font-sans text-cc-text group-hover:text-cc-texttext-sm mb-1 transition-colors">
                           desde ${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN
                         </p>
-                        <p className="font-sans text-cc-text/30 group-hover:text-cc-text/40 text-xs tracking-widest uppercase transition-colors">
-                          {soldOut ? 'Lista de espera' : `${evento.cupos_disponibles} cupos`}
-                        </p>
+                        {soldOut && (
+                          <p className="font-sans text-cc-text/30 group-hover:text-cc-text/40 text-xs tracking-widest uppercase transition-colors">
+                            Lista de espera
+                          </p>
+                        )}
                       </div>
 
                       <div className="hidden md:block text-cc-text/20 group-hover:text-cc-text/50 transition-colors">
