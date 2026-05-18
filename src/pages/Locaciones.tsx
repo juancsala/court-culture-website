@@ -6,7 +6,7 @@ const LOCACIONES = [
     num: '01',
     nombre: 'Fer Peña Tennis Club',
     tag: 'San Pedro Garza García',
-    descripcion: 'Cuatro canchas rodeadas de vegetación con una vista privilegiada a la Sierra Madre. El ambiente es íntimo, el nivel es alto y la cancha tiene energía propia. Nuestro spot favorito para los Court Sessions.',
+    descripcion: 'Cuatro canchas con vista directa a la montaña y un ambiente que lo dice todo. Íntimo, exclusivo y con el nivel justo. Nuestro spot favorito para los Court Sessions.',
     detalle: '4 canchas · Vista a la montaña',
     direccion: 'Prolongación Padre Mier S/N, Misión del Valle, 66237 San Pedro Garza García, N.L.',
     maps: 'https://maps.app.goo.gl/ZY1gBjnRCe2Rtu3EA',
@@ -33,7 +33,7 @@ export default function LocacionesPage() {
       {/* Hero */}
       <div className="relative h-[40vh] md:h-[50vh] overflow-hidden">
         <img src="/web/locaciones-hero.jpg" alt="Court Culture canchas"
-          className="w-full h-full object-cover object-center" />
+          className="w-full h-full object-cover" style={{ objectPosition: 'center 30%' }} />
         <div className="absolute inset-0 bg-cc-dark/50" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
