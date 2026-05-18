@@ -23,7 +23,7 @@ export default function EventDetail() {
   const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [checkingEmail, setCheckingEmail] = useState(false)
-  const [form, setForm] = useState({ nombre: '', email: '', telefono: '', nivel_tenis: '' })
+  const [form, setForm] = useState({ nombre: '', email: '', telefono: '', categoria: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -487,17 +487,18 @@ export default function EventDetail() {
                       />
                     </div>
                     <div>
-                      <label className={labelClass}>Nivel de tenis</label>
+                      <label className={labelClass}>Categoría</label>
                       <select
                         required
-                        value={form.nivel_tenis}
-                        onChange={e => setForm(f => ({ ...f, nivel_tenis: e.target.value }))}
+                        value={form.categoria}
+                        onChange={e => setForm(f => ({ ...f, categoria: e.target.value }))}
                         className={inputClass + ' cursor-pointer bg-cc-base'}
                       >
-                        <option value="">Selecciona tu nivel</option>
-                        <option value="principiante">Principiante</option>
-                        <option value="intermedio">Intermedio</option>
-                        <option value="avanzado">Avanzado</option>
+                        <option value="">Selecciona tu categoría</option>
+                        <option value="A">A — Avanzado</option>
+                        <option value="B">B — Avanzado</option>
+                        <option value="C">C — Intermedio</option>
+                        <option value="D">D — Básico</option>
                       </select>
                     </div>
 

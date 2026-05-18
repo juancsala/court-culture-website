@@ -60,7 +60,7 @@ export async function createCheckout(eventoId: number, data: {
   nombre: string
   email: string
   telefono: string
-  nivel_tenis: string
+  categoria: string
 }): Promise<{ checkout_url: string }> {
   const res = await fetch(`${API_BASE}/api/events/${eventoId}/checkout/`, {
     method: 'POST',
