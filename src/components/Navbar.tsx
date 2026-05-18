@@ -5,6 +5,7 @@ import { LOGOS, LINKS } from '../assets'
 const NAV_LINKS = [
   { label: 'Inicio', href: '/' },
   { label: 'Eventos', href: '/eventos' },
+  { label: 'Locaciones', href: '/locaciones' },
   { label: 'Únete', href: '/comunidad' },
   { label: 'Colabora', href: '/sponsors' },
   { label: 'Contacto', href: '/contacto' },

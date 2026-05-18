@@ -19,6 +19,7 @@ import MerchPage from './pages/Merch'
 import SponsorsPage from './pages/Sponsors'
 import ReembolsoPage from './pages/Reembolso'
 import ContactoPage from './pages/Contacto'
+import LocacionesPage from './pages/Locaciones'
 import MerchConfirmacion from './pages/MerchConfirmacion'
 
 function HomePage() {
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="/sponsors" element={<SponsorsPage />} />
         <Route path="/reembolso" element={<ReembolsoPage />} />
         <Route path="/contacto" element={<ContactoPage />} />
+        <Route path="/locaciones" element={<LocacionesPage />} />
         <Route path="/finanzas/login" element={<FinanzasLogin />} />
         <Route path="/finanzas/dashboard" element={<ProtectedRoute><FinanzasDashboard /></ProtectedRoute>} />
         <Route path="/finanzas/nuevo" element={<ProtectedRoute><FinanzasNuevo /></ProtectedRoute>} />
