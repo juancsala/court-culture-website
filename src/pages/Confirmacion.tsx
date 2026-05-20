@@ -52,6 +52,9 @@ export default function Confirmacion() {
           <p className="font-sans text-cc-text/40 leading-relaxed mb-1 text-sm">
             Tu lugar está confirmado. Recibirás tu ticket por correo con todos los detalles del evento.
           </p>
+          <p className="font-sans text-cc-text/30 text-sm leading-relaxed mb-1">
+            Recuerda dar tu nombre al llegar al evento para el check-in.
+          </p>
           <p className="font-sans text-cc-text/30 text-sm leading-relaxed mb-12">
             Cualquier pregunta escríbenos a{' '}
             <a href="https://www.instagram.com/courtculture.mty" target="_blank" rel="noopener noreferrer" className="text-cc-text/50 underline hover:text-cc-text transition-colors">
