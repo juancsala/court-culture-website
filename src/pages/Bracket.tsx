@@ -295,9 +295,16 @@ export default function BracketPage() {
     <div className="min-h-screen bg-white overflow-auto select-none">
       <style>{`
         @media print {
-          .no-print { display: none !important; }
-          body { margin: 0; }
-          @page { size: A3 landscape; margin: 10mm; }
+          * { visibility: hidden !important; }
+          .bracket-print, .bracket-print * { visibility: visible !important; }
+          .bracket-print {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            zoom: 0.68;
+            transform-origin: top left;
+          }
+          @page { size: A3 landscape; margin: 4mm; }
         }
       `}</style>
 
@@ -325,13 +332,8 @@ export default function BracketPage() {
         </div>
       </div>
 
-      {/* Print header — only shows when printing */}
-      <div className="hidden print:flex flex-col items-center py-3 border-b border-gray-200">
-        <img src="/logo-main.png" alt="Court Culture" style={{ height: 36, marginBottom: 6 }} />
-        <p style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 18, margin: 0 }}>One Point Slam · Court Sessions Vol. II · 30 Mayo 2026</p>
-      </div>
 
-      <div className="flex items-center justify-center pb-8 pt-4" style={{ overflowX: 'auto', minWidth: 'max-content' }}>
+      <div className="bracket-print flex items-center justify-center pb-8 pt-4" style={{ overflowX: 'auto', minWidth: 'max-content' }}>
         <BracketHalf slotStart={0} side="left" />
 
         <div className="flex flex-col items-center justify-center px-4" style={{ height: TOTAL_H, minWidth: 175 }}>
