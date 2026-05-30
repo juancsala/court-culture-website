@@ -9,6 +9,7 @@ const CAT_COLOR: Record<string, string> = {
 }
 
 interface Player { seed: number; name: string; cat: string }
+type Slot = { bye?: number; p1?: number; p2?: number }
 
 const BASE_PLAYERS: Record<number, Player> = {
   1:  { seed:1,  name:'Carlos Chavez',           cat:'A' },
@@ -68,16 +69,33 @@ const BASE_PLAYERS: Record<number, Player> = {
   55: { seed:55, name:'Ana Teniente',            cat:'D' },
 }
 
-const SLOTS: Array<{ bye?: number; p1?: number; p2?: number }> = [
-  { bye:1 }, { p1:10, p2:55 }, { bye:8 }, { p1:11, p2:54 },
-  { bye:2 }, { p1:12, p2:53 }, { bye:9 }, { p1:13, p2:52 },
-  { bye:3 }, { p1:14, p2:51 }, { bye:4 }, { p1:15, p2:50 },
-  { bye:5 }, { p1:16, p2:49 }, { bye:6 }, { p1:17, p2:48 },
-  { bye:7 }, { p1:18, p2:47 }, { p1:19, p2:46 }, { p1:20, p2:45 },
-  { p1:21, p2:44 }, { p1:22, p2:43 }, { p1:23, p2:42 }, { p1:24, p2:41 },
-  { p1:25, p2:40 }, { p1:26, p2:39 }, { p1:27, p2:38 }, { p1:28, p2:37 },
-  { p1:29, p2:36 }, { p1:30, p2:35 }, { p1:31, p2:34 }, { p1:32, p2:33 },
-]
+const BYE_POSITIONS = [0, 2, 4, 6, 8, 10, 12, 14, 16]
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+function makeSlots(players: Player[]): Slot[] {
+  const shuffled = shuffle(players)
+  const byePlayers = shuffled.slice(0, 9)
+  const rest = shuffled.slice(9) // 46 players → 23 matches
+  const slots: Slot[] = []
+  let bi = 0, mi = 0
+  for (let i = 0; i < 32; i++) {
+    if (BYE_POSITIONS.includes(i)) {
+      slots.push({ bye: byePlayers[bi++].seed })
+    } else {
+      slots.push({ p1: rest[mi].seed, p2: rest[rest.length - 1 - mi].seed })
+      mi++
+    }
+  }
+  return slots
+}
 
 const ROW_H = 26
 const TOTAL_H = 1024
@@ -92,15 +110,12 @@ function PlayerRow({ player, isWinner, onClick, canClick, side = 'left' }: {
     </div>
   )
   return (
-    <button
-      onClick={onClick}
-      disabled={!canClick}
+    <button onClick={onClick} disabled={!canClick}
       title={isWinner ? 'Click para revertir' : canClick ? 'Click para seleccionar ganador' : ''}
-      className={`w-full flex items-center gap-1.5 px-2 transition-all duration-150 group
+      className={`w-full flex items-center gap-1.5 px-2 transition-all duration-150
         ${isWinner ? 'bg-white text-cc-dark' : 'text-white/75'}
         ${canClick ? 'hover:bg-white/10 hover:text-white cursor-pointer' : 'cursor-default'}`}
-      style={{ height: ROW_H }}
-    >
+      style={{ height: ROW_H }}>
       {side === 'right' ? (
         <>
           <span className="font-sans text-[11px] truncate flex-1 text-right">{player.name}</span>
@@ -118,35 +133,23 @@ function PlayerRow({ player, isWinner, onClick, canClick, side = 'left' }: {
   )
 }
 
-function AddPlayerForm({ onAdd, onCancel }: {
-  onAdd: (name: string, cat: string) => void; onCancel: () => void
-}) {
+function AddPlayerForm({ onAdd, onCancel }: { onAdd: (name: string, cat: string) => void; onCancel: () => void }) {
   const [name, setName] = useState('')
   const [cat, setCat] = useState('D')
   return (
     <div className="p-2 bg-white/5 border-t border-white/10 flex flex-col gap-1.5">
-      <input
-        autoFocus
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder="Nombre del jugador"
-        className="w-full bg-white/10 border border-white/20 px-2 py-1 text-[11px] font-sans text-white placeholder-white/30 focus:outline-none focus:border-white/40"
-        onKeyDown={e => { if (e.key === 'Enter' && name.trim()) onAdd(name.trim(), cat) }}
-      />
-      <div className="flex gap-1 items-center">
+      <input autoFocus value={name} onChange={e => setName(e.target.value)} placeholder="Nombre"
+        className="w-full bg-white/10 border border-white/20 px-2 py-1 text-[11px] font-sans text-white placeholder-white/30 focus:outline-none"
+        onKeyDown={e => e.key === 'Enter' && name.trim() && onAdd(name.trim(), cat)} />
+      <div className="flex gap-1">
         {['A','B','C','D'].map(c => (
           <button key={c} onClick={() => setCat(c)}
-            className={`text-[10px] px-2 py-0.5 transition-all ${cat === c ? 'bg-white text-cc-dark' : 'bg-white/10 text-white/60 hover:bg-white/20'}`}>
-            {c}
-          </button>
+            className={`text-[10px] px-2 py-0.5 ${cat === c ? 'bg-white text-cc-dark' : 'bg-white/10 text-white/60 hover:bg-white/20'}`}>{c}</button>
         ))}
         <div className="flex-1" />
-        <button onClick={onCancel} className="text-[10px] font-sans text-white/30 hover:text-white/50 px-1">✕</button>
-        <button onClick={() => name.trim() && onAdd(name.trim(), cat)}
-          className="text-[10px] font-sans bg-white/20 hover:bg-white/30 text-white px-2 py-0.5 disabled:opacity-40"
-          disabled={!name.trim()}>
-          OK
-        </button>
+        <button onClick={onCancel} className="text-[10px] text-white/30 hover:text-white/50 px-1">✕</button>
+        <button onClick={() => name.trim() && onAdd(name.trim(), cat)} disabled={!name.trim()}
+          className="text-[10px] bg-white/20 hover:bg-white/30 text-white px-2 py-0.5 disabled:opacity-40">OK</button>
       </div>
     </div>
   )
@@ -154,63 +157,64 @@ function AddPlayerForm({ onAdd, onCancel }: {
 
 function MatchBox({ p1, p2, winner, onWin, isByeAuto, showAdd, onAddPlayer, side }: {
   p1: Player | null; p2: Player | null; winner: number; onWin: (seed: number) => void;
-  isByeAuto?: boolean; showAdd?: boolean; onAddPlayer?: () => void; side?: 'left' | 'right'
+  isByeAuto?: boolean; showAdd?: boolean; onAddPlayer?: (name: string, cat: string) => void; side?: 'left' | 'right'
 }) {
-  const canClick = !!(p1 && p2)
   const [addingPlayer, setAddingPlayer] = useState(false)
-
+  const canClick = !!(p1 && p2)
   return (
-    <div className="border border-white/15 overflow-hidden w-[170px]" style={{ background: 'rgba(13,26,13,0.7)' }}>
+    <div className="border border-white/15 overflow-hidden w-[170px]" style={{ background: 'rgba(13,26,13,0.75)' }}>
       <PlayerRow player={p1} isWinner={canClick && winner === p1?.seed && winner !== 0}
         onClick={canClick ? () => onWin(p1!.seed) : undefined} canClick={canClick} side={side} />
       {!isByeAuto && <div className="border-t border-white/10" />}
-      {!isByeAuto && (
-        <PlayerRow player={p2} isWinner={canClick && winner === p2?.seed && winner !== 0}
-          onClick={canClick ? () => onWin(p2!.seed) : undefined} canClick={canClick} side={side} />
-      )}
+      {!isByeAuto && <PlayerRow player={p2} isWinner={canClick && winner === p2?.seed && winner !== 0}
+        onClick={canClick ? () => onWin(p2!.seed) : undefined} canClick={canClick} side={side} />}
       {isByeAuto && !addingPlayer && showAdd && (
         <button onClick={() => setAddingPlayer(true)}
-          className="w-full text-[10px] font-sans text-white/20 hover:text-white/50 hover:bg-white/5 py-1 transition-colors border-t border-white/6 flex items-center justify-center gap-1">
-          <span>+</span> agregar rival
+          className="w-full text-[10px] font-sans text-white/20 hover:text-white/50 hover:bg-white/5 py-1 border-t border-white/6 flex items-center justify-center gap-1 transition-colors">
+          + agregar rival
         </button>
       )}
       {addingPlayer && (
         <AddPlayerForm
-          onAdd={(name, cat) => {
-            setAddingPlayer(false)
-            onAddPlayer && onAddPlayer()
-            // handled externally via callback with name+cat
-            if (onAddPlayer) (onAddPlayer as any)(name, cat)
-          }}
-          onCancel={() => setAddingPlayer(false)}
-        />
+          onAdd={(name, cat) => { setAddingPlayer(false); onAddPlayer?.(name, cat) }}
+          onCancel={() => setAddingPlayer(false)} />
       )}
     </div>
   )
 }
 
 export default function BracketPage() {
+  const allBasePlayers = Object.values(BASE_PLAYERS)
+  const [slots, setSlots] = useState<Slot[]>(() => makeSlots(allBasePlayers))
   const [extraPlayers, setExtraPlayers] = useState<Record<number, Player>>({})
   const allPlayers = { ...BASE_PLAYERS, ...extraPlayers }
 
-  const [winners, setWinners] = useState<number[][]>(() => {
-    const r0 = SLOTS.map(s => s.bye ?? 0)
-    return [r0, Array(16).fill(0), Array(8).fill(0), Array(4).fill(0), Array(2).fill(0), Array(1).fill(0)]
-  })
+  const initWinners = (sl: Slot[]) => [
+    sl.map(s => s.bye ?? 0),
+    Array(16).fill(0), Array(8).fill(0), Array(4).fill(0), Array(2).fill(0), Array(1).fill(0),
+  ]
+  const [winners, setWinners] = useState<number[][]>(() => initWinners(makeSlots(allBasePlayers)))
+
+  function sortear() {
+    const newSlots = makeSlots(allBasePlayers)
+    setSlots(newSlots)
+    setExtraPlayers({})
+    setWinners(initWinners(newSlots))
+  }
+
+  function reset() {
+    setExtraPlayers({})
+    setWinners(initWinners(slots))
+  }
 
   function addExtraPlayer(slotIdx: number, name: string, cat: string) {
     const seed = 56 + Object.keys(extraPlayers).length
-    const player: Player = { seed, name, cat }
-    setExtraPlayers(prev => ({ ...prev, [slotIdx]: player }))
-    // Clear the auto-win for this bye slot
+    setExtraPlayers(prev => ({ ...prev, [slotIdx]: { seed, name, cat } }))
     setWinners(prev => {
       const next = prev.map(r => [...r])
       next[0][slotIdx] = 0
       let idx = slotIdx
-      for (let r = 1; r < next.length; r++) {
-        idx = Math.floor(idx / 2)
-        next[r][idx] = 0
-      }
+      for (let r = 1; r < next.length; r++) { idx = Math.floor(idx / 2); next[r][idx] = 0 }
       return next
     })
   }
@@ -218,39 +222,21 @@ export default function BracketPage() {
   function setWinnerR(round: number, absIdx: number, seed: number) {
     setWinners(prev => {
       const next = prev.map(r => [...r])
-      // Toggle: click winner again to deselect
-      if (next[round][absIdx] === seed) {
-        next[round][absIdx] = 0
-        let idx = absIdx
-        for (let r = round + 1; r < next.length; r++) {
-          idx = Math.floor(idx / 2)
-          next[r][idx] = 0
-        }
-      } else {
-        next[round][absIdx] = seed
-        let idx = absIdx
-        for (let r = round + 1; r < next.length; r++) {
-          idx = Math.floor(idx / 2)
-          next[r][idx] = 0
-        }
-      }
+      next[round][absIdx] = next[round][absIdx] === seed ? 0 : seed
+      let idx = absIdx
+      for (let r = round + 1; r < next.length; r++) { idx = Math.floor(idx / 2); next[r][idx] = 0 }
       return next
     })
   }
 
   function getSlotPlayers(absIdx: number): [Player | null, Player | null] {
-    const s = SLOTS[absIdx]
+    const s = slots[absIdx]
     if (!s) return [null, null]
-    if (s.bye) {
-      const extra = extraPlayers[absIdx]
-      return [allPlayers[s.bye] || null, extra || null]
-    }
+    if (s.bye) return [allPlayers[s.bye] || null, extraPlayers[absIdx] || null]
     return [s.p1 ? allPlayers[s.p1] || null : null, s.p2 ? allPlayers[s.p2] || null : null]
   }
 
   function BracketHalf({ slotStart, side }: { slotStart: number; side: 'left' | 'right' }) {
-    const rounds = [0, 1, 2, 3, 4]
-
     function getMatchPlayers(round: number, localIdx: number): [Player | null, Player | null] {
       const absIdx = slotStart / Math.pow(2, round) + localIdx
       if (round === 0) return getSlotPlayers(absIdx)
@@ -258,16 +244,14 @@ export default function BracketPage() {
       const p2seed = winners[round - 1]?.[absIdx * 2 + 1]
       return [p1seed ? allPlayers[p1seed] : null, p2seed ? allPlayers[p2seed] : null]
     }
-
     function getWinner(round: number, localIdx: number): number {
       const absIdx = slotStart / Math.pow(2, round) + localIdx
-      if (round === 0 && SLOTS[absIdx]?.bye && !extraPlayers[absIdx]) return SLOTS[absIdx].bye!
+      if (round === 0 && slots[absIdx]?.bye && !extraPlayers[absIdx]) return slots[absIdx].bye!
       return winners[round]?.[absIdx] ?? 0
     }
-
     return (
       <div className={`flex ${side === 'right' ? 'flex-row-reverse' : 'flex-row'}`} style={{ height: TOTAL_H }}>
-        {rounds.map(round => {
+        {[0,1,2,3,4].map(round => {
           const count = 16 / Math.pow(2, round)
           const slotH = TOTAL_H / count
           return (
@@ -276,26 +260,20 @@ export default function BracketPage() {
                 const [p1, p2] = getMatchPlayers(round, li)
                 const w = getWinner(round, li)
                 const absIdx = slotStart / Math.pow(2, round) + li
-                const isByeAuto = round === 0 && !!SLOTS[absIdx]?.bye && !extraPlayers[absIdx]
-                const isTopOfPair = li % 2 === 0
-
+                const isByeAuto = round === 0 && !!slots[absIdx]?.bye && !extraPlayers[absIdx]
+                const isTop = li % 2 === 0
                 return (
                   <div key={li} className="relative flex items-center" style={{ height: slotH }}>
-                    <MatchBox
-                      p1={p1} p2={p2} winner={w} side={side}
-                      isByeAuto={isByeAuto}
-                      showAdd={round === 0 && !!SLOTS[absIdx]?.bye && !extraPlayers[absIdx]}
-                      onAddPlayer={((name: string, cat: string) => addExtraPlayer(absIdx, name, cat)) as any}
-                      onWin={(seed) => setWinnerR(round, absIdx, seed)}
-                    />
+                    <MatchBox p1={p1} p2={p2} winner={w} side={side} isByeAuto={isByeAuto}
+                      showAdd={round === 0 && !!slots[absIdx]?.bye && !extraPlayers[absIdx]}
+                      onAddPlayer={(name, cat) => addExtraPlayer(absIdx, name, cat)}
+                      onWin={seed => setWinnerR(round, absIdx, seed)} />
                     {round < 4 && (
-                      <div className="absolute" style={{
-                        [side === 'left' ? 'right' : 'left']: 0,
-                        width: CONNECTOR_W,
-                        top: isTopOfPair ? '50%' : 0,
-                        bottom: isTopOfPair ? 0 : '50%',
-                        borderTop: isTopOfPair ? '1px solid rgba(255,255,255,0.18)' : 'none',
-                        borderBottom: isTopOfPair ? 'none' : '1px solid rgba(255,255,255,0.18)',
+                      <div className="absolute pointer-events-none" style={{
+                        [side === 'left' ? 'right' : 'left']: 0, width: CONNECTOR_W,
+                        top: isTop ? '50%' : 0, bottom: isTop ? 0 : '50%',
+                        borderTop: isTop ? '1px solid rgba(255,255,255,0.18)' : 'none',
+                        borderBottom: isTop ? 'none' : '1px solid rgba(255,255,255,0.18)',
                         [side === 'left' ? 'borderRight' : 'borderLeft']: '1px solid rgba(255,255,255,0.18)',
                       }} />
                     )}
@@ -315,78 +293,66 @@ export default function BracketPage() {
 
   return (
     <div className="min-h-screen bg-cc-dark overflow-auto select-none">
-      {/* Header */}
-      <div className="flex flex-col items-center py-5 border-b border-white/8">
-        <img src="/logo-main-white.png" alt="Court Culture" className="h-12 w-auto object-contain mb-3 opacity-80" />
-        <h1 className="font-display text-white" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)', fontWeight: 300, fontStyle: 'italic' }}>
+      <div className="flex flex-col items-center py-4 border-b border-white/8">
+        <img src="/logo-main-white.png" alt="Court Culture" className="h-10 w-auto object-contain mb-2 opacity-80" />
+        <h1 className="font-display text-white" style={{ fontSize: 'clamp(1.3rem, 2vw, 2rem)', fontWeight: 300, fontStyle: 'italic' }}>
           One Point Slam · 30 Mayo 2026
         </h1>
-        <div className="flex items-center gap-5 mt-2">
+        <div className="flex items-center gap-4 mt-2 flex-wrap justify-center">
           {['A','B','C','D'].map(c => (
             <div key={c} className="flex items-center gap-1">
               <span className={`text-[9px] px-1 py-px ${CAT_COLOR[c]}`}>{c}</span>
               <span className="text-[10px] font-sans text-white/25">{c==='A'||c==='B'?'Avanzado':c==='C'?'Intermedio':'Básico'}</span>
             </div>
           ))}
-          <span className="text-[10px] font-sans text-white/20 ml-4">Click ganador · Click de nuevo para revertir</span>
+          <button onClick={sortear}
+            className="text-[10px] font-sans bg-white/10 hover:bg-white/20 text-white px-3 py-1 transition-colors border border-white/20 ml-4">
+            🎲 Sortear bracket
+          </button>
+          <span className="text-[10px] font-sans text-white/18">Click ganador · Click de nuevo para revertir</span>
         </div>
       </div>
 
-      {/* Bracket */}
       <div className="flex items-center justify-center pb-8 pt-4" style={{ overflowX: 'auto', minWidth: 'max-content' }}>
         <BracketHalf slotStart={0} side="left" />
 
-        {/* Center Final */}
-        <div className="flex flex-col items-center justify-center px-4" style={{ height: TOTAL_H, minWidth: 180 }}>
+        <div className="flex flex-col items-center justify-center px-4" style={{ height: TOTAL_H, minWidth: 175 }}>
           {champion ? (
-            <div className="text-center mb-5">
+            <div className="text-center mb-4">
               <p className="text-[10px] tracking-widest uppercase font-sans text-yellow-400/60 mb-1">🏆 Campeón</p>
               <p className="font-display text-white text-lg" style={{ fontStyle: 'italic', fontWeight: 300 }}>{champion.name}</p>
               <span className={`text-[9px] px-2 py-px mt-1 inline-block ${CAT_COLOR[champion.cat] || CAT_COLOR['?']}`}>{champion.cat}</span>
             </div>
           ) : (
-            <p className="font-display text-white/15 text-base mb-5" style={{ fontStyle: 'italic' }}>CAMPEÓN</p>
+            <p className="font-display text-white/15 text-base mb-4" style={{ fontStyle: 'italic' }}>CAMPEÓN</p>
           )}
 
-          <div className="border border-white/20 w-full overflow-hidden mb-1">
-            <p className="text-center text-[9px] tracking-widest uppercase font-sans text-white/20 py-1.5 border-b border-white/10">
-              Gran Final
-            </p>
+          <div className="border border-white/20 w-full overflow-hidden mb-3">
+            <p className="text-center text-[9px] tracking-widest uppercase font-sans text-white/20 py-1.5 border-b border-white/10">Gran Final</p>
             {[leftFinalist, rightFinalist].map((finalist, fi) => (
               <div key={fi}>
                 {fi === 1 && <div className="border-t border-white/10" />}
-                <button
-                  disabled={!leftFinalist || !rightFinalist}
+                <button disabled={!leftFinalist || !rightFinalist}
                   onClick={() => finalist && leftFinalist && rightFinalist && setWinnerR(5, 0, finalist.seed)}
                   className={`w-full flex items-center gap-2 px-3 transition-all
                     ${leftFinalist && rightFinalist ? 'cursor-pointer hover:bg-white/10' : 'cursor-default'}
                     ${champion?.seed === finalist?.seed && champion ? 'bg-white text-cc-dark' : 'text-white/60'}`}
-                  style={{ height: ROW_H + 4 }}
-                >
+                  style={{ height: ROW_H + 4 }}>
                   {finalist ? (
                     <>
                       <span className={`text-[9px] px-1 py-px shrink-0 ${champion?.seed === finalist.seed && champion ? 'bg-cc-dark text-white' : CAT_COLOR[finalist.cat] || CAT_COLOR['?']}`}>{finalist.cat}</span>
                       <span className="text-[11px] font-sans truncate">{finalist.name}</span>
                       {champion?.seed === finalist.seed && <span className="ml-auto text-[11px]">✓</span>}
                     </>
-                  ) : (
-                    <span className="text-white/15 text-[11px] italic font-sans">{fi === 0 ? 'Finalista A' : 'Finalista B'}</span>
-                  )}
+                  ) : <span className="text-white/15 text-[11px] italic font-sans">{fi === 0 ? 'Finalista A' : 'Finalista B'}</span>}
                 </button>
               </div>
             ))}
           </div>
 
-          <button
-            onClick={() => {
-              setExtraPlayers({})
-              setWinners(() => {
-                const r0 = SLOTS.map(s => s.bye ?? 0)
-                return [r0, Array(16).fill(0), Array(8).fill(0), Array(4).fill(0), Array(2).fill(0), Array(1).fill(0)]
-              })
-            }}
-            className="mt-4 text-[10px] font-sans text-white/15 hover:text-white/35 border border-white/10 px-4 py-1.5 transition-colors">
-            Reiniciar bracket
+          <button onClick={reset}
+            className="text-[10px] font-sans text-white/15 hover:text-white/35 border border-white/10 px-4 py-1.5 transition-colors w-full text-center">
+            Reiniciar resultados
           </button>
         </div>
 
