@@ -12,6 +12,7 @@ interface Player { seed: number; name: string; cat: string }
 type Slot = { bye?: number; p1?: number; p2?: number }
 
 const BASE_PLAYERS: Record<number, Player> = {
+  // A (8) — siempre bye
   1:  { seed:1,  name:'Carlos Chavez',           cat:'A' },
   2:  { seed:2,  name:'Paco Moreno',             cat:'A' },
   3:  { seed:3,  name:'Vale Cardenas',           cat:'A' },
@@ -19,57 +20,62 @@ const BASE_PLAYERS: Record<number, Player> = {
   5:  { seed:5,  name:'Carlos Escobar',          cat:'A' },
   6:  { seed:6,  name:'Mauricio Velazquez',      cat:'A' },
   7:  { seed:7,  name:'Josue Gomez',             cat:'A' },
-  8:  { seed:8,  name:'Miguel Martinez',         cat:'B' },
-  9:  { seed:9,  name:'Danilo Garces',           cat:'B' },
-  10: { seed:10, name:'Carlos Altamirano',       cat:'B' },
-  11: { seed:11, name:'Santiago Resendiz',       cat:'B' },
-  12: { seed:12, name:'Jorge E Resendiz',        cat:'B' },
-  13: { seed:13, name:'Jose Ivan Arguelles',     cat:'B' },
-  14: { seed:14, name:'Camilo Quiroz',           cat:'B' },
-  15: { seed:15, name:'Claudia Salinas',         cat:'B' },
-  16: { seed:16, name:'L.A. Dominguez',          cat:'C' },
-  17: { seed:17, name:'Janeth Cantú Garza',      cat:'C' },
-  18: { seed:18, name:'Sergio Sanchez',          cat:'C' },
-  19: { seed:19, name:'Erick Lozano',            cat:'C' },
-  20: { seed:20, name:'Fernando Roman',          cat:'C' },
-  21: { seed:21, name:'Leopoldo Rojas',          cat:'C' },
-  22: { seed:22, name:'Ricardo Loera',           cat:'C' },
-  23: { seed:23, name:'Melisa Rodriguez',        cat:'C' },
-  24: { seed:24, name:'Ulrich Martinez',         cat:'C' },
-  25: { seed:25, name:'Sergio Muñoz',            cat:'C' },
-  26: { seed:26, name:'Marco A. Ramirez',        cat:'C' },
-  27: { seed:27, name:'Veronica Porras',         cat:'C' },
-  28: { seed:28, name:'Mariana Alvarez',         cat:'C' },
-  29: { seed:29, name:'David Gutierrez',         cat:'C' },
-  30: { seed:30, name:'Natalia Barradas',        cat:'C' },
-  31: { seed:31, name:'Jannhela Valencia',       cat:'C' },
-  32: { seed:32, name:'Donnet Hernandez',        cat:'C' },
-  33: { seed:33, name:'Francisco Zamora',        cat:'D' },
-  34: { seed:34, name:'Jair Guzmán',             cat:'D' },
-  35: { seed:35, name:'Émilie Darragon',         cat:'D' },
-  36: { seed:36, name:'Manuel Ortiz',            cat:'D' },
-  37: { seed:37, name:'Dimitra Sañudo',          cat:'D' },
-  38: { seed:38, name:'Javier Murillo',          cat:'D' },
-  39: { seed:39, name:'J.R. Castillo',           cat:'D' },
-  40: { seed:40, name:'Hugo López',              cat:'D' },
-  41: { seed:41, name:'Cristobal Garcia',        cat:'D' },
-  42: { seed:42, name:'Leonel Martinez',         cat:'D' },
-  43: { seed:43, name:'Jaime Arellano',          cat:'D' },
-  44: { seed:44, name:'Moises Lopez',            cat:'D' },
-  45: { seed:45, name:'Rodrigo Mayo',            cat:'D' },
-  46: { seed:46, name:'Darina Gudyma',           cat:'D' },
-  47: { seed:47, name:'Susana Murillo',          cat:'D' },
-  48: { seed:48, name:'Luigi Jacob',             cat:'D' },
-  49: { seed:49, name:'Adrian Espinosa',         cat:'D' },
-  50: { seed:50, name:'Camila Escobar',          cat:'D' },
-  51: { seed:51, name:'M.F. Jorge Zavala',       cat:'D' },
-  52: { seed:52, name:'Daniela Aguilar',         cat:'D' },
-  53: { seed:53, name:'Alondra Martinez',        cat:'D' },
-  54: { seed:54, name:'Ashley Cantu',            cat:'D' },
-  55: { seed:55, name:'Ana Teniente',            cat:'D' },
+  8:  { seed:8,  name:'Alejandro Guajardo',      cat:'A' },
+  // B (8)
+  9:  { seed:9,  name:'Miguel Martinez',         cat:'B' },
+  10: { seed:10, name:'Danilo Garces',           cat:'B' },
+  11: { seed:11, name:'Carlos Altamirano',       cat:'B' },
+  12: { seed:12, name:'Santiago Resendiz',       cat:'B' },
+  13: { seed:13, name:'Jorge E Resendiz',        cat:'B' },
+  14: { seed:14, name:'Jose Ivan Arguelles',     cat:'B' },
+  15: { seed:15, name:'Camilo Quiroz',           cat:'B' },
+  16: { seed:16, name:'Claudia Salinas',         cat:'B' },
+  // C (17)
+  17: { seed:17, name:'L.A. Dominguez',          cat:'C' },
+  18: { seed:18, name:'Janeth Cantú Garza',      cat:'C' },
+  19: { seed:19, name:'Sergio Sanchez',          cat:'C' },
+  20: { seed:20, name:'Erick Lozano',            cat:'C' },
+  21: { seed:21, name:'Fernando Roman',          cat:'C' },
+  22: { seed:22, name:'Leopoldo Rojas',          cat:'C' },
+  23: { seed:23, name:'Ricardo Loera',           cat:'C' },
+  24: { seed:24, name:'Melisa Rodriguez',        cat:'C' },
+  25: { seed:25, name:'Ulrich Martinez',         cat:'C' },
+  26: { seed:26, name:'Sergio Muñoz',            cat:'C' },
+  27: { seed:27, name:'Marco A. Ramirez',        cat:'C' },
+  28: { seed:28, name:'Veronica Porras',         cat:'C' },
+  29: { seed:29, name:'Mariana Alvarez',         cat:'C' },
+  30: { seed:30, name:'David Gutierrez',         cat:'C' },
+  31: { seed:31, name:'Natalia Barradas',        cat:'C' },
+  32: { seed:32, name:'Jannhela Valencia',       cat:'C' },
+  33: { seed:33, name:'Donnet Hernandez',        cat:'C' },
+  // D (23)
+  34: { seed:34, name:'Francisco Zamora',        cat:'D' },
+  35: { seed:35, name:'Jair Guzmán',             cat:'D' },
+  36: { seed:36, name:'Émilie Darragon',         cat:'D' },
+  37: { seed:37, name:'Manuel Ortiz',            cat:'D' },
+  38: { seed:38, name:'Dimitra Sañudo',          cat:'D' },
+  39: { seed:39, name:'Javier Murillo',          cat:'D' },
+  40: { seed:40, name:'J.R. Castillo',           cat:'D' },
+  41: { seed:41, name:'Hugo López',              cat:'D' },
+  42: { seed:42, name:'Cristobal Garcia',        cat:'D' },
+  43: { seed:43, name:'Leonel Martinez',         cat:'D' },
+  44: { seed:44, name:'Jaime Arellano',          cat:'D' },
+  45: { seed:45, name:'Moises Lopez',            cat:'D' },
+  46: { seed:46, name:'Rodrigo Mayo',            cat:'D' },
+  47: { seed:47, name:'Darina Gudyma',           cat:'D' },
+  48: { seed:48, name:'Susana Murillo',          cat:'D' },
+  49: { seed:49, name:'Luigi Jacob',             cat:'D' },
+  50: { seed:50, name:'Adrian Espinosa',         cat:'D' },
+  51: { seed:51, name:'Camila Escobar',          cat:'D' },
+  52: { seed:52, name:'M.F. Jorge Zavala',       cat:'D' },
+  53: { seed:53, name:'Daniela Aguilar',         cat:'D' },
+  54: { seed:54, name:'Alondra Martinez',        cat:'D' },
+  55: { seed:55, name:'Ashley Cantu',            cat:'D' },
+  56: { seed:56, name:'Ana Teniente',            cat:'D' },
 }
 
-const BYE_POSITIONS = [0, 2, 4, 6, 8, 10, 12, 14, 16]
+// 56 jugadores: 8A bye + 48 B/C/D en partidos → 64 bracket con 8 byes
+const BYE_POSITIONS = [0, 2, 4, 6, 8, 10, 12, 14]
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -80,10 +86,9 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-function makeSlots(players: Player[]): Slot[] {
-  const shuffled = shuffle(players)
-  const byePlayers = shuffled.slice(0, 9)
-  const rest = shuffled.slice(9) // 46 players → 23 matches
+function makeSlots(aPlayers: Player[], otherPlayers: Player[]): Slot[] {
+  const byePlayers = shuffle(aPlayers)       // 8 A players shuffled among bye positions
+  const rest = shuffle(otherPlayers)         // 48 B/C/D players → 24 matches
   const slots: Slot[] = []
   let bi = 0, mi = 0
   for (let i = 0; i < 32; i++) {
@@ -184,8 +189,11 @@ function MatchBox({ p1, p2, winner, onWin, isByeAuto, showAdd, onAddPlayer, side
 }
 
 export default function BracketPage() {
-  const allBasePlayers = Object.values(BASE_PLAYERS)
-  const [slots, setSlots] = useState<Slot[]>(() => makeSlots(allBasePlayers))
+  const aPlayers = Object.values(BASE_PLAYERS).filter(p => p.cat === 'A')
+  const otherPlayers = Object.values(BASE_PLAYERS).filter(p => p.cat !== 'A')
+
+  // Fix: compute slots once and use same result for winners (avoids double-shuffle bug)
+  const [slots, setSlots] = useState<Slot[]>(() => makeSlots(aPlayers, otherPlayers))
   const [extraPlayers, setExtraPlayers] = useState<Record<number, Player>>({})
   const allPlayers = { ...BASE_PLAYERS, ...extraPlayers }
 
@@ -193,10 +201,10 @@ export default function BracketPage() {
     sl.map(s => s.bye ?? 0),
     Array(16).fill(0), Array(8).fill(0), Array(4).fill(0), Array(2).fill(0), Array(1).fill(0),
   ]
-  const [winners, setWinners] = useState<number[][]>(() => initWinners(makeSlots(allBasePlayers)))
+  const [winners, setWinners] = useState<number[][]>(() => initWinners(makeSlots(aPlayers, otherPlayers)))
 
   function sortear() {
-    const newSlots = makeSlots(allBasePlayers)
+    const newSlots = makeSlots(aPlayers, otherPlayers)
     setSlots(newSlots)
     setExtraPlayers({})
     setWinners(initWinners(newSlots))
