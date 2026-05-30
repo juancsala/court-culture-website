@@ -86,9 +86,10 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-function makeSlots(aPlayers: Player[], otherPlayers: Player[]): Slot[] {
-  const byePlayers = shuffle(aPlayers)       // 8 A players shuffled among bye positions
-  const rest = shuffle(otherPlayers)         // 48 B/C/D players → 24 matches
+function makeSlots(players: Player[]): Slot[] {
+  const shuffled = shuffle(players)
+  const byePlayers = shuffled.slice(0, 8)    // 8 random players get bye
+  const rest = shuffled.slice(8)             // 48 players → 24 matches
   const slots: Slot[] = []
   let bi = 0, mi = 0
   for (let i = 0; i < 32; i++) {
@@ -188,52 +189,55 @@ function MatchBox({ p1, p2, winner, onWin, isByeAuto, showAdd, onAddPlayer, side
   )
 }
 
-export default function BracketPage() {
-  const aPlayers = Object.values(BASE_PLAYERS).filter(p => p.cat === 'A')
-  const otherPlayers = Object.values(BASE_PLAYERS).filter(p => p.cat !== 'A')
+const ALL_PLAYERS = Object.values(BASE_PLAYERS)
 
-  // Fix: compute slots once and use same result for winners (avoids double-shuffle bug)
-  const [slots, setSlots] = useState<Slot[]>(() => makeSlots(aPlayers, otherPlayers))
-  const [extraPlayers, setExtraPlayers] = useState<Record<number, Player>>({})
-  const allPlayers = { ...BASE_PLAYERS, ...extraPlayers }
-
-  const initWinners = (sl: Slot[]) => [
+function initWinners(sl: Slot[]) {
+  return [
     sl.map(s => s.bye ?? 0),
     Array(16).fill(0), Array(8).fill(0), Array(4).fill(0), Array(2).fill(0), Array(1).fill(0),
   ]
-  const [winners, setWinners] = useState<number[][]>(() => initWinners(makeSlots(aPlayers, otherPlayers)))
+}
+
+function newBracket() {
+  const sl = makeSlots(ALL_PLAYERS)
+  return { slots: sl, winners: initWinners(sl) }
+}
+
+export default function BracketPage() {
+  // Un solo estado para slots+winners — evita el bug del doble shuffle
+  const [{ slots, winners }, setBracket] = useState(() => newBracket())
+  const [extraPlayers, setExtraPlayers] = useState<Record<number, Player>>({})
+  const allPlayers = { ...BASE_PLAYERS, ...extraPlayers }
 
   function sortear() {
-    const newSlots = makeSlots(aPlayers, otherPlayers)
-    setSlots(newSlots)
+    setBracket(newBracket())
     setExtraPlayers({})
-    setWinners(initWinners(newSlots))
   }
 
   function reset() {
     setExtraPlayers({})
-    setWinners(initWinners(slots))
+    setBracket(prev => ({ ...prev, winners: initWinners(prev.slots) }))
   }
 
   function addExtraPlayer(slotIdx: number, name: string, cat: string) {
-    const seed = 56 + Object.keys(extraPlayers).length
+    const seed = 57 + Object.keys(extraPlayers).length
     setExtraPlayers(prev => ({ ...prev, [slotIdx]: { seed, name, cat } }))
-    setWinners(prev => {
-      const next = prev.map(r => [...r])
+    setBracket(prev => {
+      const next = prev.winners.map((r: number[]) => [...r])
       next[0][slotIdx] = 0
       let idx = slotIdx
       for (let r = 1; r < next.length; r++) { idx = Math.floor(idx / 2); next[r][idx] = 0 }
-      return next
+      return { ...prev, winners: next }
     })
   }
 
   function setWinnerR(round: number, absIdx: number, seed: number) {
-    setWinners(prev => {
-      const next = prev.map(r => [...r])
+    setBracket(prev => {
+      const next = prev.winners.map((r: number[]) => [...r])
       next[round][absIdx] = next[round][absIdx] === seed ? 0 : seed
       let idx = absIdx
       for (let r = round + 1; r < next.length; r++) { idx = Math.floor(idx / 2); next[r][idx] = 0 }
-      return next
+      return { ...prev, winners: next }
     })
   }
 
