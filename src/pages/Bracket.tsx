@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 const CAT_COLOR: Record<string, string> = {
-  A: 'bg-white text-cc-dark font-bold',
-  B: 'bg-white/70 text-cc-dark',
-  C: 'bg-white/40 text-cc-dark',
-  D: 'bg-white/15 text-white/70',
-  '?': 'bg-white/20 text-white/60',
+  A: 'bg-gray-900 text-white font-bold',
+  B: 'bg-gray-600 text-white',
+  C: 'bg-gray-300 text-gray-800',
+  D: 'bg-gray-100 text-gray-500',
+  '?': 'bg-gray-200 text-gray-500',
 }
 
 interface Player { seed: number; name: string; cat: string }
@@ -105,7 +105,7 @@ function PlayerRow({ player, isWinner, onClick, canClick, side = 'left' }: {
   player: Player | null; isWinner: boolean; onClick?: () => void; canClick?: boolean; side?: 'left' | 'right'
 }) {
   if (!player) return (
-    <div className="flex items-center px-2 text-white/15 text-[11px] font-sans italic" style={{ height: ROW_H }}>
+    <div className="flex items-center px-2 text-gray-300 text-[11px] font-sans italic" style={{ height: ROW_H }}>
       {side === 'right' ? '— Por definir' : 'Por definir —'}
     </div>
   )
@@ -113,20 +113,20 @@ function PlayerRow({ player, isWinner, onClick, canClick, side = 'left' }: {
     <button onClick={onClick} disabled={!canClick}
       title={isWinner ? 'Click para revertir' : canClick ? 'Click para seleccionar ganador' : ''}
       className={`w-full flex items-center gap-1.5 px-2 transition-all duration-150
-        ${isWinner ? 'bg-white text-cc-dark' : 'text-white/75'}
-        ${canClick ? 'hover:bg-white/10 hover:text-white cursor-pointer' : 'cursor-default'}`}
+        ${isWinner ? 'bg-gray-900 text-white' : 'text-gray-700'}
+        ${canClick ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-default'}`}
       style={{ height: ROW_H }}>
       {side === 'right' ? (
         <>
           <span className="font-sans text-[11px] truncate flex-1 text-right">{player.name}</span>
-          <span className={`text-[9px] px-1 py-px shrink-0 ${isWinner ? 'bg-cc-dark text-white' : CAT_COLOR[player.cat] || CAT_COLOR['?']}`}>{player.cat}</span>
-          {isWinner && <span className="text-cc-dark text-xs shrink-0">✓</span>}
+          <span className={`text-[9px] px-1 py-px shrink-0 ${isWinner ? 'bg-white text-gray-900' : CAT_COLOR[player.cat] || CAT_COLOR['?']}`}>{player.cat}</span>
+          {isWinner && <span className="text-white text-xs shrink-0">✓</span>}
         </>
       ) : (
         <>
-          <span className={`text-[9px] px-1 py-px shrink-0 ${isWinner ? 'bg-cc-dark text-white' : CAT_COLOR[player.cat] || CAT_COLOR['?']}`}>{player.cat}</span>
+          <span className={`text-[9px] px-1 py-px shrink-0 ${isWinner ? 'bg-white text-gray-900' : CAT_COLOR[player.cat] || CAT_COLOR['?']}`}>{player.cat}</span>
           <span className="font-sans text-[11px] truncate flex-1">{player.name}</span>
-          {isWinner && <span className="text-cc-dark text-xs shrink-0">✓</span>}
+          {isWinner && <span className="text-white text-xs shrink-0">✓</span>}
         </>
       )}
     </button>
@@ -137,19 +137,19 @@ function AddPlayerForm({ onAdd, onCancel }: { onAdd: (name: string, cat: string)
   const [name, setName] = useState('')
   const [cat, setCat] = useState('D')
   return (
-    <div className="p-2 bg-white/5 border-t border-white/10 flex flex-col gap-1.5">
+    <div className="no-print p-2 bg-gray-50 border-t border-gray-200 flex flex-col gap-1.5">
       <input autoFocus value={name} onChange={e => setName(e.target.value)} placeholder="Nombre"
-        className="w-full bg-white/10 border border-white/20 px-2 py-1 text-[11px] font-sans text-white placeholder-white/30 focus:outline-none"
+        className="w-full bg-white border border-gray-300 px-2 py-1 text-[11px] font-sans text-gray-800 placeholder-gray-300 focus:outline-none"
         onKeyDown={e => e.key === 'Enter' && name.trim() && onAdd(name.trim(), cat)} />
       <div className="flex gap-1">
         {['A','B','C','D'].map(c => (
           <button key={c} onClick={() => setCat(c)}
-            className={`text-[10px] px-2 py-0.5 ${cat === c ? 'bg-white text-cc-dark' : 'bg-white/10 text-white/60 hover:bg-white/20'}`}>{c}</button>
+            className={`text-[10px] px-2 py-0.5 ${cat === c ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'}`}>{c}</button>
         ))}
         <div className="flex-1" />
-        <button onClick={onCancel} className="text-[10px] text-white/30 hover:text-white/50 px-1">✕</button>
+        <button onClick={onCancel} className="text-[10px] text-gray-400 hover:text-gray-600 px-1">✕</button>
         <button onClick={() => name.trim() && onAdd(name.trim(), cat)} disabled={!name.trim()}
-          className="text-[10px] bg-white/20 hover:bg-white/30 text-white px-2 py-0.5 disabled:opacity-40">OK</button>
+          className="text-[10px] bg-gray-900 hover:bg-gray-700 text-white px-2 py-0.5 disabled:opacity-40">OK</button>
       </div>
     </div>
   )
@@ -162,7 +162,7 @@ function MatchBox({ p1, p2, winner, onWin, isByeAuto, showAdd, onAddPlayer, side
   const [addingPlayer, setAddingPlayer] = useState(false)
   const canClick = !!(p1 && p2)
   return (
-    <div className="border border-white/15 overflow-hidden w-[170px]" style={{ background: 'rgba(13,26,13,0.75)' }}>
+    <div className="border border-gray-300 overflow-hidden w-[170px] bg-white">
       <PlayerRow player={p1} isWinner={canClick && winner === p1?.seed && winner !== 0}
         onClick={canClick ? () => onWin(p1!.seed) : undefined} canClick={canClick} side={side} />
       {!isByeAuto && <div className="border-t border-white/10" />}
@@ -170,7 +170,7 @@ function MatchBox({ p1, p2, winner, onWin, isByeAuto, showAdd, onAddPlayer, side
         onClick={canClick ? () => onWin(p2!.seed) : undefined} canClick={canClick} side={side} />}
       {isByeAuto && !addingPlayer && showAdd && (
         <button onClick={() => setAddingPlayer(true)}
-          className="w-full text-[10px] font-sans text-white/20 hover:text-white/50 hover:bg-white/5 py-1 border-t border-white/6 flex items-center justify-center gap-1 transition-colors">
+          className="no-print w-full text-[10px] font-sans text-gray-300 hover:text-gray-500 hover:bg-gray-50 py-1 border-t border-gray-100 flex items-center justify-center gap-1 transition-colors">
           + agregar rival
         </button>
       )}
@@ -272,9 +272,9 @@ export default function BracketPage() {
                       <div className="absolute pointer-events-none" style={{
                         [side === 'left' ? 'right' : 'left']: 0, width: CONNECTOR_W,
                         top: isTop ? '50%' : 0, bottom: isTop ? 0 : '50%',
-                        borderTop: isTop ? '1px solid rgba(255,255,255,0.18)' : 'none',
-                        borderBottom: isTop ? 'none' : '1px solid rgba(255,255,255,0.18)',
-                        [side === 'left' ? 'borderRight' : 'borderLeft']: '1px solid rgba(255,255,255,0.18)',
+                        borderTop: isTop ? '1px solid #ccc' : 'none',
+                        borderBottom: isTop ? 'none' : '1px solid #ccc',
+                        [side === 'left' ? 'borderRight' : 'borderLeft']: '1px solid #ccc',
                       }} />
                     )}
                   </div>
@@ -292,25 +292,43 @@ export default function BracketPage() {
   const champion = winners[5]?.[0] ? allPlayers[winners[5][0]] : null
 
   return (
-    <div className="min-h-screen bg-cc-dark overflow-auto select-none">
-      <div className="flex flex-col items-center py-4 border-b border-white/8">
-        <img src="/logo-main-white.png" alt="Court Culture" className="h-10 w-auto object-contain mb-2 opacity-80" />
-        <h1 className="font-display text-white" style={{ fontSize: 'clamp(1.3rem, 2vw, 2rem)', fontWeight: 300, fontStyle: 'italic' }}>
+    <div className="min-h-screen bg-white overflow-auto select-none">
+      <style>{`
+        @media print {
+          .no-print { display: none !important; }
+          body { margin: 0; }
+          @page { size: A3 landscape; margin: 10mm; }
+        }
+      `}</style>
+
+      <div className="flex flex-col items-center py-4 border-b border-gray-200 no-print">
+        <img src="/logo-main.png" alt="Court Culture" className="h-10 w-auto object-contain mb-2" />
+        <h1 className="font-display text-gray-900" style={{ fontSize: 'clamp(1.3rem, 2vw, 2rem)', fontWeight: 300, fontStyle: 'italic' }}>
           One Point Slam · 30 Mayo 2026
         </h1>
         <div className="flex items-center gap-4 mt-2 flex-wrap justify-center">
           {['A','B','C','D'].map(c => (
             <div key={c} className="flex items-center gap-1">
               <span className={`text-[9px] px-1 py-px ${CAT_COLOR[c]}`}>{c}</span>
-              <span className="text-[10px] font-sans text-white/25">{c==='A'||c==='B'?'Avanzado':c==='C'?'Intermedio':'Básico'}</span>
+              <span className="text-[10px] font-sans text-gray-400">{c==='A'||c==='B'?'Avanzado':c==='C'?'Intermedio':'Básico'}</span>
             </div>
           ))}
           <button onClick={sortear}
-            className="text-[10px] font-sans bg-white/10 hover:bg-white/20 text-white px-3 py-1 transition-colors border border-white/20 ml-4">
-            🎲 Sortear bracket
+            className="text-[10px] font-sans bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 transition-colors border border-gray-300 ml-4">
+            🎲 Sortear
           </button>
-          <span className="text-[10px] font-sans text-white/18">Click ganador · Click de nuevo para revertir</span>
+          <button onClick={() => window.print()}
+            className="text-[10px] font-sans bg-gray-900 hover:bg-gray-700 text-white px-3 py-1 transition-colors border border-gray-900 ml-1">
+            🖨 Imprimir / PDF
+          </button>
+          <span className="text-[10px] font-sans text-gray-300">Click ganador · Click de nuevo para revertir</span>
         </div>
+      </div>
+
+      {/* Print header — only shows when printing */}
+      <div className="hidden print:flex flex-col items-center py-3 border-b border-gray-200">
+        <img src="/logo-main.png" alt="Court Culture" style={{ height: 36, marginBottom: 6 }} />
+        <p style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 18, margin: 0 }}>One Point Slam · Court Sessions Vol. II · 30 Mayo 2026</p>
       </div>
 
       <div className="flex items-center justify-center pb-8 pt-4" style={{ overflowX: 'auto', minWidth: 'max-content' }}>
@@ -319,39 +337,39 @@ export default function BracketPage() {
         <div className="flex flex-col items-center justify-center px-4" style={{ height: TOTAL_H, minWidth: 175 }}>
           {champion ? (
             <div className="text-center mb-4">
-              <p className="text-[10px] tracking-widest uppercase font-sans text-yellow-400/60 mb-1">🏆 Campeón</p>
-              <p className="font-display text-white text-lg" style={{ fontStyle: 'italic', fontWeight: 300 }}>{champion.name}</p>
+              <p className="text-[10px] tracking-widest uppercase font-sans text-yellow-600 mb-1">🏆 Campeón</p>
+              <p className="font-display text-gray-900 text-lg" style={{ fontStyle: 'italic', fontWeight: 400 }}>{champion.name}</p>
               <span className={`text-[9px] px-2 py-px mt-1 inline-block ${CAT_COLOR[champion.cat] || CAT_COLOR['?']}`}>{champion.cat}</span>
             </div>
           ) : (
-            <p className="font-display text-white/15 text-base mb-4" style={{ fontStyle: 'italic' }}>CAMPEÓN</p>
+            <p className="font-display text-gray-300 text-base mb-4" style={{ fontStyle: 'italic' }}>CAMPEÓN</p>
           )}
 
-          <div className="border border-white/20 w-full overflow-hidden mb-3">
-            <p className="text-center text-[9px] tracking-widest uppercase font-sans text-white/20 py-1.5 border-b border-white/10">Gran Final</p>
+          <div className="border border-gray-300 w-full overflow-hidden mb-3 bg-white">
+            <p className="text-center text-[9px] tracking-widest uppercase font-sans text-gray-400 py-1.5 border-b border-gray-200">Gran Final</p>
             {[leftFinalist, rightFinalist].map((finalist, fi) => (
               <div key={fi}>
-                {fi === 1 && <div className="border-t border-white/10" />}
+                {fi === 1 && <div className="border-t border-gray-200" />}
                 <button disabled={!leftFinalist || !rightFinalist}
                   onClick={() => finalist && leftFinalist && rightFinalist && setWinnerR(5, 0, finalist.seed)}
                   className={`w-full flex items-center gap-2 px-3 transition-all
-                    ${leftFinalist && rightFinalist ? 'cursor-pointer hover:bg-white/10' : 'cursor-default'}
-                    ${champion?.seed === finalist?.seed && champion ? 'bg-white text-cc-dark' : 'text-white/60'}`}
+                    ${leftFinalist && rightFinalist ? 'cursor-pointer hover:bg-gray-50' : 'cursor-default'}
+                    ${champion?.seed === finalist?.seed && champion ? 'bg-gray-900 text-white' : 'text-gray-600'}`}
                   style={{ height: ROW_H + 4 }}>
                   {finalist ? (
                     <>
-                      <span className={`text-[9px] px-1 py-px shrink-0 ${champion?.seed === finalist.seed && champion ? 'bg-cc-dark text-white' : CAT_COLOR[finalist.cat] || CAT_COLOR['?']}`}>{finalist.cat}</span>
+                      <span className={`text-[9px] px-1 py-px shrink-0 ${champion?.seed === finalist.seed && champion ? 'bg-white text-gray-900' : CAT_COLOR[finalist.cat] || CAT_COLOR['?']}`}>{finalist.cat}</span>
                       <span className="text-[11px] font-sans truncate">{finalist.name}</span>
                       {champion?.seed === finalist.seed && <span className="ml-auto text-[11px]">✓</span>}
                     </>
-                  ) : <span className="text-white/15 text-[11px] italic font-sans">{fi === 0 ? 'Finalista A' : 'Finalista B'}</span>}
+                  ) : <span className="text-gray-300 text-[11px] italic font-sans">{fi === 0 ? 'Finalista A' : 'Finalista B'}</span>}
                 </button>
               </div>
             ))}
           </div>
 
           <button onClick={reset}
-            className="text-[10px] font-sans text-white/15 hover:text-white/35 border border-white/10 px-4 py-1.5 transition-colors w-full text-center">
+            className="no-print text-[10px] font-sans text-gray-300 hover:text-gray-500 border border-gray-200 px-4 py-1.5 transition-colors w-full text-center">
             Reiniciar resultados
           </button>
         </div>
