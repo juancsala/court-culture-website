@@ -31,7 +31,7 @@ export default function EventsPage() {
   const [eventos, setEventos] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [tipoFiltro, setTipoFiltro] = useState<TipoFiltro>('todos')
-  const [mesFiltro, setMesFiltro] = useState(4) // Mayo = index 4
+  const [mesFiltro, setMesFiltro] = useState(new Date().getMonth())
 
   useEffect(() => {
     getEvents()
