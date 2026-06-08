@@ -53,7 +53,7 @@ export default function Confirmacion() {
             Tu lugar está confirmado. Recibirás tu ticket por correo con todos los detalles del evento.
           </p>
           <p className="font-sans text-cc-text/30 text-sm leading-relaxed mb-1">
-            Recuerda dar tu nombre al llegar al evento para el check-in.
+            Muestra tu correo de confirmación al llegar a la entrada para el check-in.
           </p>
           <p className="font-sans text-cc-text/30 text-sm leading-relaxed mb-12">
             Cualquier pregunta escríbenos a{' '}
