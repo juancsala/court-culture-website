@@ -87,15 +87,6 @@ export default function EventsPage() {
         </div>
       </div>
 
-      {/* Photo strip */}
-      <div className="grid grid-cols-3 gap-1 h-48 md:h-72">
-        {STRIP_PHOTOS.map((src, i) => (
-          <div key={i} className="overflow-hidden">
-            <img src={src} alt="" className="w-full h-full object-cover object-center" style={{ filter: 'brightness(0.88) saturate(0.85)' }} />
-          </div>
-        ))}
-      </div>
-
       {/* Filters */}
       <div className="px-6 md:px-12 pt-8 pb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-cc-text/8">
         <div className="flex gap-2 flex-wrap">
@@ -125,37 +116,6 @@ export default function EventsPage() {
             <option key={m} value={m}>{MESES[m]}</option>
           ))}
         </select>
-      </div>
-
-      {/* Sobre Court Culture */}
-      <div className="px-6 md:px-12 py-12 md:py-16 border-b border-cc-text/8 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-        <div>
-          <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-4">Sobre nosotros</p>
-          <h2 className="font-display text-cc-text mb-5 leading-tight"
-            style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 300, fontStyle: 'italic' }}>
-            Somos Court Culture.
-          </h2>
-          <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-3">
-            Court Culture nace en marzo de 2026 con una idea clara: crear un espacio donde el tenis sea el punto de encuentro para conectar personas. Lo que empezó como un grupo de WhatsApp de 50 personas se convirtió en un movimiento en crecimiento con más de 1,200 miembros.
-          </p>
-          <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
-            Aquí no importa si juegas desde hace años o si apenas estás empezando. Court Culture es más que tenis: es comunidad, ambiente y experiencias que se quedan contigo dentro y fuera de la cancha.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 md:mt-16">
-          <div className="border border-cc-text/10 p-5">
-            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Court Sessions</p>
-            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Nuestros eventos de comunidad. Partidos, juegos, dinámicas y convivencia dentro y fuera de la cancha. Cada Court Session es una experiencia única.
-            </p>
-          </div>
-          <div className="border border-cc-text/10 p-5">
-            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Warm Up Sessions</p>
-            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
-              Sesiones para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Puro tenis y conexión real.
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* Events list */}
@@ -237,6 +197,46 @@ export default function EventsPage() {
             )}
           </AnimatePresence>
         )}
+      </div>
+
+      {/* Photo strip */}
+      <div className="grid grid-cols-3 gap-1 h-48 md:h-72">
+        {STRIP_PHOTOS.map((src, i) => (
+          <div key={i} className="overflow-hidden">
+            <img src={src} alt="" className="w-full h-full object-cover object-center" style={{ filter: 'brightness(0.88) saturate(0.85)' }} />
+          </div>
+        ))}
+      </div>
+
+      {/* Sobre Court Culture */}
+      <div className="px-6 md:px-12 py-12 md:py-16 border-b border-cc-text/8 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+        <div>
+          <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-4">Sobre nosotros</p>
+          <h2 className="font-display text-cc-text mb-5 leading-tight"
+            style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 300, fontStyle: 'italic' }}>
+            Somos Court Culture.
+          </h2>
+          <p className="font-sans text-cc-text/50 text-sm leading-relaxed mb-3">
+            Court Culture nace en marzo de 2026 con una idea clara: crear un espacio donde el tenis sea el punto de encuentro para conectar personas. Lo que empezó como un grupo de WhatsApp de 50 personas se convirtió en un movimiento en crecimiento con más de 1,200 miembros.
+          </p>
+          <p className="font-sans text-cc-text/40 text-sm leading-relaxed">
+            Aquí no importa si juegas desde hace años o si apenas estás empezando. Court Culture es más que tenis: es comunidad, ambiente y experiencias que se quedan contigo dentro y fuera de la cancha.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4 md:mt-16">
+          <div className="border border-cc-text/10 p-5">
+            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Court Sessions</p>
+            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
+              Nuestros eventos de comunidad. Partidos, juegos, dinámicas y convivencia dentro y fuera de la cancha. Cada Court Session es una experiencia única.
+            </p>
+          </div>
+          <div className="border border-cc-text/10 p-5">
+            <p className="text-xs tracking-[0.18em] uppercase font-sans text-cc-text/30 mb-2">Warm Up Sessions</p>
+            <p className="font-sans text-cc-text/50 text-sm leading-relaxed">
+              Sesiones para la comunidad. Retas, juegos en equipo y dinámicas en cancha. Puro tenis y conexión real.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
