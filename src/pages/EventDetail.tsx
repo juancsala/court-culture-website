@@ -234,6 +234,10 @@ export default function EventDetail() {
                 <span className="font-sans text-cc-text/60 text-sm">{evento.lugar}{evento.direccion ? ` · ${evento.direccion}` : ''}</span>
               </div>
               <div className="flex items-start gap-6">
+                <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Hora</span>
+                <span className="font-sans text-cc-text/60 text-sm">{formatHora(evento.hora)}</span>
+              </div>
+              <div className="flex items-start gap-6">
                 <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Cupos</span>
                 <span className="font-sans text-cc-text/60 text-sm">{evento.capacidad_publica} lugares</span>
               </div>
