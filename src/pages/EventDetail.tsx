@@ -9,6 +9,14 @@ function formatFecha(fecha: string) {
   return d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 }
 
+function formatHora(hora: string) {
+  const [h, m] = hora.split(':')
+  const hour = parseInt(h)
+  const ampm = hour >= 12 ? 'pm' : 'am'
+  const h12 = hour > 12 ? hour - 12 : hour
+  return `${h12}:${m} ${ampm}`
+}
+
 type Step = 'email' | 'form' | 'bloqueado'
 
 export default function EventDetail() {
