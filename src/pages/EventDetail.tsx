@@ -99,6 +99,7 @@ export default function EventDetail() {
   }
 
   const precio = esMiembro ? Number(evento.precio_comunidad) : Number(evento.precio_general)
+  const mismoPrecio = Number(evento.precio_comunidad) === Number(evento.precio_general)
 
   return (
     <div className="min-h-screen bg-cc-base text-cc-text">
@@ -239,8 +240,12 @@ export default function EventDetail() {
               <div className="flex items-start gap-6">
                 <span className="text-cc-text/25 text-xs tracking-widest uppercase font-sans pt-0.5 w-16 shrink-0">Precio</span>
                 <div>
-                  <span className="font-sans text-cc-text/60 text-sm">Desde ${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
-                  <span className="font-sans text-cc-text/30 text-xs ml-2">(miembros)</span>
+                  <span className="font-sans text-cc-text/60 text-sm">
+                    {mismoPrecio
+                      ? `$${Number(evento.precio_general).toLocaleString('es-MX')} MXN`
+                      : `Desde $${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN`}
+                  </span>
+                  {!mismoPrecio && <span className="font-sans text-cc-text/30 text-xs ml-2">(miembros)</span>}
                 </div>
               </div>
             </div>
@@ -358,20 +363,31 @@ export default function EventDetail() {
                     Reserva tu lugar
                   </h2>
                   <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
-                    Ingresa tu correo para verificar si tienes precio preferencial como miembro.
+                    {mismoPrecio
+                      ? 'Ingresa tu correo para continuar.'
+                      : 'Ingresa tu correo para verificar si tienes precio preferencial como miembro.'}
                   </p>
 
                   {/* Precios */}
                   <div className="bg-cc-text/[0.03] border border-cc-text/8 p-5 mb-8 space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Miembros</span>
-                      <span className="font-sans text-cc-text text-sm">${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
-                    </div>
-                    <div className="h-px bg-cc-text/8" />
-                    <div className="flex justify-between items-center">
-                      <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">General</span>
-                      <span className="font-sans text-cc-text/50 text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
-                    </div>
+                    {mismoPrecio ? (
+                      <div className="flex justify-between items-center">
+                        <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Precio</span>
+                        <span className="font-sans text-cc-text text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Miembros</span>
+                          <span className="font-sans text-cc-text text-sm">${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
+                        </div>
+                        <div className="h-px bg-cc-text/8" />
+                        <div className="flex justify-between items-center">
+                          <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">General</span>
+                          <span className="font-sans text-cc-text/50 text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <form onSubmit={handleVerificarEmail} className="flex flex-col gap-4">
@@ -396,12 +412,14 @@ export default function EventDetail() {
                     </button>
                   </form>
 
-                  <p className="font-sans text-cc-text/25 text-xs leading-relaxed mt-6">
-                    Los miembros tienen precio preferencial y acceso anticipado.{' '}
-                    <a href="/comunidad" className="text-cc-text/40 underline hover:text-cc-text/60 transition-colors">
-                      Únete gratis aquí.
-                    </a>
-                  </p>
+                  {!mismoPrecio && (
+                    <p className="font-sans text-cc-text/25 text-xs leading-relaxed mt-6">
+                      Los miembros tienen precio preferencial y acceso anticipado.{' '}
+                      <a href="/comunidad" className="text-cc-text/40 underline hover:text-cc-text/60 transition-colors">
+                        Únete gratis aquí.
+                      </a>
+                    </p>
+                  )}
                 </>
               )}
 
