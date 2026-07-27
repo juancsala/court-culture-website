@@ -23,12 +23,17 @@ function formatHora(hora: string) {
 
 const STRIP_PHOTOS = [COMMUNITY_IMAGES[0], COMMUNITY_IMAGES[3], COMMUNITY_IMAGES[5]]
 
+const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
 type TipoFiltro = 'todos' | 'court_session' | 'warm_up_session'
+type MesFiltro = 'todos' | number
 
 export default function EventsPage() {
   const [eventos, setEventos] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [tipoFiltro, setTipoFiltro] = useState<TipoFiltro>('todos')
+  const [mesFiltro, setMesFiltro] = useState<MesFiltro>('todos')
+  const añoActual = new Date().getFullYear()
 
   useEffect(() => {
     getEvents()
@@ -37,7 +42,13 @@ export default function EventsPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  const filtrados = eventos.filter(e => tipoFiltro === 'todos' || e.tipo === tipoFiltro)
+  const filtrados = eventos.filter(e => {
+    const tipoOk = tipoFiltro === 'todos' || e.tipo === tipoFiltro
+    if (mesFiltro === 'todos') return tipoOk
+    const fechaEvento = new Date(e.fecha + 'T12:00:00')
+    const mesOk = fechaEvento.getMonth() === mesFiltro && fechaEvento.getFullYear() === añoActual
+    return tipoOk && mesOk
+  })
 
   const proximos = filtrados
     .filter(e => !e.finalizado)
@@ -71,7 +82,7 @@ export default function EventsPage() {
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="font-display text-white leading-tight"
             style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 300, fontStyle: 'italic' }}>
-            Agenda.
+            Eventos.
           </motion.h1>
         </div>
       </div>
@@ -85,22 +96,35 @@ export default function EventsPage() {
       </div>
 
       {/* Filters */}
-      <div className="px-6 md:px-12 pt-4 pb-6 flex flex-wrap gap-2 border-b border-cc-text/8">
-        {([
-          ['todos', 'Todos'],
-          ['court_session', 'Court Sessions'],
-          ['warm_up_session', 'Warm Up Sessions'],
-        ] as [TipoFiltro, string][]).map(([val, label]) => (
-          <button key={val} onClick={() => setTipoFiltro(val)}
-            className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
-              tipoFiltro === val
-                ? 'bg-cc-text text-cc-base'
-                : 'text-cc-text/40 hover:text-cc-text/70 border border-cc-text/12 hover:border-cc-text/25'
-            }`}
-          >
-            {label}
-          </button>
-        ))}
+      <div className="px-6 md:px-12 pt-4 pb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-cc-text/8">
+        <div className="flex gap-2 flex-wrap">
+          {([
+            ['todos', 'Todos'],
+            ['court_session', 'Court Sessions'],
+            ['warm_up_session', 'Warm Up Sessions'],
+          ] as [TipoFiltro, string][]).map(([val, label]) => (
+            <button key={val} onClick={() => setTipoFiltro(val)}
+              className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
+                tipoFiltro === val
+                  ? 'bg-cc-text text-cc-base'
+                  : 'text-cc-text/40 hover:text-cc-text/70 border border-cc-text/12 hover:border-cc-text/25'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <select
+          value={mesFiltro}
+          onChange={e => setMesFiltro(e.target.value === 'todos' ? 'todos' : Number(e.target.value))}
+          className="border border-cc-text/15 bg-cc-base text-cc-text/60 text-xs tracking-[0.15em] uppercase font-sans px-4 py-2 focus:outline-none focus:border-cc-text/30 transition-colors appearance-none pr-8 cursor-pointer"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230A0A0A' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
+        >
+          <option value="todos">Todos los meses</option>
+          {MESES.map((nombre, idx) => (
+            <option key={idx} value={idx}>{nombre} {añoActual}</option>
+          ))}
+        </select>
       </div>
 
       {/* Events list */}
@@ -113,7 +137,8 @@ export default function EventsPage() {
               <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="py-24 text-center">
                 <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-4">Sin eventos</p>
                 <h2 className="font-display text-cc-text mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 300, fontStyle: 'italic' }}>
-                  {tipoFiltro === 'court_session' ? 'No hay Court Sessions' : tipoFiltro === 'warm_up_session' ? 'No hay Warm Up Sessions' : 'No hay eventos'} todavía.
+                  {tipoFiltro === 'court_session' ? 'No hay Court Sessions' : tipoFiltro === 'warm_up_session' ? 'No hay Warm Up Sessions' : 'No hay eventos'}
+                  {mesFiltro === 'todos' ? ' todavía.' : ` en ${MESES[mesFiltro]}.`}
                 </h2>
                 <p className="font-sans text-cc-text/35 text-sm">Síguenos en redes para no perderte el próximo.</p>
               </motion.div>
@@ -145,10 +170,10 @@ export default function EventsPage() {
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-2 mb-1.5">
                           {esProximo && (
-                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-cc-dark bg-cc-accent px-2 py-0.5">Próximo evento</span>
+                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-white bg-green-700 px-2 py-0.5">Próximo evento</span>
                           )}
                           {evento.finalizado && (
-                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-cc-text/40 border border-cc-text/20 px-2 py-0.5">Finalizado</span>
+                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-600 border border-red-600/30 px-2 py-0.5">Finalizado</span>
                           )}
                           {!evento.finalizado && soldOut && (
                             <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-400/70">Sold out</span>
