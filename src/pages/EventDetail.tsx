@@ -137,11 +137,11 @@ export default function EventDetail() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             {evento.imagen && (
-              <div className="aspect-[4/3] overflow-hidden mb-10">
+              <div className="overflow-hidden mb-10">
                 <img
                   src={evento.imagen}
                   alt={evento.titulo}
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto"
                   style={{ filter: 'brightness(0.95) saturate(0.9)' }}
                 />
               </div>
