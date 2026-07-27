@@ -19,6 +19,18 @@ function formatHora(hora: string) {
 
 type Step = 'email' | 'form' | 'bloqueado'
 
+const INCLUYE_DEFAULT = ['Hidratación', 'Snacks', 'Cold Plunge', 'DJ en vivo', 'Convivencia', 'Premios']
+const INCLUYE_POR_EVENTO: Record<string, string[]> = {
+  'Court Culture x Abierto GNP Seguros': [
+    'Clínica de tenis',
+    'Experiencia de jugar en el Estadio GNP Seguros',
+    'Hidratación',
+    'Premios',
+    'Convivencia',
+    'Dinámicas',
+  ],
+}
+
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>()
   const [evento, setEvento] = useState<Event | null>(null)
@@ -276,16 +288,9 @@ export default function EventDetail() {
                 Incluye
               </motion.p>
               <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: 'Hidratación' },
-                  { label: 'Snacks' },
-                  { label: 'Cold Plunge' },
-                  { label: 'DJ en vivo' },
-                  { label: 'Convivencia' },
-                  { label: 'Premios' },
-                ].map((item, i) => (
+                {(INCLUYE_POR_EVENTO[evento.titulo] ?? INCLUYE_DEFAULT).map((label, i) => (
                   <motion.div
-                    key={item.label}
+                    key={label}
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.12, delay: i * 0.02, ease: 'easeOut' }}
@@ -294,7 +299,7 @@ export default function EventDetail() {
                     className="flex items-center gap-3 border border-cc-text/8 px-4 py-3 cursor-default"
                   >
                     <span className="w-1 h-1 rounded-full bg-cc-text/20 shrink-0" />
-                    <span className="font-sans text-cc-text/55 text-sm">{item.label}</span>
+                    <span className="font-sans text-cc-text/55 text-sm">{label}</span>
                   </motion.div>
                 ))}
               </div>

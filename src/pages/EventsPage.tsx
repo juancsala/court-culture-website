@@ -122,7 +122,7 @@ export default function EventsPage() {
         >
           <option value="todos">Todos los meses</option>
           {MESES.map((nombre, idx) => (
-            <option key={idx} value={idx}>{nombre} {añoActual}</option>
+            <option key={idx} value={idx}>{nombre}</option>
           ))}
         </select>
       </div>
