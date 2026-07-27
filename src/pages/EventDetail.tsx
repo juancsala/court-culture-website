@@ -326,7 +326,7 @@ export default function EventDetail() {
                   <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-6">
                     Este evento ya concluyó. Síguenos en Instagram para enterarte de los próximos.
                   </p>
-                  <a href="https://www.instagram.com/courtculture.mty" target="_blank" rel="noopener noreferrer"
+                  <a href="https://www.instagram.com/courtculture.mx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer"
                     className="block w-full text-center border border-cc-text/20 text-cc-text/50 py-4 text-xs tracking-[0.2em] uppercase font-sans hover:border-cc-text/40 hover:text-cc-text/70 transition-colors duration-300">
                     @courtculture.mty →
                   </a>

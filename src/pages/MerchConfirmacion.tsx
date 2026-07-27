@@ -62,7 +62,7 @@ export default function MerchConfirmacion() {
           </p>
           <p className="font-sans text-cc-text/30 text-sm leading-relaxed mb-12">
             Te contactaremos por WhatsApp para coordinar la entrega. Cualquier pregunta a{' '}
-            <a href="https://www.instagram.com/courtculture.mty" target="_blank" rel="noopener noreferrer" className="text-cc-text/50 underline hover:text-cc-text transition-colors">
+            <a href="https://www.instagram.com/courtculture.mx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-cc-text/50 underline hover:text-cc-text transition-colors">
               @courtculture.mty
             </a>
           </p>

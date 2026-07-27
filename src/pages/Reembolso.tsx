@@ -173,7 +173,7 @@ export default function ReembolsoPage() {
               <p><span className="text-cc-text/60 font-medium">Monto.</span> Se reembolsa el precio del boleto menos comisiones de procesamiento.</p>
               <p><span className="text-cc-text/60 font-medium">Tiempo.</span> El reembolso puede tardar 5–10 días hábiles en reflejarse en tu cuenta.</p>
               <p><span className="text-cc-text/60 font-medium">Cancelación por Court Culture.</span> Si cancelamos el evento, todos los inscritos recibirán reembolso completo automáticamente.</p>
-              <p><span className="text-cc-text/60 font-medium">¿Dudas?</span> Escríbenos a <a href="https://www.instagram.com/courtculture.mty" target="_blank" rel="noopener noreferrer" className="text-cc-text/60 underline hover:text-cc-text transition-colors">@courtculture.mty</a></p>
+              <p><span className="text-cc-text/60 font-medium">¿Dudas?</span> Escríbenos a <a href="https://www.instagram.com/courtculture.mx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-cc-text/60 underline hover:text-cc-text transition-colors">@courtculture.mty</a></p>
             </div>
           </div>
         </motion.div>

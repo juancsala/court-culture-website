@@ -28,6 +28,6 @@ export const FEATURE_IMAGE = PHOTOS[6]
 
 export const LINKS = {
   whatsapp: 'https://tinyurl.com/courtculturemty',
-  instagram: 'https://www.instagram.com/courtculture.mty?igsh=OGtibDJrZms1YWkz&utm_source=qr',
+  instagram: 'https://www.instagram.com/courtculture.mx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
   tiktok: 'https://www.tiktok.com/@courtculture.mty?_r=1&_t=ZS-94kcjcVQxts',
 }
