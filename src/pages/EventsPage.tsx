@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getEvents, Event } from '../api'
-import { LINKS, COMMUNITY_IMAGES } from '../assets'
+import { LINKS, COMMUNITY_IMAGES, HERO_IMAGE_GROUP } from '../assets'
 import Navbar from '../components/Navbar'
 
 function formatFecha(fecha: string) {
@@ -10,7 +10,6 @@ function formatFecha(fecha: string) {
     dia: d.toLocaleDateString('es-MX', { day: '2-digit' }),
     mes: d.toLocaleDateString('es-MX', { month: 'long' }),
     año: d.getFullYear(),
-    mesNum: d.getMonth(),
   }
 }
 
@@ -22,7 +21,6 @@ function formatHora(hora: string) {
   return `${h12}:${m} ${ampm}`
 }
 
-const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 const STRIP_PHOTOS = [COMMUNITY_IMAGES[0], COMMUNITY_IMAGES[3], COMMUNITY_IMAGES[5]]
 
 type TipoFiltro = 'todos' | 'court_session' | 'warm_up_session'
@@ -31,7 +29,6 @@ export default function EventsPage() {
   const [eventos, setEventos] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [tipoFiltro, setTipoFiltro] = useState<TipoFiltro>('todos')
-  const [mesFiltro, setMesFiltro] = useState(new Date().getMonth())
 
   useEffect(() => {
     getEvents()
@@ -40,18 +37,15 @@ export default function EventsPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  // Meses que tienen eventos
-  const mesesConEventos = [...new Set(eventos.map(e => new Date(e.fecha + 'T12:00:00').getMonth()))].sort()
+  const filtrados = eventos.filter(e => tipoFiltro === 'todos' || e.tipo === tipoFiltro)
 
-  const filtrados = eventos.filter(e => {
-    const mes = new Date(e.fecha + 'T12:00:00').getMonth()
-    const tipoOk = tipoFiltro === 'todos' || e.tipo === tipoFiltro
-    const mesOk = mes === mesFiltro
-    return tipoOk && mesOk
-  })
-
-  // Meses disponibles incluye pasados para poder filtrar y ver historial
-
+  const proximos = filtrados
+    .filter(e => !e.finalizado)
+    .sort((a, b) => a.fecha.localeCompare(b.fecha))
+  const pasados = filtrados
+    .filter(e => e.finalizado)
+    .sort((a, b) => b.fecha.localeCompare(a.fecha))
+  const ordenados = [...proximos, ...pasados]
 
   function mapsUrl(direccion: string) {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`
@@ -63,59 +57,50 @@ export default function EventsPage() {
       <Navbar solid />
       <div className="h-16 md:h-20" />
 
-      {/* Header */}
-      <div className="px-6 md:px-12 pt-16 pb-12 border-b border-cc-text/8">
-        <a href="/" className="inline-flex items-center gap-2 text-cc-text/30 hover:text-cc-text/60 text-xs tracking-widest uppercase font-sans transition-colors duration-200 mb-10">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
-          Inicio
-        </a>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/30 mb-4">
-          Court Culture · Monterrey
-        </motion.p>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-cc-text leading-none"
-            style={{ fontSize: 'clamp(3rem, 7vw, 6rem)', fontWeight: 300, fontStyle: 'italic' }}
-          >
-            Agenda
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-sans text-cc-text/40 text-sm leading-relaxed max-w-xs mb-2"
-          >
-            Tenis, conexión y algo más. Dos formatos, una sola comunidad.
+      {/* Hero */}
+      <div className="relative h-[40vh] md:h-[50vh] overflow-hidden">
+        <img src={HERO_IMAGE_GROUP} alt="Court Culture"
+          className="w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-cc-dark/55" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+            className="text-xs tracking-[0.25em] uppercase font-sans text-white/50 mb-4">
+            Court Culture · Monterrey
           </motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-white leading-tight"
+            style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 300, fontStyle: 'italic' }}>
+            Agenda.
+          </motion.h1>
         </div>
       </div>
 
+      {/* Intro */}
+      <div className="max-w-2xl mx-auto px-6 md:px-12 pt-16 pb-6 text-center">
+        <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+          className="font-sans text-cc-text/50 text-sm md:text-base leading-relaxed">
+          Tenis, conexión y algo más. Dos formatos, una sola comunidad.
+        </motion.p>
+      </div>
+
       {/* Filters */}
-      <div className="px-6 md:px-12 pt-8 pb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-cc-text/8">
-        <div className="flex gap-2 flex-wrap">
-          {([
-            ['todos', 'Todos'],
-            ['court_session', 'Court Sessions'],
-            ['warm_up_session', 'Warm Up Sessions'],
-          ] as [TipoFiltro, string][]).map(([val, label]) => (
-            <button key={val} onClick={() => setTipoFiltro(val)}
-              className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
-                tipoFiltro === val
-                  ? 'bg-cc-text text-cc-base'
-                  : 'text-cc-text/40 hover:text-cc-text/70 border border-cc-text/12 hover:border-cc-text/25'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        <select
-          value={mesFiltro}
-          onChange={e => setMesFiltro(Number(e.target.value))}
-          className="border border-cc-text/15 bg-cc-base text-cc-text/60 text-xs tracking-[0.15em] uppercase font-sans px-4 py-2 focus:outline-none focus:border-cc-text/30 transition-colors appearance-none pr-8 cursor-pointer"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230A0A0A' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
-        >
-          {mesesConEventos.map(m => (
-            <option key={m} value={m}>{MESES[m]}</option>
-          ))}
-        </select>
+      <div className="px-6 md:px-12 pt-4 pb-6 flex flex-wrap gap-2 border-b border-cc-text/8">
+        {([
+          ['todos', 'Todos'],
+          ['court_session', 'Court Sessions'],
+          ['warm_up_session', 'Warm Up Sessions'],
+        ] as [TipoFiltro, string][]).map(([val, label]) => (
+          <button key={val} onClick={() => setTipoFiltro(val)}
+            className={`px-5 py-2 text-xs tracking-[0.15em] uppercase font-sans transition-colors duration-200 ${
+              tipoFiltro === val
+                ? 'bg-cc-text text-cc-base'
+                : 'text-cc-text/40 hover:text-cc-text/70 border border-cc-text/12 hover:border-cc-text/25'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Events list */}
@@ -124,19 +109,20 @@ export default function EventsPage() {
           <div className="py-32 text-center text-cc-text/25 text-xs font-sans tracking-widest uppercase">Cargando...</div>
         ) : (
           <AnimatePresence mode="wait">
-            {filtrados.length === 0 ? (
+            {ordenados.length === 0 ? (
               <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="py-24 text-center">
                 <p className="text-xs tracking-[0.25em] uppercase font-sans text-cc-text/25 mb-4">Sin eventos</p>
                 <h2 className="font-display text-cc-text mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 300, fontStyle: 'italic' }}>
-                  {tipoFiltro === 'court_session' ? 'No hay Court Sessions' : tipoFiltro === 'warm_up_session' ? 'No hay Warm Up Sessions' : 'No hay eventos'} en {MESES[mesFiltro]}.
+                  {tipoFiltro === 'court_session' ? 'No hay Court Sessions' : tipoFiltro === 'warm_up_session' ? 'No hay Warm Up Sessions' : 'No hay eventos'} todavía.
                 </h2>
-                <p className="font-sans text-cc-text/35 text-sm">Prueba otro mes o sigue en redes para no perderte ninguno.</p>
+                <p className="font-sans text-cc-text/35 text-sm">Síguenos en redes para no perderte el próximo.</p>
               </motion.div>
             ) : (
               <motion.div key="list" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="divide-y divide-cc-text/8">
-                {filtrados.map((evento, i) => {
+                {ordenados.map((evento, i) => {
                   const { dia, mes } = formatFecha(evento.fecha)
                   const soldOut = evento.cupos_disponibles <= 0
+                  const esProximo = !evento.finalizado && evento === proximos[0]
                   return (
                     <motion.a
                       key={evento.id}
@@ -144,7 +130,7 @@ export default function EventsPage() {
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: i * 0.08 }}
-                      className="group flex flex-col md:flex-row md:items-center gap-6 py-10 md:py-12 -mx-6 md:-mx-12 px-6 md:px-12 hover:bg-cc-text/[0.04] transition-all duration-300"
+                      className={`group flex flex-col md:flex-row md:items-center gap-6 py-10 md:py-12 -mx-6 md:-mx-12 px-6 md:px-12 hover:bg-cc-text/[0.04] transition-all duration-300 ${evento.finalizado ? 'opacity-50' : ''}`}
                     >
                       {/* Fecha */}
                       <div className="md:w-36 shrink-0">
@@ -157,9 +143,17 @@ export default function EventsPage() {
 
                       {/* Info */}
                       <div className="flex-1">
-                        {soldOut && (
-                          <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-400/70 block mb-1">Sold out</span>
-                        )}
+                        <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                          {esProximo && (
+                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-cc-dark bg-cc-accent px-2 py-0.5">Próximo evento</span>
+                          )}
+                          {evento.finalizado && (
+                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-cc-text/40 border border-cc-text/20 px-2 py-0.5">Finalizado</span>
+                          )}
+                          {!evento.finalizado && soldOut && (
+                            <span className="text-[10px] tracking-[0.12em] uppercase font-sans text-red-400/70">Sold out</span>
+                          )}
+                        </div>
                         <h2 className="font-display text-cc-text group-hover:text-cc-text leading-tight mb-1.5 transition-colors"
                           style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}>
                           {evento.titulo}
@@ -180,7 +174,7 @@ export default function EventsPage() {
                         <p className="font-sans text-cc-text group-hover:text-cc-texttext-sm mb-1 transition-colors">
                           desde ${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN
                         </p>
-                        {soldOut && (
+                        {!evento.finalizado && soldOut && (
                           <p className="font-sans text-cc-text/30 group-hover:text-cc-text/40 text-xs tracking-widest uppercase transition-colors">
                             Lista de espera
                           </p>
