@@ -29,6 +29,14 @@ const INCLUYE_POR_EVENTO: Record<string, string[]> = {
     'Convivencia',
     'Dinámicas',
   ],
+  'Court Session x Expo Padel & Tennis': [
+    'Hidratación',
+    'Snacks',
+    'Networking',
+    'DJ en vivo',
+    'Convivencia',
+    'Premios',
+  ],
 }
 
 export default function EventDetail() {
