@@ -138,11 +138,12 @@ export default function EventDetail() {
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
 
-          {/* Left — Detalles */}
+          {/* Left — Detalles (en mobile va después del registro) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="order-2 md:order-1"
           >
             {evento.imagen && (
               <div className="overflow-hidden mb-10">
@@ -315,12 +316,12 @@ export default function EventDetail() {
             </>}
           </motion.div>
 
-          {/* Right — Registro */}
+          {/* Right — Registro (en mobile va primero) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="md:sticky md:top-8"
+            className="order-1 md:order-2 md:sticky md:top-8"
           >
             <div className="border border-cc-text/10 p-8 md:p-10 bg-cc-text/[0.02]">
 
