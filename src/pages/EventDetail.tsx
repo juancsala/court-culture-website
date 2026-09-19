@@ -138,7 +138,19 @@ export default function EventDetail() {
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
 
-          {/* Left — Detalles (en mobile va después del registro) */}
+          {/* Imagen — solo mobile, va primero (order por default 0, antes que registro y detalles) */}
+          {evento.imagen && (
+            <div className="md:hidden overflow-hidden">
+              <img
+                src={evento.imagen}
+                alt={evento.titulo}
+                className="w-full h-auto"
+                style={{ filter: 'brightness(0.95) saturate(0.9)' }}
+              />
+            </div>
+          )}
+
+          {/* Left — Detalles (en mobile va al final, después de registro) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -146,7 +158,7 @@ export default function EventDetail() {
             className="order-2 md:order-1"
           >
             {evento.imagen && (
-              <div className="overflow-hidden mb-10">
+              <div className="hidden md:block overflow-hidden mb-10">
                 <img
                   src={evento.imagen}
                   alt={evento.titulo}
