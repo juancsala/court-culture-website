@@ -37,7 +37,7 @@ const INCLUYE_POR_EVENTO: Record<string, string[]> = {
     'Convivencia',
     'Premios',
   ],
-  'Trick or Tennis · Halloween Edition': [
+  'Court Culture x Tennis Express: Halloween Edition': [
     'Hidratación',
     'Snacks',
     'Concurso de disfraces',
