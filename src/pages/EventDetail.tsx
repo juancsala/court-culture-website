@@ -37,6 +37,14 @@ const INCLUYE_POR_EVENTO: Record<string, string[]> = {
     'Convivencia',
     'Premios',
   ],
+  'Trick or Tennis · Halloween Edition': [
+    'Hidratación',
+    'Snacks',
+    'Concurso de disfraces',
+    'DJ en vivo',
+    'Convivencia',
+    'Premios',
+  ],
 }
 
 export default function EventDetail() {
