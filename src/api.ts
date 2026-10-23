@@ -57,11 +57,22 @@ export async function verificarMiembro(email: string): Promise<{ es_miembro: boo
   return res.json()
 }
 
+export async function validarCodigoDescuento(eventoId: number, codigo: string): Promise<{ valido: boolean; porcentaje?: number }> {
+  const res = await fetch(`${API_BASE}/api/events/${eventoId}/validar-codigo/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ codigo }),
+  })
+  if (!res.ok) return { valido: false }
+  return res.json()
+}
+
 export async function createCheckout(eventoId: number, data: {
   nombre: string
   email: string
   telefono: string
   categoria: string
+  codigo_descuento?: string
 }): Promise<{ checkout_url: string }> {
   const res = await fetch(`${API_BASE}/api/events/${eventoId}/checkout/`, {
     method: 'POST',
@@ -76,6 +87,48 @@ export async function createCheckout(eventoId: number, data: {
       throw new Error('Error al procesar el pago. Intenta de nuevo.')
     }
   }
+  return res.json()
+}
+
+export interface DisfrazParticipante {
+  id: number
+  nombre: string
+  disfraz: string
+  votos: number
+}
+
+export async function crearDisfrazParticipante(eventoId: number, data: { nombre: string; disfraz: string }): Promise<DisfrazParticipante> {
+  const res = await fetch(`${API_BASE}/api/events/${eventoId}/disfraces/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.error || 'Error al registrar tu disfraz')
+  }
+  return res.json()
+}
+
+export async function getDisfraces(eventoId: number): Promise<DisfrazParticipante[]> {
+  const res = await fetch(`${API_BASE}/api/events/${eventoId}/disfraces/`)
+  if (!res.ok) throw new Error('Error al cargar los disfraces')
+  return res.json()
+}
+
+export async function votarDisfraz(participanteId: number, voterId: string): Promise<{ ok: boolean }> {
+  const res = await fetch(`${API_BASE}/api/events/disfraces/${participanteId}/votar/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ voter_id: voterId }),
+  })
+  if (!res.ok) throw new Error('Error al votar')
+  return res.json()
+}
+
+export async function getMiVoto(voterId: string): Promise<{ participante_id: number | null }> {
+  const res = await fetch(`${API_BASE}/api/events/disfraces/mi-voto/?voter_id=${encodeURIComponent(voterId)}`)
+  if (!res.ok) return { participante_id: null }
   return res.json()
 }
 

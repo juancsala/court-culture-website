@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { getEvent, verificarMiembro, createCheckout, unirseWaitlist, Event } from '../api'
+import { getEvent, verificarMiembro, createCheckout, validarCodigoDescuento, unirseWaitlist, Event } from '../api'
 import Navbar from '../components/Navbar'
 
 function formatFecha(fecha: string) {
@@ -62,6 +62,9 @@ export default function EventDetail() {
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '', categoria: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [codigoDescuento, setCodigoDescuento] = useState('')
+  const [descuento, setDescuento] = useState<{ valido: boolean; porcentaje?: number } | null>(null)
+  const [validandoCodigo, setValidandoCodigo] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -104,11 +107,28 @@ export default function EventDetail() {
     setSubmitting(true)
     setError('')
     try {
-      const { checkout_url } = await createCheckout(evento.id, form)
+      const { checkout_url } = await createCheckout(evento.id, {
+        ...form,
+        codigo_descuento: descuento?.valido ? codigoDescuento.trim() : undefined,
+      })
       window.location.href = checkout_url
     } catch (err: any) {
       setError(err.message || 'Error al procesar el pago')
       setSubmitting(false)
+    }
+  }
+
+  async function handleValidarCodigo() {
+    if (!evento || !codigoDescuento.trim()) {
+      setDescuento(null)
+      return
+    }
+    setValidandoCodigo(true)
+    try {
+      const res = await validarCodigoDescuento(evento.id, codigoDescuento.trim())
+      setDescuento(res)
+    } finally {
+      setValidandoCodigo(false)
     }
   }
 
@@ -136,6 +156,7 @@ export default function EventDetail() {
 
   const precio = esMiembro ? Number(evento.precio_comunidad) : Number(evento.precio_general)
   const mismoPrecio = Number(evento.precio_comunidad) === Number(evento.precio_general)
+  const precioFinal = descuento?.valido && descuento.porcentaje ? precio * (1 - descuento.porcentaje / 100) : precio
 
   return (
     <div className="min-h-screen bg-cc-base text-cc-text">
@@ -588,7 +609,10 @@ export default function EventDetail() {
                       Tus datos
                     </h2>
                     <span className="font-display text-cc-text text-2xl" style={{ fontStyle: 'italic', fontWeight: 300 }}>
-                      ${precio.toLocaleString('es-MX')}
+                      {precioFinal !== precio && (
+                        <span className="text-cc-text/30 text-base line-through mr-2">${precio.toLocaleString('es-MX')}</span>
+                      )}
+                      ${precioFinal.toLocaleString('es-MX')}
                     </span>
                   </div>
 
@@ -640,6 +664,29 @@ export default function EventDetail() {
                       </select>
                     </div>
 
+                    <div>
+                      <label className={labelClass}>Código de descuento <span className="normal-case tracking-normal text-cc-text/20">(opcional)</span></label>
+                      <input
+                        type="text"
+                        placeholder="CODIGO"
+                        value={codigoDescuento}
+                        onChange={e => { setCodigoDescuento(e.target.value); setDescuento(null) }}
+                        onBlur={handleValidarCodigo}
+                        className={inputClass + ' uppercase'}
+                      />
+                      {validandoCodigo && (
+                        <p className="text-cc-text/30 text-xs font-sans mt-2">Validando...</p>
+                      )}
+                      {!validandoCodigo && descuento?.valido && (
+                        <p className="text-cc-green text-xs font-sans mt-2">
+                          ✓ {descuento.porcentaje}% de descuento aplicado — nuevo precio ${precioFinal.toLocaleString('es-MX')} MXN
+                        </p>
+                      )}
+                      {!validandoCodigo && descuento?.valido === false && (
+                        <p className="text-red-500 text-xs font-sans mt-2">Código inválido para este evento.</p>
+                      )}
+                    </div>
+
                     {error && <p className="text-red-500 text-xs font-sans">{error}</p>}
 
                     <button
@@ -647,7 +694,7 @@ export default function EventDetail() {
                       disabled={submitting}
                       className="w-full bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 disabled:opacity-40 mt-2"
                     >
-                      {submitting ? 'Redirigiendo...' : `Pagar $${precio.toLocaleString('es-MX')} MXN →`}
+                      {submitting ? 'Redirigiendo...' : `Pagar $${precioFinal.toLocaleString('es-MX')} MXN →`}
                     </button>
 
                     <button

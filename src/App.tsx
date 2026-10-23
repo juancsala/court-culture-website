@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Concept from './components/Concept'
+import QuienesSomos from './components/QuienesSomos'
 import HowItWorks from './components/HowItWorks'
 import Community from './components/Community'
+import DondeJugamos from './components/DondeJugamos'
+import Testimonios from './components/Testimonios'
 import Join from './components/Join'
 import MerchBanner from './components/MerchBanner'
 import Footer from './components/Footer'
@@ -22,15 +24,20 @@ import ContactoPage from './pages/Contacto'
 import LocacionesPage from './pages/Locaciones'
 import BracketPage from './pages/Bracket'
 import MerchConfirmacion from './pages/MerchConfirmacion'
+import NosotrosPage from './pages/Nosotros'
+import HalloweenRegistro from './pages/HalloweenRegistro'
+import HalloweenVotacion from './pages/HalloweenVotacion'
 
 function HomePage() {
   return (
     <div className="bg-cc-base text-cc-text overflow-x-hidden">
       <Navbar />
       <Hero />
-      <Concept />
+      <QuienesSomos />
       <HowItWorks />
       <Community />
+      <DondeJugamos />
+      <Testimonios />
       {/* <MerchBanner /> */}
       <Join />
       <Footer />
@@ -43,6 +50,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/nosotros" element={<NosotrosPage />} />
         <Route path="/comunidad" element={<PreRegistro />} />
         <Route path="/eventos" element={<EventsPage />} />
         <Route path="/eventos/:id" element={<EventDetail />} />
@@ -54,6 +62,8 @@ export default function App() {
         <Route path="/contacto" element={<ContactoPage />} />
         <Route path="/locaciones" element={<LocacionesPage />} />
         <Route path="/bracket" element={<BracketPage />} />
+        <Route path="/halloween/registro" element={<HalloweenRegistro />} />
+        <Route path="/halloween/votar" element={<HalloweenVotacion />} />
         <Route path="/finanzas/login" element={<FinanzasLogin />} />
         <Route path="/finanzas/dashboard" element={<ProtectedRoute><FinanzasDashboard /></ProtectedRoute>} />
         <Route path="/finanzas/nuevo" element={<ProtectedRoute><FinanzasNuevo /></ProtectedRoute>} />
