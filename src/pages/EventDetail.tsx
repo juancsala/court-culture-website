@@ -17,7 +17,7 @@ function formatHora(hora: string) {
   return `${h12}:${m} ${ampm}`
 }
 
-type Step = 'email' | 'form' | 'bloqueado'
+type Step = 'form' | 'bloqueado'
 
 const INCLUYE_DEFAULT = ['Hidratación', 'Snacks', 'Cold Plunge', 'DJ en vivo', 'Convivencia', 'Premios']
 const INCLUYE_POR_EVENTO: Record<string, string[]> = {
@@ -51,14 +51,12 @@ export default function EventDetail() {
   const { id } = useParams<{ id: string }>()
   const [evento, setEvento] = useState<Event | null>(null)
   const [loading, setLoading] = useState(true)
-  const [step, setStep] = useState<Step>('email')
+  const [step, setStep] = useState<Step>('form')
   const [esMiembro, setEsMiembro] = useState(false)
   const [soloMiembros, setSoloMiembros] = useState(false)
   const [waitlistEmail, setWaitlistEmail] = useState('')
   const [waitlistDone, setWaitlistDone] = useState(false)
   const [waitlistLoading, setWaitlistLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [checkingEmail, setCheckingEmail] = useState(false)
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '', categoria: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -74,39 +72,28 @@ export default function EventDetail() {
       .finally(() => setLoading(false))
   }, [id])
 
-  async function handleVerificarEmail(e: React.FormEvent) {
-    e.preventDefault()
-    setError('')
-    setCheckingEmail(true)
-    try {
-      const { es_miembro } = await verificarMiembro(email)
-      setEsMiembro(es_miembro)
-      setForm(f => ({ ...f, email }))
-
-      if (!evento) return
-
-      if (!evento.acceso_publico && !evento.acceso_comunidad) {
-        setSoloMiembros(false)
-        setStep('bloqueado')
-      } else if (!evento.acceso_publico && !es_miembro) {
-        setSoloMiembros(true)
-        setStep('bloqueado')
-      } else {
-        setStep('form')
-      }
-    } catch {
-      setError('Error al verificar. Intenta de nuevo.')
-    } finally {
-      setCheckingEmail(false)
-    }
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!evento) return
     setSubmitting(true)
     setError('')
     try {
+      const { es_miembro } = await verificarMiembro(form.email)
+      setEsMiembro(es_miembro)
+
+      if (!evento.acceso_publico && !evento.acceso_comunidad) {
+        setSoloMiembros(false)
+        setStep('bloqueado')
+        setSubmitting(false)
+        return
+      }
+      if (!evento.acceso_publico && !es_miembro) {
+        setSoloMiembros(true)
+        setStep('bloqueado')
+        setSubmitting(false)
+        return
+      }
+
       const { checkout_url } = await createCheckout(evento.id, {
         ...form,
         codigo_descuento: descuento?.valido ? codigoDescuento.trim() : undefined,
@@ -420,76 +407,6 @@ export default function EventDetail() {
                 </>
               ) : null}
 
-              {!evento.finalizado && evento.cupos_disponibles > 0 && step === 'email' && (
-                <>
-                  <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Registro</p>
-                  <h2
-                    className="font-display text-cc-text mb-3 leading-tight"
-                    style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
-                  >
-                    Reserva tu lugar
-                  </h2>
-                  <p className="font-sans text-cc-text/40 text-sm leading-relaxed mb-8">
-                    {mismoPrecio
-                      ? 'Ingresa tu correo para continuar.'
-                      : 'Ingresa tu correo para verificar si tienes precio preferencial como miembro.'}
-                  </p>
-
-                  {/* Precios */}
-                  <div className="bg-cc-text/[0.03] border border-cc-text/8 p-5 mb-8 space-y-3">
-                    {mismoPrecio ? (
-                      <div className="flex justify-between items-center">
-                        <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Precio</span>
-                        <span className="font-sans text-cc-text text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="flex justify-between items-center">
-                          <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Miembros</span>
-                          <span className="font-sans text-cc-text text-sm">${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
-                        </div>
-                        <div className="h-px bg-cc-text/8" />
-                        <div className="flex justify-between items-center">
-                          <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">General</span>
-                          <span className="font-sans text-cc-text/50 text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  <form onSubmit={handleVerificarEmail} className="flex flex-col gap-4">
-                    <div>
-                      <label className={labelClass}>Correo electrónico</label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="tu@email.com"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        className={inputClass}
-                      />
-                    </div>
-                    {error && <p className="text-red-500 text-xs font-sans">{error}</p>}
-                    <button
-                      type="submit"
-                      disabled={checkingEmail}
-                      className="w-full bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 disabled:opacity-40"
-                    >
-                      {checkingEmail ? 'Verificando...' : 'Continuar →'}
-                    </button>
-                  </form>
-
-                  {!mismoPrecio && (
-                    <p className="font-sans text-cc-text/25 text-xs leading-relaxed mt-6">
-                      Los miembros tienen precio preferencial y acceso anticipado.{' '}
-                      <a href="/comunidad" className="text-cc-text/40 underline hover:text-cc-text/60 transition-colors">
-                        Únete gratis aquí.
-                      </a>
-                    </p>
-                  )}
-                </>
-              )}
-
               {!evento.finalizado && evento.cupos_disponibles > 0 && step === 'bloqueado' && (
                 <>
                   <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/30 mb-6">Acceso</p>
@@ -522,7 +439,7 @@ export default function EventDetail() {
                         Registrarme como miembro →
                       </a>
                       <button
-                        onClick={() => setStep('email')}
+                        onClick={() => setStep('form')}
                         className="w-full text-cc-text/25 text-xs font-sans hover:text-cc-text/45 transition-colors py-2"
                       >
                         ← Volver
@@ -583,7 +500,7 @@ export default function EventDetail() {
                         </a>
                       )}
                       <button
-                        onClick={() => setStep('email')}
+                        onClick={() => setStep('form')}
                         className="w-full text-cc-text/25 text-xs font-sans hover:text-cc-text/45 transition-colors py-2"
                       >
                         ← Volver
@@ -595,26 +512,36 @@ export default function EventDetail() {
 
               {!evento.finalizado && evento.cupos_disponibles > 0 && step === 'form' && (
                 <>
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cc-text/40" />
-                    <p className="text-xs tracking-[0.2em] uppercase font-sans text-cc-text/40">
-                      {esMiembro ? 'Miembro · Precio preferencial' : 'Precio general'}
-                    </p>
-                  </div>
                   <div className="flex justify-between items-baseline mb-8">
                     <h2
                       className="font-display text-cc-text leading-tight"
                       style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic' }}
                     >
-                      Tus datos
+                      Reserva tu lugar
                     </h2>
-                    <span className="font-display text-cc-text text-2xl" style={{ fontStyle: 'italic', fontWeight: 300 }}>
-                      {precioFinal !== precio && (
-                        <span className="text-cc-text/30 text-base line-through mr-2">${precio.toLocaleString('es-MX')}</span>
-                      )}
-                      ${precioFinal.toLocaleString('es-MX')}
-                    </span>
+                    {mismoPrecio && (
+                      <span className="font-display text-cc-text text-2xl" style={{ fontStyle: 'italic', fontWeight: 300 }}>
+                        {precioFinal !== precio && (
+                          <span className="text-cc-text/30 text-base line-through mr-2">${precio.toLocaleString('es-MX')}</span>
+                        )}
+                        ${precioFinal.toLocaleString('es-MX')}
+                      </span>
+                    )}
                   </div>
+
+                  {!mismoPrecio && (
+                    <div className="bg-cc-text/[0.03] border border-cc-text/8 p-5 mb-8 space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">Miembros</span>
+                        <span className="font-sans text-cc-text text-sm">${Number(evento.precio_comunidad).toLocaleString('es-MX')} MXN</span>
+                      </div>
+                      <div className="h-px bg-cc-text/8" />
+                      <div className="flex justify-between items-center">
+                        <span className="font-sans text-xs tracking-widest uppercase text-cc-text/30">General</span>
+                        <span className="font-sans text-cc-text/50 text-sm">${Number(evento.precio_general).toLocaleString('es-MX')} MXN</span>
+                      </div>
+                    </div>
+                  )}
 
                   <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <div>
@@ -632,9 +559,11 @@ export default function EventDetail() {
                       <label className={labelClass}>Email</label>
                       <input
                         type="email"
+                        required
+                        placeholder="tu@email.com"
                         value={form.email}
-                        readOnly
-                        className={inputClass + ' opacity-40 cursor-not-allowed'}
+                        onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                        className={inputClass}
                       />
                     </div>
                     <div>
@@ -694,17 +623,18 @@ export default function EventDetail() {
                       disabled={submitting}
                       className="w-full bg-cc-text text-cc-base py-4 text-xs tracking-[0.2em] uppercase font-sans font-medium hover:bg-cc-text/85 transition-colors duration-300 disabled:opacity-40 mt-2"
                     >
-                      {submitting ? 'Redirigiendo...' : `Pagar $${precioFinal.toLocaleString('es-MX')} MXN →`}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setStep('email')}
-                      className="text-cc-text/25 text-xs font-sans hover:text-cc-text/45 transition-colors py-1"
-                    >
-                      ← Cambiar email
+                      {submitting ? 'Procesando...' : mismoPrecio ? `Pagar $${precioFinal.toLocaleString('es-MX')} MXN →` : 'Reservar mi lugar →'}
                     </button>
                   </form>
+
+                  {!mismoPrecio && (
+                    <p className="font-sans text-cc-text/25 text-xs leading-relaxed mt-6">
+                      Los miembros tienen precio preferencial y acceso anticipado.{' '}
+                      <a href="/comunidad" className="text-cc-text/40 underline hover:text-cc-text/60 transition-colors">
+                        Únete gratis aquí.
+                      </a>
+                    </p>
+                  )}
                 </>
               )}
 
