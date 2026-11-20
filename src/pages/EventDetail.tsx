@@ -45,6 +45,13 @@ const INCLUYE_POR_EVENTO: Record<string, string[]> = {
     'Convivencia',
     'Premios',
   ],
+  'Demo Day · Court Culture x Tennis Express': [
+    'Hidratación',
+    'Snacks',
+    'DJ en vivo',
+    'Convivencia',
+    'Premios',
+  ],
 }
 
 export default function EventDetail() {
